@@ -1,0 +1,40 @@
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@android:color/white">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create a new ticket"
+        android:id="@+id/textView"
+        android:textSize="40px"
+        android:layout_marginTop="41dp"
+        android:layout_marginLeft="25dp"
+        android:password="false"
+        android:phoneNumber="false"
+        android:textColor="@android:color/black"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fields with * are required."
+        android:id="@+id/textView2"
+        android:textColor="@android:color/black"
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_marginTop="23dp" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:spinnerMode="dialog" />
+
+
+</RelativeLayout>
