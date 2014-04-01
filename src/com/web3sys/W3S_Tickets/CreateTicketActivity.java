@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
-/**
- * Created by User on 1/04/14.
- */
 public class CreateTicketActivity extends Activity{
 
     @Override
