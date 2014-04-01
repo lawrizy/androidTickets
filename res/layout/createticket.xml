@@ -34,7 +34,16 @@
         android:layout_marginTop="40dp"
         android:layout_below="@+id/textView2"
         android:layout_alignParentLeft="true"
-        android:spinnerMode="dialog" />
+        android:spinnerMode="dialog"
+        android:prompt="@string/CategorieDropdownlist"
+        android:clickable="true" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner2"
+        android:layout_below="@+id/spinner"
+        android:layout_alignRight="@+id/textView2" />
 
 
 </RelativeLayout>
