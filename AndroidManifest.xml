@@ -13,7 +13,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="CreateTicket"
-            android:label="CreateTicket" />
+            android:name="CreateTicketActivity"
+            android:label="CreateTicketActivity" />
     </application>
 </manifest>

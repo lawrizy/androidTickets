@@ -1,4 +1,5 @@
 package com.web3sys.W3S_Tickets;
+import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,15 +21,26 @@ public class MainActivity extends Activity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.main);
-        OnClickListener listnr=new OnClickListener() {
+
+        final Context thisContext = this.getApplicationContext();
+
+        OnClickListener listnr = new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i= new Intent(getBaseContext(),CreateTicket.class);
+                Intent i = new Intent(thisContext, CreateTicketActivity.class);
                 startActivity(i);
             }
         };
-        Button btn =(Button) findViewById(R.id.button);
+        Button btn = (Button) findViewById(R.id.button);
         btn.setOnClickListener(listnr);
+
+        Button exitButton = (Button) findViewById(R.id.button2);
+        exitButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moveTaskToBack(true);
+            }
+        });
     }
 
 
