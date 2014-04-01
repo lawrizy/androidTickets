@@ -38,11 +38,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a446e4a4-9e6b-4180-8ca0-64197d068ad2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/web3sys/W3S_Tickets/MainActivity.java" afterPath="$PROJECT_DIR$/src/com/web3sys/W3S_Tickets/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/createticket.xml" afterPath="$PROJECT_DIR$/res/layout/createticket.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/strings.xml" afterPath="$PROJECT_DIR$/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="W3S-Tickets.iws" />
@@ -616,7 +611,11 @@
       <created>1396272473475</created>
       <updated>1396272473475</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Mise à jour ajout spinner 2">
+      <created>1396340438190</created>
+      <updated>1396340438190</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
