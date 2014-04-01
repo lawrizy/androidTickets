@@ -1,4 +1,4 @@
-package com.web3sys.W3S_Tickets;
+package activities;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import com.web3sys.W3S_Tickets.R;
 
 public class MainActivity extends Activity {
     /**

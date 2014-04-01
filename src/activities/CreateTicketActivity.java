@@ -1,9 +1,10 @@
-package com.web3sys.W3S_Tickets;
+package activities;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+import com.web3sys.W3S_Tickets.R;
 
 public class CreateTicketActivity extends Activity{
 

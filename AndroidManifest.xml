@@ -5,7 +5,7 @@
           android:versionName="1.0">
     <uses-sdk android:minSdkVersion="16"/>
     <application android:debuggable="true" android:label="@string/app_name" android:icon="@drawable/ic_launcher">
-        <activity android:name="MainActivity"
+        <activity android:name="activities.MainActivity"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -13,7 +13,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="CreateTicketActivity"
+            android:name="activities.CreateTicketActivity"
             android:label="CreateTicketActivity" />
     </application>
 </manifest>
