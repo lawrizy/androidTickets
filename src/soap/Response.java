@@ -1,6 +1,7 @@
 package soap;
 
 import android.util.Log;
+import model.CategorieIncident;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.KvmSerializable;
 import org.ksoap2.serialization.PropertyInfo;
@@ -9,7 +10,9 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 import common.Error;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 /**
  * Created by User on 1/04/2014.
@@ -71,13 +74,44 @@ public class Response implements KvmSerializable {
             if (result != null) {
                 statement = Integer.parseInt(result.getProperty(0).toString());
             }
-         //TODO test si null
+            //TODO test si null
         } catch (Exception ex) {
             //  System.out.println(ex.getMessage());
             ex.printStackTrace();
             statement = Error.SERVEUR_INACESSIBLE.getError(); //erreur server
         }
         return statement;
+    }
+
+    public static List<CategorieIncident> getCategories() {
+        String NAMESPACE = "urn:AndroidControllerwsdl";
+        String METHOD_NAME = "getCategorie";
+        String URL = "http://192.168.1.20/W3S-tickets/index.php/android/websys?ws=1";
+        String SOAP_ACTION = "urn:AndroidControllerwsdl#getCategorie";
+        SoapObject MethodGetCategories = new SoapObject(NAMESPACE, METHOD_NAME);
+        final SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(MethodGetCategories);
+        envelope.dotNet = true;
+        final HttpTransportSE androidHttp = new HttpTransportSE(URL);
+
+        List<CategorieIncident> listCat = new ArrayList<CategorieIncident>();
+        Log.i("Avant Try", "WSDL result");
+        try {
+            androidHttp.call(SOAP_ACTION, envelope);
+            SoapObject result = (SoapObject) envelope.bodyIn;
+            if (result != null) {
+                CategorieIncident categories[] = (CategorieIncident[]) result.getProperty(0);
+                for (CategorieIncident categorie : categories) {
+                    listCat.add(categorie);
+                }
+            }
+            //TODO test si null
+        } catch (Exception ex) {
+            //  System.out.println(ex.getMessage());
+            ex.printStackTrace();
+            //  statement = Error.SERVEUR_INACESSIBLE.getError(); //erreur server
+        }
+        return listCat;
     }
 }
 

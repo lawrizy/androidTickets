@@ -3,6 +3,7 @@
     <string name="app_name">W3S-Tickets</string>
     <string name="TitleLogin">Login</string>
     <string name="CategorieDropdownlist">Select a category</string>
+
     <string-array name="Categorie">
         <item>Sanitary</item>
         <item>Electricity</item>
