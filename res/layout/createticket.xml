@@ -2,48 +2,41 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@android:color/white">
+    android:background="#024A68" android:padding="35dp">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Create a new ticket"
         android:id="@+id/textView"
-        android:textSize="40px"
-        android:layout_marginTop="41dp"
-        android:layout_marginLeft="25dp"
+        android:textSize="28dp"
         android:password="false"
         android:phoneNumber="false"
-        android:textColor="@android:color/black"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true" />
+        android:textColor="@color/title_text_color"
+        android:layout_alignParentTop="true" android:layout_alignParentLeft="true"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fields with * are required."
+        android:text="Fields marked with * are required."
         android:id="@+id/textView2"
-        android:textColor="@android:color/black"
-        android:layout_below="@+id/textView"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_marginTop="23dp" />
+        android:textColor="@color/normal_text_color"
+        android:layout_below="@+id/textView" android:layout_alignParentLeft="true"/>
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/spinner"
-        android:layout_marginTop="40dp"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentLeft="true"
-        android:spinnerMode="dialog"
+        android:layout_marginTop="21dp"
         android:prompt="@string/CategorieDropdownlist"
-        android:clickable="true" />
+        android:clickable="false" android:popupBackground="#ffffff" android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true"/>
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/spinner2"
         android:layout_below="@+id/spinner"
-        android:layout_alignRight="@+id/textView2" />
+        android:layout_alignParentRight="true" android:clickable="false" android:popupBackground="#ffffff"/>
 
 
 </RelativeLayout>

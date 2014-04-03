@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg_color">#024A68</color>
+    <color name="normal_text_color">#3BA3D0</color>
+    <color name="footer_text_color">#63AFD0</color>
+    <color name="button_text_color">#3BEED0</color>
+    <color name="textfield_text_color">#C90800</color>
+    <color name="title_text_color">#3BA3D0</color>
+    <color name="error_message_text_color">#FF0000</color>
+</resources>
