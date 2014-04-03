@@ -16,8 +16,8 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Please fill out the following form with your login credentials:"
-            android:id="@+id/FillText" android:layout_below="@id/LoginTitle" android:layout_alignParentLeft="true"
+            android:text="@string/Login_please_fill_message"
+            android:id="@+id/FillText" android:layout_below="@id/LoginTitle"
             android:textColor="#3BA3D0" android:textSize="16dp" android:autoText="false"/>
     <TextView
             android:layout_width="wrap_content"
