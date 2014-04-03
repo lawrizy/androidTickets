@@ -15,5 +15,6 @@
         <activity
             android:name="activities.CreateTicketActivity"
             android:label="CreateTicketActivity" />
-    </application>
+            </application>
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 </manifest>

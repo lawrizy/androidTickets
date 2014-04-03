@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import com.web3sys.W3S_Tickets.R;
+import soap.*;
 
 public class MainActivity extends Activity {
     /**
@@ -34,18 +36,28 @@ public class MainActivity extends Activity {
         // On récupère le contexte dans lequel on se trouve actuellement.
         final Context thisContext = this.getApplicationContext();
 
-        // Listener pour le bouton de LOGIN
+
         Button btn = (Button) findViewById(R.id.button);
-        btn.setOnClickListener(new OnClickListener() {
+        final EditText editEmail=(EditText)findViewById(R.id.loginEmail);
+        final EditText editPassword=(EditText)findViewById(R.id.loginPass);
+                btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("AndroidTickets", "Touched the Login button.");
-                Intent i = new Intent(thisContext, CreateTicketActivity.class);
-                startActivity(i);
+
+              new Thread(new Runnable() {
+                  @Override
+                  public void run() {
+                      if ( Response.getUser(editEmail.getText().toString(), editPassword.getText().toString())>0)//en dessous de zero errors et au dessus c'est l'ID de l'utilisateur
+                      {
+                          Intent i = new Intent(thisContext, CreateTicketActivity.class);
+                          startActivity(i);
+                      }
+                  }
+              }).start();
             }
         });
 
-        // Listener pour le bouton EXIT
+
         Button exitButton = (Button) findViewById(R.id.button2);
         exitButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -55,4 +67,5 @@ public class MainActivity extends Activity {
             }
         });
     }
+
 }

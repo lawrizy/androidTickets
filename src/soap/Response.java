@@ -1,8 +1,13 @@
 package soap;
 
+import android.util.Log;
 import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.*;
+import org.ksoap2.serialization.KvmSerializable;
+import org.ksoap2.serialization.PropertyInfo;
+import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
+import common.Error;
 
 import java.util.Hashtable;
 
@@ -12,10 +17,14 @@ import java.util.Hashtable;
 
 
 public class Response implements KvmSerializable {
-    public String NAMESPACE = "localhost//W3S-tickets/index.php/user/";
-    public String METHOD_NAME = "getLogin";
-    public String URL = "http://www.w3schools.com/webservices/tempconvert.asmx";
-    public String SOAP_ACTION = "localhost//W3S-tickets/index.php/user/quote";
+    //    public static  String NAMESPACE = "http://localhost/W3S-tickets/index.php/";
+//    public static  String METHOD_NAME = "giveLogin";
+//    public static String URL_WSDL = "http://localhost/W3S-tickets/index.php/user/quote?wsdl";
+//    public static String SOAP_ACTION = "http://localhost/W3S-tickets/index.php/wsdl#giveLogin";
+    public static String NAMESPACE = "urn:AndroidControllerwsdl";
+    public static String METHOD_NAME = "testLogin";
+    public static String URL = "http://192.168.1.20/W3S-tickets/index.php/android/websys?ws=1";
+    public static String SOAP_ACTION = "urn:AndroidControllerwsdl#testLogin";
 
     @Override
     public Object getProperty(int i) {
@@ -37,19 +46,40 @@ public class Response implements KvmSerializable {
 
     }
 
-    public void getUser(String email, String password) {
-        SoapObject MethodeGetLogin;
-        MethodeGetLogin = new SoapObject(NAMESPACE, METHOD_NAME);
+    public static int getUser(String email, String password) {
+        int statement = 0; // réponse du serveur
+        SoapObject MethodGetLogin = new SoapObject(NAMESPACE, METHOD_NAME);
         PropertyInfo emailPropriety = new PropertyInfo();
         emailPropriety.setName("email");
         emailPropriety.setValue(email);
         emailPropriety.setType(String.class);
-        MethodeGetLogin.addProperty(emailPropriety);
+        MethodGetLogin.addProperty(emailPropriety);
         PropertyInfo motDePassePropriety = new PropertyInfo();
-        motDePassePropriety.setName("motDePasse");
+        motDePassePropriety.setName("password");
         motDePassePropriety.setValue(password);
         motDePassePropriety.setType(String.class);
-        MethodeGetLogin.addProperty(motDePassePropriety);
-    }
+        MethodGetLogin.addProperty(motDePassePropriety);
+        final SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(MethodGetLogin);
+        envelope.dotNet = true;
+        final HttpTransportSE androidHttp = new HttpTransportSE(URL);
 
+        Log.i("Avant Try", "WSDL result");
+        try {
+            androidHttp.call(SOAP_ACTION, envelope);
+            SoapObject result = (SoapObject) envelope.bodyIn;
+            if (result != null) {
+                statement = Integer.parseInt(result.getProperty(0).toString());
+            }
+         //TODO test si null
+        } catch (Exception ex) {
+            //  System.out.println(ex.getMessage());
+            ex.printStackTrace();
+            statement = Error.SERVEUR_INACESSIBLE.getError(); //erreur server
+        }
+        return statement;
+    }
 }
+
+
+
