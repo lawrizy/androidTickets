@@ -4,6 +4,7 @@
     <string name="TitleLogin">Login</string>
     <string name="CategorieDropdownlist">Select a category</string>
     <string name="Login_please_fill_message">Please fill out the following form with your login credentials:</string>
+    <string name="footer_copyright">Copyright Ticket System © v0.2.0 2014 by Web3Sys.\nAll Rights Reserved.</string>
     <string-array name="Categorie">
         <item>Sanitary</item>
         <item>Electricity</item>
