@@ -31,20 +31,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/loginEmail"
-            android:layout_marginTop="34dp"
-            android:layout_below="@+id/FieldMarked"
             android:editable="true" android:clickable="true"
         android:textColor="@color/textfield_text_color" style="@style/border" android:background="#dcdcdc"
-        android:singleLine="true" android:layout_alignLeft="@+id/loginPass" android:layout_alignRight="@+id/loginPass"/>
+        android:singleLine="true" android:layout_below="@+id/FieldMarked" android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true" android:layout_marginTop="10dp" android:layout_marginBottom="10dp"/>
     <EditText style="@style/border" android:layout_width="wrap_content" android:layout_height="wrap_content"
               android:id="@+id/loginPass"
               android:editable="true"
               android:clickable="true"
         android:textColor="@color/textfield_text_color" android:background="#dcdcdc"
-              android:layout_below="@+id/loginEmail"
-              android:layout_marginTop="23dp"
-              android:singleLine="true"
-        android:password="true" android:layout_alignLeft="@+id/FieldMarked" android:layout_alignParentRight="true"/>
+        android:singleLine="true"
+        android:password="true" android:layout_below="@+id/loginEmail" android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -61,7 +59,8 @@
         android:layout_below="@+id/textView"
         android:layout_centerVertical="true"
         android:layout_alignRight="@+id/loginPass"
-        android:layout_alignLeft="@+id/textView" android:background="@drawable/rounded_corners"/>
+        android:layout_alignLeft="@+id/textView" android:background="@drawable/rounded_corners"
+        android:layout_marginBottom="10dp"/>
     <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Exit"
             android:id="@+id/button2" android:textColor="@color/button_text_color"
         android:layout_below="@+id/button"
@@ -83,10 +82,10 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/errorMessageArea" android:layout_alignParentLeft="true"
-            android:layout_above="@+id/textView2"
-            android:layout_alignRight="@+id/textView2" android:layout_marginBottom="32dp"
+            android:layout_alignRight="@+id/textView2"
             android:textColor="@color/error_message_text_color" android:textStyle="bold"
-            android:layout_below="@+id/button2"/>
+            android:layout_below="@+id/button2" android:layout_marginTop="5dp" android:layout_above="@+id/textView2"
+            android:layout_marginBottom="5dp"/>
 
 
 </RelativeLayout>

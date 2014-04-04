@@ -2,7 +2,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#024A68" android:padding="35dp">
+    android:background="#024A68" android:padding="20dp">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,21 +22,27 @@
         android:textColor="@color/normal_text_color"
         android:layout_below="@+id/textView" android:layout_alignParentLeft="true"/>
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner"
-        android:layout_marginTop="21dp"
-        android:prompt="@string/CategorieDropdownlist"
-        android:clickable="false" android:popupBackground="#ffffff" android:layout_below="@+id/textView2"
-        android:layout_alignParentLeft="true"/>
-
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner2"
-        android:layout_below="@+id/spinner"
-        android:layout_alignParentRight="true" android:clickable="false" android:popupBackground="#ffffff"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/footer_copyright"
+            android:id="@+id/textView3" android:layout_alignParentBottom="true" android:layout_alignParentLeft="true"
+            android:lines="2" android:gravity="center_vertical|center_horizontal"
+            android:textColor="@color/footer_text_color" android:textStyle="bold"
+            android:layout_alignParentRight="true"/>
+    <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="333dp" android:layout_above="@+id/textView3"
+            android:layout_below="@+id/textView2" android:layout_alignRight="@+id/textView3">
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/errorMessageTextView" android:layout_gravity="left|top"
+                android:textColor="@color/error_message_text_color"/>
+    </FrameLayout>
 
 
 </RelativeLayout>
