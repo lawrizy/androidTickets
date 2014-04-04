@@ -13,7 +13,10 @@
     <string name="selectBuildingMsg">Select a building *</string>
     <string name="inputEtage">Floor number</string>
     <string name="inputOfficeNumber">Office number</string>
-    <string name="inputDescription">Description</string><string name="resetTicketView_label">Reset</string><string name="createTicket_label">Create the ticket</string>
+    <string name="inputDescription">Description</string>
+    <string name="resetTicketView_label">Reset</string>
+    <string name="createTicket_label">Create the ticket</string>
+    <string name="errorAreaTestMessage">This is an error test message. This is an error test message. This is an error test message. This is an error test message. This is an error test message. </string>
     <string-array name="Categorie">
         <item>Sanitary</item>
         <item>Electricity</item>

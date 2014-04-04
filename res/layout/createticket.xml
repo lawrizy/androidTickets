@@ -30,130 +30,14 @@
             android:layout_marginTop="377dp" android:layout_above="@+id/textView3"
             android:layout_alignRight="@+id/textView3"
             android:id="@+id/frameLayout" android:layout_below="@+id/textView">
-        <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="53dp"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:id="@+id/errorMessageTextView" android:layout_gravity="center_horizontal|bottom"
-                    android:textColor="@color/error_message_text_color"/>
     </FrameLayout>
-    <TableLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView"
-            android:measureWithLargestChild="true"
-            android:layout_alignRight="@+id/textView" android:layout_above="@+id/textView3"
-            android:layout_marginBottom="105dp">
-        <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left|center_vertical"
-                    android:layout_gravity="left|center_vertical"
-                    android:text="@string/select_category_text"
-                    />
-            <Spinner
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:spinnerMode="dialog"
-                    android:id="@+id/categorySpinner" android:layout_column="1"
-                    android:prompt="@string/selectCategoryMsg"
-                    android:gravity="center_vertical|center_horizontal"
-
-                    />
-        </TableRow>
-        <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left|center_vertical"
-                    android:layout_gravity="center_vertical|center_horizontal"
-                    android:text="@string/selectSubCategoryMsg"
-                    />
-            <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
-                     android:spinnerMode="dialog"
-                     android:id="@+id/subCategorySpinner" android:layout_column="1"
-                     android:prompt="@string/selectSubCategoryMsg"
-                     android:gravity="center_vertical|center_horizontal"/>
-        </TableRow>
-        <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left|center_vertical"
-                    android:layout_gravity="left|center_vertical"
-                    android:text="@string/selectBuildingMsg"
-                    />
-            <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
-                     android:id="@+id/buildingSpinner" android:layout_column="1"
-                     android:prompt="@string/selectBuildingMsg"
-                     android:gravity="center_vertical|center_horizontal"/>
-        </TableRow>
-
-        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent">
-            <!-- Etage -->
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left|center_vertical"
-                    android:layout_gravity="left|center_vertical"
-                    android:text="@string/inputEtage"
-                    />
-            <EditText
-                    android:id="@+id/floorNumberInput"
-                    android:layout_width="50dp" android:layout_height="wrap_content"
-                    android:layout_gravity="left|center_vertical"
-                    android:gravity="left|center_vertical"
-                    android:inputType="number"/>
-        </TableRow>
-
-        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent">
-            <!-- Office n° -->
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left|center_vertical"
-                    android:layout_gravity="left|center_vertical"
-                    android:text="@string/inputOfficeNumber"
-                    />
-            <EditText
-                    android:id="@+id/officeNumberInput"
-                    android:layout_width="50dp" android:layout_height="wrap_content"
-                    android:layout_gravity="left|center_vertical"
-                    android:gravity="left|center_vertical"
-                    android:inputType="number"/>
-        </TableRow>
-
-        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent">
-            <!-- Description textarea -->
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left|center_vertical"
-                    android:layout_gravity="left|center_vertical"
-                    android:text="@string/inputDescription"
-                    />
-            <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    android:ems="10"
-                    android:id="@+id/descriptionInput" android:layout_column="1" android:layout_weight="1"/>
-        </TableRow>
-    </TableLayout>
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_below="@+id/textView" android:layout_marginTop="309dp"
             android:layout_alignRight="@+id/textView3"
-            android:layout_marginBottom="53dp" android:layout_above="@+id/textView3">
+            android:layout_marginBottom="53dp" android:layout_above="@+id/textView3" android:id="@+id/linearLayout">
         <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -168,6 +52,90 @@
                 android:id="@+id/resetTicketView" android:textColor="@color/button_cancel_text_color"
                 />
     </LinearLayout>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="56dp" android:layout_below="@+id/textView"
+            android:layout_alignRight="@+id/linearLayout" android:layout_alignBottom="@+id/linearLayout"
+            android:weightSum="1" android:id="@+id/linearLayout8">
+        <LinearLayout android:orientation="horizontal" android:layout_width="match_parent"
+                      android:layout_height="wrap_content" android:id="@+id/linearLayout2">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceSmall"
+                      android:text="@string/selectCategoryMsg" android:id="@+id/textView4"
+                      android:layout_gravity="center"/>
+            <Spinner android:layout_width="0dp" android:layout_height="wrap_content" android:id="@+id/categorySpinner"
+                     android:layout_weight="1" android:layout_marginLeft="10dp"
+                     android:prompt="@string/selectCategoryMsg" android:spinnerMode="dialog"/>
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal" android:layout_width="match_parent"
+                      android:layout_height="wrap_content" android:id="@+id/linearLayout3"
+                      android:layout_gravity="center_horizontal">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceSmall"
+                      android:text="@string/selectSubCategoryMsg" android:id="@+id/textView2"
+                      android:layout_gravity="center"/>
+            <Spinner android:layout_width="0dp" android:layout_height="wrap_content" android:id="@+id/subCategorySpinner"
+                     android:layout_weight="1" android:layout_marginLeft="10dp"
+                     android:prompt="@string/selectSubCategoryMsg" android:spinnerMode="dialog"/>
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal" android:layout_width="match_parent"
+                      android:layout_height="wrap_content" android:id="@+id/linearLayout4"
+                      android:layout_gravity="center_horizontal">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceSmall"
+                      android:text="@string/selectBuildingMsg" android:id="@+id/textView5"
+                      android:layout_gravity="center"/>
+            <Spinner android:layout_width="0dp" android:layout_height="wrap_content" android:id="@+id/buildingSpinner"
+                     android:layout_weight="1" android:layout_marginLeft="10dp" android:spinnerMode="dialog"
+                     android:prompt="@string/selectBuildingMsg"/>
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal" android:layout_width="match_parent"
+                      android:layout_height="wrap_content" android:id="@+id/linearLayout5"
+                      android:layout_gravity="center_horizontal">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceSmall"
+                      android:text="@string/inputEtage" android:id="@+id/textView6"
+                      android:layout_gravity="center" android:layout_marginRight="10dp"/>
+            <EditText
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/floorNumberInput" android:layout_weight="1"/>
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal" android:layout_width="match_parent"
+                      android:layout_height="wrap_content" android:id="@+id/linearLayout6"
+                >
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceSmall" android:text="@string/inputOfficeNumber"
+                      android:id="@+id/textView7" android:layout_gravity="center" android:layout_marginRight="10dp"/>
+            <EditText android:layout_width="50dp" android:layout_height="wrap_content" android:inputType="number"
+                      android:ems="10" android:id="@+id/officeNumberInput" android:layout_weight="1"/>
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal" android:layout_width="match_parent"
+                      android:layout_height="wrap_content" android:id="@+id/linearLayout7"
+                >
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceSmall" android:text="@string/inputDescription"
+                      android:id="@+id/textView8" android:layout_gravity="center" android:layout_marginRight="10dp"/>
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:ems="10"
+                    android:id="@+id/descriptionInput" android:layout_weight="1"/>
+        </LinearLayout>
+    </LinearLayout>
+    <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/errorMessageTextView"
+                android:textColor="@color/error_message_text_color" android:text="@string/errorAreaTestMessage"
+                android:layout_gravity="center_horizontal" android:layout_below="@+id/linearLayout8"
+                android:layout_alignParentRight="true" android:layout_above="@+id/textView3"/>
 
 
 </RelativeLayout>
