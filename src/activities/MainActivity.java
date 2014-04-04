@@ -56,7 +56,6 @@ public class MainActivity extends Activity {
             }
         });
 
-
         Button exitButton = (Button) findViewById(R.id.button2);
         exitButton.setOnClickListener(new OnClickListener() {
             @Override
