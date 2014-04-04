@@ -2,9 +2,15 @@
 <resources>
     <string name="app_name">W3S-Tickets</string>
     <string name="TitleLogin">Login</string>
-    <string name="CategorieDropdownlist">Select a category</string>
+    <string name="selectCategoryMsg">Select a category</string>
     <string name="Login_please_fill_message">Please fill out the following form with your login credentials:</string>
     <string name="footer_copyright">Copyright Ticket System © v0.2.0 2014 by Web3Sys.\nAll Rights Reserved.</string>
+    <string name="fields_marked_message">Fields marked with a * are required</string>
+    <string name="create_ticket_title">Create a new ticket</string>
+    <string name="test_entries">test; test2, test3</string>
+    <string name="select_category_text">Select a category *</string>
+    <string name="selectSubCategoryMsg">Select a sub-category *</string>
+    <string name="selectBuildingMsg">Select a building *</string>
     <string-array name="Categorie">
         <item>Sanitary</item>
         <item>Electricity</item>

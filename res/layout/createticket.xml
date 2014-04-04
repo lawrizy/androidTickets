@@ -6,21 +6,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create a new ticket"
+        android:text="@string/create_ticket_title"
         android:id="@+id/textView"
-        android:textSize="28dp"
-        android:password="false"
-        android:phoneNumber="false"
+        android:textSize="28sp"
+        android:spinnerMode="dialog"
         android:textColor="@color/title_text_color"
-        android:layout_alignParentTop="true" android:layout_alignParentLeft="true"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fields marked with * are required."
-        android:id="@+id/textView2"
-        android:textColor="@color/normal_text_color"
-        android:layout_below="@+id/textView" android:layout_alignParentLeft="true"/>
+        android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
+        android:gravity="center_vertical|center_horizontal"
+        android:textStyle="bold|italic" android:layout_alignRight="@+id/frameLayout" android:layout_gravity="center"/>
 
     <TextView
             android:layout_width="wrap_content"
@@ -35,14 +28,76 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_marginTop="333dp" android:layout_above="@+id/textView3"
-            android:layout_below="@+id/textView2" android:layout_alignRight="@+id/textView3">
-        <TextView
+            android:layout_alignRight="@+id/textView3"
+            android:id="@+id/frameLayout" android:layout_below="@+id/textView">
+    <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:id="@+id/errorMessageTextView" android:layout_gravity="left|top"
                 android:textColor="@color/error_message_text_color"/>
     </FrameLayout>
+    <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" android:layout_above="@+id/textView3"
+            android:layout_marginBottom="89dp" android:layout_below="@+id/textView"
+            android:layout_alignRight="@+id/textView">
+        <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center_vertical"
+                    android:layout_gravity="left|center_vertical"
+                    android:text="@string/select_category_text"
+                    />
+            <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dialog"
+                    android:id="@+id/categorySpinner" android:layout_column="1"
+                    android:prompt="@string/selectCategoryMsg"
+                    android:gravity="center_vertical|center_horizontal"
+
+                    />
+        </TableRow>
+        <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center_vertical"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:text="@string/selectSubCategoryMsg"
+                    />
+            <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
+                     android:spinnerMode="dialog"
+                     android:id="@+id/spinner" android:layout_column="1"
+                     android:prompt="@string/selectSubCategoryMsg"
+                     android:gravity="center_vertical|center_horizontal"/>
+        </TableRow>
+        <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center_vertical"
+                    android:layout_gravity="left|center_vertical"
+                    android:text="@string/selectBuildingMsg"
+                    />
+            <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
+                     android:spinnerMode="dialog"
+                     android:id="@+id/spinner2" android:layout_column="1"
+                     android:prompt="@string/selectBuildingMsg"
+                     android:gravity="center_vertical|center_horizontal"/>
+        </TableRow>
+        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent">
+
+        </TableRow>
+    </TableLayout>
 
 
 </RelativeLayout>
