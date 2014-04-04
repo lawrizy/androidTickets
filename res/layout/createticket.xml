@@ -27,21 +27,23 @@
     <FrameLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_marginTop="333dp" android:layout_above="@+id/textView3"
+            android:layout_marginTop="377dp" android:layout_above="@+id/textView3"
             android:layout_alignRight="@+id/textView3"
             android:id="@+id/frameLayout" android:layout_below="@+id/textView">
-    <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/errorMessageTextView" android:layout_gravity="left|top"
-                android:textColor="@color/error_message_text_color"/>
+        <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="53dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:id="@+id/errorMessageTextView" android:layout_gravity="center_horizontal|bottom"
+                    android:textColor="@color/error_message_text_color"/>
     </FrameLayout>
     <TableLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" android:layout_above="@+id/textView3"
-            android:layout_marginBottom="89dp" android:layout_below="@+id/textView"
-            android:layout_alignRight="@+id/textView">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView"
+            android:measureWithLargestChild="true"
+            android:layout_alignRight="@+id/textView" android:layout_above="@+id/textView3"
+            android:layout_marginBottom="105dp">
         <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
@@ -74,7 +76,7 @@
                     />
             <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
                      android:spinnerMode="dialog"
-                     android:id="@+id/spinner" android:layout_column="1"
+                     android:id="@+id/subCategorySpinner" android:layout_column="1"
                      android:prompt="@string/selectSubCategoryMsg"
                      android:gravity="center_vertical|center_horizontal"/>
         </TableRow>
@@ -89,21 +91,83 @@
                     android:text="@string/selectBuildingMsg"
                     />
             <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
-                     android:spinnerMode="dialog"
-                     android:id="@+id/spinner2" android:layout_column="1"
+                     android:id="@+id/buildingSpinner" android:layout_column="1"
                      android:prompt="@string/selectBuildingMsg"
                      android:gravity="center_vertical|center_horizontal"/>
         </TableRow>
+
         <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent">
             <!-- Etage -->
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center_vertical"
+                    android:layout_gravity="left|center_vertical"
+                    android:text="@string/inputEtage"
+                    />
+            <EditText
+                    android:id="@+id/floorNumberInput"
+                    android:layout_width="50dp" android:layout_height="wrap_content"
+                    android:layout_gravity="left|center_vertical"
+                    android:gravity="left|center_vertical"
+                    android:inputType="number"/>
         </TableRow>
+
         <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent">
             <!-- Office n° -->
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center_vertical"
+                    android:layout_gravity="left|center_vertical"
+                    android:text="@string/inputOfficeNumber"
+                    />
+            <EditText
+                    android:id="@+id/officeNumberInput"
+                    android:layout_width="50dp" android:layout_height="wrap_content"
+                    android:layout_gravity="left|center_vertical"
+                    android:gravity="left|center_vertical"
+                    android:inputType="number"/>
         </TableRow>
+
         <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent">
             <!-- Description textarea -->
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|center_vertical"
+                    android:layout_gravity="left|center_vertical"
+                    android:text="@string/inputDescription"
+                    />
+            <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:ems="10"
+                    android:id="@+id/descriptionInput" android:layout_column="1" android:layout_weight="1"/>
         </TableRow>
     </TableLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/textView" android:layout_marginTop="309dp"
+            android:layout_alignRight="@+id/textView3"
+            android:layout_marginBottom="53dp" android:layout_above="@+id/textView3">
+        <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/createTicket_label"
+                android:id="@+id/sendCreateTicket" android:layout_weight="1"
+                android:textColor="@color/button_text_color"
+                android:layout_marginRight="10dp"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/resetTicketView_label"
+                android:id="@+id/resetTicketView" android:textColor="@color/button_cancel_text_color"
+                />
+    </LinearLayout>
 
 
 </RelativeLayout>

@@ -11,6 +11,9 @@
     <string name="select_category_text">Select a category *</string>
     <string name="selectSubCategoryMsg">Select a sub-category *</string>
     <string name="selectBuildingMsg">Select a building *</string>
+    <string name="inputEtage">Floor number</string>
+    <string name="inputOfficeNumber">Office number</string>
+    <string name="inputDescription">Description</string><string name="resetTicketView_label">Reset</string><string name="createTicket_label">Create the ticket</string>
     <string-array name="Categorie">
         <item>Sanitary</item>
         <item>Electricity</item>
