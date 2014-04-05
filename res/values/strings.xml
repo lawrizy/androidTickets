@@ -14,7 +14,9 @@
     <string name="inputDescription">Description</string>
     <string name="resetTicketView_label">Reset</string>
     <string name="createTicket_label">Create the ticket</string>
-    <string name="errorAreaTestMessage">This is an error test message. This is an error test message. This is an error test message. This is an error test message. This is an error test message. </string>
+    <string name="errorAreaTestMessage">This is an error test message. This is an error test message. This is an error
+        test message. This is an error test message. This is an error test message.
+    </string>
     <string name="dashboard_title">Dashboard</string>
     <string name="errorInvalidCredentialsMessage">You entered the wrong email and/or password, please try again.
     </string>
