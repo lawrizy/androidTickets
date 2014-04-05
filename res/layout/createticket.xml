@@ -137,7 +137,7 @@
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/errorMessageTextView"
-            android:textColor="@color/error_message_text_color" android:text="@string/errorAreaTestMessage"
+            android:textColor="@color/error_message_text_color"
             android:layout_gravity="center_horizontal" android:layout_below="@+id/linearLayout8"
             android:layout_alignParentRight="true" android:layout_above="@+id/textView3"/>
 

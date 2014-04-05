@@ -18,12 +18,7 @@
     <string name="dashboard_title">Dashboard</string>
     <string name="errorInvalidCredentialsMessage">You entered the wrong email and/or password, please try again.
     </string>
-    <string-array name="Categorie">
-        <item>Sanitary</item>
-        <item>Electricity</item>
-        <item>Lift</item>
-        <item>HVAC</item>
-        <item>Security</item>
-        <item>Others</item>
-    </string-array>
+    <string name="errorCategoryRequired">Please select a category</string>
+    <string name="errorSubCategoryRequired">Please select a sub-category</string>
+    <string name="errorBuildingRequired">Please select a building</string>
 </resources>
