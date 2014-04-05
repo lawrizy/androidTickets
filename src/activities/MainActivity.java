@@ -10,7 +10,10 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import com.web3sys.W3S_Tickets.R;
+import soap.Response;
 
 public class MainActivity extends Activity {
     /**
@@ -35,24 +38,37 @@ public class MainActivity extends Activity {
         // On récupère le contexte dans lequel on se trouve actuellement.
         final Context thisContext = this.getApplicationContext();
 
-
         Button btn = (Button) findViewById(R.id.button);
-//        final EditText editEmail=(EditText)findViewById(R.id.loginEmail);
-//        final EditText editPassword=(EditText)findViewById(R.id.loginPass);
+        final EditText editEmail = (EditText) findViewById(R.id.loginEmail);
+        final EditText editPassword = (EditText) findViewById(R.id.loginPass);
         btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
 
-              new Thread(new Runnable() {
-                  @Override
-                  public void run() {
-//                      if ( Response.getUser(editEmail.getText().toString(), editPassword.getText().toString())>0)//en dessous de zero errors et au dessus c'est l'ID de l'utilisateur
-//                      {
-                      Intent i = new Intent(thisContext, CreateTicketActivity.class);
-                          startActivity(i);
-//                      }
-                  }
-              }).start();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.i("AndroidTickets", "User " + editEmail.getText().toString() + " trying to login...");
+                        int response = Response.getUser(editEmail.getText().toString(), editPassword.getText().toString());
+                        if (response > 0)//en dessous de zero errors et au dessus c'est l'ID de l'utilisateur
+                        {
+                            Log.i("AndroidTickets" , "User " + editEmail.getText().toString() + " logged in with ID " + response + ".");
+                            Intent i = new Intent(thisContext, CreateTicketActivity.class);
+                            startActivity(i);
+                        }
+                        else
+                        {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Log.i("AndroidTickets", "Login failed!");
+                                    TextView errorArea = (TextView)findViewById(R.id.errorMessageArea);
+                                    errorArea.setText(R.string.errorInvalidCredentialsMessage);
+                                }
+                            });
+                        }
+                    }
+                }).start();
             }
         });
 
