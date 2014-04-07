@@ -36,14 +36,19 @@
         android:layout_alignParentLeft="true"
         android:spinnerMode="dialog"
         android:prompt="@string/CategorieDropdownlist"
-        android:clickable="true" android:background="#000000"/>
+        android:clickable="true"/>
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/spinner2"
         android:layout_below="@+id/spinner"
-        android:layout_alignRight="@+id/textView2" />
+        android:layout_alignRight="@+id/textView2"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/textViewIdCate" android:layout_above="@+id/spinner" android:layout_alignRight="@+id/textView"/>
 
 
 </RelativeLayout>
