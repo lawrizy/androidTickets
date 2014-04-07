@@ -1,17 +1,18 @@
 package activities;
+
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.app.Activity;
-import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import com.web3sys.W3S_Tickets.R;
-import soap.*;
+import soap.WebService;
 
 public class MainActivity extends Activity {
     /**
@@ -47,7 +48,7 @@ public class MainActivity extends Activity {
               new Thread(new Runnable() {
                   @Override
                   public void run() {
-                      if ( Response.getUser(editEmail.getText().toString(), editPassword.getText().toString())>0)//en dessous de zero errors et au dessus c'est l'ID de l'utilisateur
+                      if ( WebService.getUser(editEmail.getText().toString(), editPassword.getText().toString())>0)//en dessous de zero errors et au dessus c'est l'ID de l'utilisateur
                       {
                           Intent i = new Intent(thisContext, CreateTicketActivity.class);
                           startActivity(i);

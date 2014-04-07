@@ -4,12 +4,5 @@
     <string name="TitleLogin">Login</string>
     <string name="CategorieDropdownlist">Select a category</string>
 
-    <string-array name="Categorie">
-        <item>Sanitary</item>
-        <item>Electricity</item>
-        <item>Lift</item>
-        <item>HVAC</item>
-        <item>Security</item>
-        <item>Others</item>
-    </string-array>
+
 </resources>
