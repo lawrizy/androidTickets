@@ -2,7 +2,6 @@ package rest;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import com.google.gson.Gson;
 import model.CategorieIncident;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -26,8 +25,6 @@ public class WebServiceRest {
     ;
 
     public void getUser(String username, String password) {
-        new HttpAsyncTask().execute("http://192.168.1.20/W3S-tickets/index.php/wsrest/create?email=" + username + "&password=" + password);
-
     }
 
     public static String GET(String url) {
@@ -49,11 +46,6 @@ public class WebServiceRest {
             if (inputStream != null) {
                 //result = convertInputStreamToString(inputStream);
                 InputStreamReader reader = new InputStreamReader(inputStream);
-                Gson gson = new Gson();
-              CategorieIncident Cat = gson.fromJson(reader, CategorieIncident.class);
-               Cat.toString();
-
-
             } else
                 result = "Did not work!";
 

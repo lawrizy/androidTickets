@@ -43,6 +43,8 @@ public class MainActivity extends Activity {
         Button btn = (Button) findViewById(R.id.button);
         final EditText editEmail = (EditText) findViewById(R.id.loginEmail);
         final EditText editPassword = (EditText) findViewById(R.id.loginPass);
+
+      //  final WebServiceRest webServiceRest = new WebServiceRest();
         btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,8 +66,11 @@ public class MainActivity extends Activity {
                                 @Override
                                 public void run() {
                                     Log.i("AndroidTickets", "Login failed!");
-                                    TextView errorArea = (TextView)findViewById(R.id.errorMessageArea);
-                                    errorArea.setText(R.string.errorInvalidCredentialsMessage);
+//                                    TextView errorArea = (TextView)findViewById(R.id.errorMessageArea);
+//                                    errorArea.setText(R.string.errorInvalidCredentialsMessage);
+                                    Toast errorPopup = new Toast(thisContext);
+                                    errorPopup.setGravity(Gravity.CENTER|Gravity.BOTTOM, 0, 0);
+                                    errorPopup.makeText(thisContext, R.string.errorInvalidCredentialsMessage, Toast.LENGTH_LONG).show();
                                 }
                             });
                         }
@@ -73,6 +78,7 @@ public class MainActivity extends Activity {
                 }).start();
             }
         });
+
 
         Button exitButton = (Button) findViewById(R.id.button2);
         exitButton.setOnClickListener(new OnClickListener() {

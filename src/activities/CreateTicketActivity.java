@@ -10,7 +10,14 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.*;
 import com.web3sys.W3S_Tickets.R;
-import enums.ERROR_SET_MODE;
+import model.CategorieIncident;
+import soap.WebServiceSoap;
+
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class CreateTicketActivity extends Activity{
 
@@ -28,11 +35,34 @@ public class CreateTicketActivity extends Activity{
         t = new Toast(this.getApplicationContext());
         t.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL, 0, 0);
 
+        final List<CategorieIncident> listCats;
+        final Activity thiss = this;
+        final Spinner category = (Spinner) findViewById(R.id.categorySpinner);
+        Future<List<CategorieIncident>> Listsd = Executors.newSingleThreadExecutor().submit(new Callable<List<CategorieIncident>>() {
+            @Override
+            public List<CategorieIncident> call() throws Exception {
+                return WebServiceSoap.getCategories();
+            }
+        });
+
+
+        List<CategorieIncident> listCat = null;
+        try {
+            listCat = Listsd.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        ArrayAdapter<CategorieIncident> stringArrayAdapter = new ArrayAdapter<CategorieIncident>(thiss, android.R.layout.simple_spinner_dropdown_item, listCat);
+        stringArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        category.setAdapter(stringArrayAdapter);
         setupListeners();
     }
 
     private void setupListeners() {
-        /* Create ticket button */
+        final Spinner SpinnerCategorie = (Spinner) findViewById(R.id.categorySpinner);
+
         Button createTicketButton = (Button)findViewById(R.id.sendCreateTicket);
         createTicketButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,12 +71,15 @@ public class CreateTicketActivity extends Activity{
             }
         });
 
-        /* Reset button */
-        Button resetButton = (Button)findViewById(R.id.resetTicketView);
-        resetButton.setOnClickListener(new View.OnClickListener() {
+        SpinnerCategorie.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                resetAllFields();
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                CategorieIncident item = (CategorieIncident) SpinnerCategorie.getSelectedItem();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
     }
