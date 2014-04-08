@@ -29,6 +29,11 @@ public class CreateTicketActivity extends Activity {
 
         setContentView(R.layout.createticket);
 
+        /* Test passage id */
+        int id = getIntent().getExtras().getInt("userid");
+        Toast.makeText(this.getApplicationContext(), "You are connected as user ID : " + id, Toast.LENGTH_LONG).show();
+        /*******************/
+
         t = new Toast(this.getApplicationContext());
         t.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
 
