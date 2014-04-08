@@ -19,18 +19,18 @@ public class Dashboard extends Activity {
     }
 
     /**
-     * Cette méthode s'occupe de l'affichage des graphiques.
-     */
-    private void drawGraphs() {
-        //todo
-    }
-
-    /**
      * Cette méthode crée les graphiques de façon "logique" mais ne les affiche pas encore.
      */
     private void setupGraphs() {
         DefaultRenderer renderer = new DefaultRenderer();
 
+    }
+
+    /**
+     * Cette méthode s'occupe de l'affichage des graphiques.
+     */
+    private void drawGraphs() {
+        //todo
     }
 
     private void setupListeners() {
