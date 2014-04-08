@@ -16,6 +16,7 @@
             android:name="activities.CreateTicketActivity"
             android:label="CreateTicketActivity" />
         <activity android:name="activities.Dashboard" android:label="dashboard"/>
+        <activity android:name="activities.TicketSummary" android:label="ticketsummary"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 </manifest>

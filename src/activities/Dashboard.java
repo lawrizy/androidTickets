@@ -2,6 +2,7 @@ package activities;
 
 import android.app.Activity;
 import android.os.Bundle;import com.web3sys.W3S_Tickets.R;
+import org.achartengine.ChartFactory;
 import org.achartengine.renderer.DefaultRenderer;
 
 /**
@@ -14,14 +15,25 @@ public class Dashboard extends Activity {
 
         setupListeners();
         setupGraphs();
+        drawGraphs();
     }
 
+    /**
+     * Cette méthode s'occupe de l'affichage des graphiques.
+     */
+    private void drawGraphs() {
+        //todo
+    }
+
+    /**
+     * Cette méthode crée les graphiques de façon "logique" mais ne les affiche pas encore.
+     */
     private void setupGraphs() {
         DefaultRenderer renderer = new DefaultRenderer();
 
     }
 
     private void setupListeners() {
-
+        //todo
     }
 }

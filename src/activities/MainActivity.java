@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -12,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.web3sys.W3S_Tickets.R;
 import soap.Response;
 
@@ -62,8 +64,12 @@ public class MainActivity extends Activity {
                                 @Override
                                 public void run() {
                                     Log.i("AndroidTickets", "Login failed!");
-                                    TextView errorArea = (TextView)findViewById(R.id.errorMessageArea);
-                                    errorArea.setText(R.string.errorInvalidCredentialsMessage);
+//                                    TextView errorArea = (TextView)findViewById(R.id.errorMessageArea);
+//                                    errorArea.setText(R.string.errorInvalidCredentialsMessage);
+
+                                    Toast t = new Toast(thisContext);
+                                    t.setGravity(Gravity.CENTER|Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL, 0,0);
+                                    t.makeText(thisContext, R.string.errorInvalidCredentialsMessage, Toast.LENGTH_LONG).show();
                                 }
                             });
                         }

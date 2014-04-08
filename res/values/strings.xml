@@ -23,4 +23,5 @@
     <string name="errorCategoryRequired">Please select a category</string>
     <string name="errorSubCategoryRequired">Please select a sub-category</string>
     <string name="errorBuildingRequired">Please select a building</string>
+    <string name="graphTypeSelectionPrompt">Please select a type of graph :</string>
 </resources>

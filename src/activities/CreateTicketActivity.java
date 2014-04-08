@@ -4,17 +4,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.*;
 import com.web3sys.W3S_Tickets.R;
 import enums.ERROR_SET_MODE;
 
 public class CreateTicketActivity extends Activity{
+
+    private Toast t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +24,9 @@ public class CreateTicketActivity extends Activity{
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.createticket);
+
+        t = new Toast(this.getApplicationContext());
+        t.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL, 0, 0);
 
         setupListeners();
     }
@@ -56,67 +59,34 @@ public class CreateTicketActivity extends Activity{
         Log.i("AndroidTickets", "Field validation result: " + validated);
     }
 
-    private void setErrorMessage(String message, ERROR_SET_MODE mode)
-    {
-        TextView errorArea = (TextView)findViewById(R.id.errorMessageTextView);
-        switch(mode)
-        {
-            case CLEAR_AND_CREATE:
-                clearErrorMessage();
-                errorArea.setText(message);
-                break;
-            case APPEND:
-                String oldMessage = "";
-                if(errorArea.getText() != null)
-                    oldMessage = errorArea.getText().toString();
-                String newMessage = oldMessage;
-                if(errorMessageExists())
-                    if(oldMessage.charAt(oldMessage.length()-1) != '\n')
-                        newMessage += "\n";
-                newMessage += message;
-                clearErrorMessage();
-                errorArea.setText(newMessage);
-                break;
-        }
-    }
-
-    private void clearErrorMessage()
-    {
-        TextView errorArea = (TextView)findViewById(R.id.errorMessageTextView);
-        errorArea.setText("");
-    }
-
-    private boolean errorMessageExists()
-    {
-        TextView errorArea = (TextView)findViewById(R.id.errorMessageTextView);
-        return (errorArea.getText() != null & errorArea.getText().length() > 0 & errorArea.getText().toString() != "") ? true : false;
-    }
-
     private boolean validateFields() {
         Context context = getApplicationContext();
         Spinner catSpinner = (Spinner)findViewById(R.id.categorySpinner);
         Spinner subCatSpinner = (Spinner)findViewById(R.id.subCategorySpinner);
         Spinner buildingSpinner = (Spinner)findViewById(R.id.buildingSpinner);
+        StringBuilder bld = new StringBuilder();
 
         boolean retVal = true;
 
-        if(errorMessageExists()) clearErrorMessage();
-
         if(catSpinner.getSelectedItem() == null)
         {
-            setErrorMessage(context.getString(R.string.errorCategoryRequired) + "\n", ERROR_SET_MODE.APPEND);
+            bld.append(context.getString(R.string.errorCategoryRequired) + "\n");
             retVal = false;
         }
         if(subCatSpinner.getSelectedItem() == null)
         {
-            setErrorMessage(context.getString(R.string.errorSubCategoryRequired) + "\n", ERROR_SET_MODE.APPEND);
+            bld.append(context.getString(R.string.errorSubCategoryRequired) + "\n");
             retVal = false;
         }
         if(buildingSpinner.getSelectedItem() == null)
         {
-            setErrorMessage(context.getString(R.string.errorBuildingRequired) + "\n", ERROR_SET_MODE.APPEND);
+            bld.append(context.getString(R.string.errorBuildingRequired) + "\n");
             retVal = false;
         }
+
+        String finalString = bld.substring(0, bld.toString().length()-1);
+
+        t.makeText(this.getApplicationContext(), finalString, Toast.LENGTH_LONG).show();
 
         return retVal;
     }
