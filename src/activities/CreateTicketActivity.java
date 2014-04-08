@@ -131,8 +131,8 @@ public class CreateTicketActivity extends Activity{
         Spinner catSpinner = (Spinner)findViewById(R.id.categorySpinner);
         Spinner subCatSpinner = (Spinner)findViewById(R.id.subCategorySpinner);
         Spinner buildingSpinner = (Spinner)findViewById(R.id.buildingSpinner);
-        EditText floorTextField = (EditText)findViewById(R.id.floorNumberInput);
-        EditText officeTextField = (EditText)findViewById(R.id.officeNumberInput);
+        EditText floorTextField = (EditText)findViewById(R.id.floorInput);
+        EditText officeTextField = (EditText)findViewById(R.id.officeInput);
         EditText descriptionMultilineTextField = (EditText)findViewById(R.id.descriptionInput);
 
         catSpinner.setSelection(0);
