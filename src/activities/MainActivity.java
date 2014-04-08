@@ -12,7 +12,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import com.web3sys.W3S_Tickets.R;
-import soap.WebService;
+import soap.WebServiceSoap;
 
 public class MainActivity extends Activity {
     /**
@@ -39,22 +39,25 @@ public class MainActivity extends Activity {
 
 
         Button btn = (Button) findViewById(R.id.button);
-        final EditText editEmail=(EditText)findViewById(R.id.loginEmail);
-        final EditText editPassword=(EditText)findViewById(R.id.loginPass);
-                btn.setOnClickListener(new OnClickListener() {
+        final EditText editEmail = (EditText) findViewById(R.id.loginEmail);
+        final EditText editPassword = (EditText) findViewById(R.id.loginPass);
+
+      //  final WebServiceRest webServiceRest = new WebServiceRest();
+        btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
 
               new Thread(new Runnable() {
                   @Override
                   public void run() {
-                      if ( WebService.getUser(editEmail.getText().toString(), editPassword.getText().toString())>0)//en dessous de zero errors et au dessus c'est l'ID de l'utilisateur
+                      if ( WebServiceSoap.getUser(editEmail.getText().toString(), editPassword.getText().toString())>0)//en dessous de zero errors et au dessus c'est l'ID de l'utilisateur
                       {
                           Intent i = new Intent(thisContext, CreateTicketActivity.class);
                           startActivity(i);
                       }
                   }
               }).start();
+             //   webServiceRest.getUser(editEmail.getText().toString(),editPassword.getText().toString());
             }
         });
 

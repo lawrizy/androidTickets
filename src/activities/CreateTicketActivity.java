@@ -10,8 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.web3sys.W3S_Tickets.R;
-import model.CategorieIncidentSOAP;
-import soap.WebService;
+import model.CategorieIncident;
+import soap.WebServiceSoap;
 
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -19,7 +19,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-//import rest.WebService;
+//import rest.WebServiceRest;
 
 public class CreateTicketActivity extends Activity {
 
@@ -31,39 +31,18 @@ public class CreateTicketActivity extends Activity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.createticket);
 
-        final List<CategorieIncidentSOAP> listCats;
+        final List<CategorieIncident> listCats;
         final Activity thiss = this;
-        String[] CategorieTest = {"untestt", "deuxtest"};
-//        Spinner category = (Spinner) findViewById(R.id.spinner);
-//        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, CategorieTest);
-//        stringArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        category.setAdapter(stringArrayAdapter);
-        final String url = "urn:AndroidControllerwsdl#getCategorie";
-//        final URL urls = null;
-//        try {
-//            urls = new URL(url);
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        }
-
-
         final Spinner category = (Spinner) findViewById(R.id.spinner);
-        Future<List<CategorieIncidentSOAP>> Listsd = Executors.newSingleThreadExecutor().submit(new Callable<List<CategorieIncidentSOAP>>() {
+        Future<List<CategorieIncident>> Listsd = Executors.newSingleThreadExecutor().submit(new Callable<List<CategorieIncident>>() {
             @Override
-            public List<CategorieIncidentSOAP> call() throws Exception {
-                return WebService.getCategories();
+            public List<CategorieIncident> call() throws Exception {
+                return WebServiceSoap.getCategories();
             }
         });
-//        new Thread(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//
-//                listCat[0] = WebService.getCategories() /*WebService.getCategories()*/;
-//                //    Spinner category = (Spinner) findViewById(R.id.spinner);
-//            }
-//        }).start();
-        List<CategorieIncidentSOAP> listCat = null;
+
+
+        List<CategorieIncident> listCat = null;
         try {
             listCat = Listsd.get();
         } catch (InterruptedException e) {
@@ -71,16 +50,9 @@ public class CreateTicketActivity extends Activity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        ArrayAdapter<CategorieIncidentSOAP> stringArrayAdapter = new ArrayAdapter<CategorieIncidentSOAP>(thiss, android.R.layout.simple_spinner_dropdown_item, listCat);
-//        for (CategorieIncidentSOAP cs:listCat)
-//        {
-//            stringArrayAdapter.insert(cs,cs.get_id());
-//        }
+        ArrayAdapter<CategorieIncident> stringArrayAdapter = new ArrayAdapter<CategorieIncident>(thiss, android.R.layout.simple_spinner_dropdown_item, listCat);
         stringArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         category.setAdapter(stringArrayAdapter);
-//        ArrayAdapter<CategorieIncidentSOAP> stringArrayAdapter = new ArrayAdapter<CategorieIncidentSOAP>(thiss, android.R.layout.simple_spinner_dropdown_item, listCat[0]);
-//        stringArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        category.setAdapter(stringArrayAdapter);
         setupListeners();
     }
 
@@ -89,10 +61,10 @@ public class CreateTicketActivity extends Activity {
         SpinnerCategorie.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                CategorieIncidentSOAP item = (CategorieIncidentSOAP) SpinnerCategorie.getSelectedItem();
+                CategorieIncident item = (CategorieIncident) SpinnerCategorie.getSelectedItem();
                 TextView tv = (TextView) findViewById(R.id.textViewIdCate);
                 if (item != null)
-                tv.setText(String.valueOf(item.get_id()));
+                    tv.setText(String.valueOf(item.getId_categorie_incident()));
             }
 
             @Override
@@ -102,6 +74,5 @@ public class CreateTicketActivity extends Activity {
         });
 
     }
-
 
 }

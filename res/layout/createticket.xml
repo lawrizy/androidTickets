@@ -36,7 +36,7 @@
         android:layout_alignParentLeft="true"
         android:spinnerMode="dialog"
         android:prompt="@string/CategorieDropdownlist"
-        android:clickable="true"/>
+        android:clickable="true" android:background="#c4ff56"/>
 
     <Spinner
         android:layout_width="wrap_content"
