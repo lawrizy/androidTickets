@@ -7,9 +7,18 @@ public class CategorieIncident {
 
     private int id_categorie_incident;
     private String label;
-    private CategorieIncident fk_parent = null;
 
-    public CategorieIncident(int id_categorie_incident, String label, CategorieIncident fk_parent) {
+    public int getFk_parent() {
+        return fk_parent;
+    }
+
+    public void setFk_parent(int fk_parent) {
+        this.fk_parent = fk_parent;
+    }
+
+    private int  fk_parent ;
+
+    public CategorieIncident(int id_categorie_incident, String label, int fk_parent) {
         this.id_categorie_incident = id_categorie_incident;
         this.label = label;
         this.fk_parent = fk_parent;
@@ -18,6 +27,7 @@ public class CategorieIncident {
     public CategorieIncident(int id_categorie_incident, String label) {
         this.id_categorie_incident = id_categorie_incident;
         this.label = label;
+        this.fk_parent=0;
     }
 
     public int getId_categorie_incident() {
@@ -36,13 +46,7 @@ public class CategorieIncident {
         this.label = label;
     }
 
-    public CategorieIncident getFk_parent() {
-        return fk_parent;
-    }
 
-    public void setFk_parent(CategorieIncident fk_parent) {
-        this.fk_parent = fk_parent;
-    }
 
     @Override
     public String toString() {
