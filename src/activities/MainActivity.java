@@ -12,7 +12,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.web3sys.W3S_Tickets.R;
 import soap.WebServiceSoap;
@@ -58,6 +57,10 @@ public class MainActivity extends Activity {
                         {
                             Log.i("AndroidTickets" , "User " + editEmail.getText().toString() + " logged in with ID " + response + ".");
                             Intent i = new Intent(thisContext, CreateTicketActivity.class);
+                            Bundle extras = new Bundle();
+                            extras.putInt("userid", (int)response);
+                            i.putExtras(extras);
+
                             startActivity(i);
                         }
                         else
