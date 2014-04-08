@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/gradient_bg"
+                android:padding="20dp"
+        >
+<TextView
+        android:layout_width="fill_parent"
+        android:layout_height="50sp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/dashboard_title"
+        android:textSize="48dp"
+        android:textStyle="italic|bold"
+        android:textColor="@color/title_text_color"
+        />
+
+</RelativeLayout>
