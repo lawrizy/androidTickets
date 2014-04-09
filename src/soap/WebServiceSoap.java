@@ -2,7 +2,6 @@ package soap;
 
 import android.util.Log;
 import common.Error;
-import model.CategorieIncident;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.KvmSerializable;
 import org.ksoap2.serialization.PropertyInfo;
@@ -10,9 +9,7 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
-import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
 
 /**
  * Created by User on 1/04/2014.
@@ -20,10 +17,7 @@ import java.util.List;
 
 
 public class WebServiceSoap implements KvmSerializable {
-    //    public static  String NAMESPACE = "http://localhost/W3S-tickets/index.php/";
-//    public static  String METHOD_NAME = "giveLogin";
-//    public static String URL_WSDL = "http://localhost/W3S-tickets/index.php/user/quote?wsdl";
-//    public static String SOAP_ACTION = "http://localhost/W3S-tickets/index.php/wsdl#giveLogin";
+
     public static String NAMESPACE = "urn:AndroidControllerwsdl";
     public static String METHOD_NAME = "testLogin";
     public static String URL = "http://192.168.1.25/W3S-tickets/index.php/android/websys?ws=1";
@@ -83,41 +77,46 @@ public class WebServiceSoap implements KvmSerializable {
         return statement;
     }
 
-    public static List<CategorieIncident> getCategories() {
+    public static String createTicket(int id_user, int sousCategorie, int id_batiment) {
+      String resultTicket ="";
         String NAMESPACE = "urn:AndroidControllerwsdl";
-        String METHOD_NAME = "getCategorie";
-        String URL = "http://192.168.1.25/W3S-tickets/index.php/android/websys?ws=1";
-        String SOAP_ACTION = "urn:AndroidControllerwsdl#getCategorie";
-        SoapObject MethodGetCategories = new SoapObject(NAMESPACE, METHOD_NAME);
+        String METHOD_NAME = "createTicket";
+        String URL ="http://192.168.1.25/W3S-tickets/index.php/android/websys?ws=1";
+        String SOAP_ACTION = "urn:AndroidControllerwsdl#createTicket";
+
+        SoapObject MethodCreateTicket = new SoapObject(NAMESPACE, METHOD_NAME);
+        PropertyInfo id_userPropriety = new PropertyInfo();
+        id_userPropriety.setName("id_user");
+        id_userPropriety.setValue(id_user);
+        id_userPropriety.setType(int.class);
+        MethodCreateTicket.addProperty(id_userPropriety);
+        PropertyInfo sousCategoriePropriety = new PropertyInfo();
+        sousCategoriePropriety.setName("sousCategorie");
+        sousCategoriePropriety.setValue(sousCategorie);
+        sousCategoriePropriety.setType(int.class);
+        MethodCreateTicket.addProperty(sousCategoriePropriety);
+        PropertyInfo id_batimentPropriety = new PropertyInfo();
+        id_batimentPropriety.setName("fk_batiment");
+        id_batimentPropriety.setValue(id_batiment);
+        id_batimentPropriety.setType(int.class);
+        MethodCreateTicket.addProperty(id_batimentPropriety);
         final SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-        envelope.setOutputSoapObject(MethodGetCategories);
+        envelope.setOutputSoapObject(MethodCreateTicket);
         envelope.dotNet = true;
         final HttpTransportSE androidHttp = new HttpTransportSE(URL);
-
-        List<CategorieIncident> listCat = new ArrayList<CategorieIncident>();
-        Log.i("Avant Try", "WSDL result");
         try {
             androidHttp.call(SOAP_ACTION, envelope);
             SoapObject result = (SoapObject) envelope.bodyIn;
-            SoapObject result1 = (SoapObject) result.getProperty(0);
-            SoapObject result2;
-
             if (result != null) {
-                for (int c = 0; c < ((SoapObject) result.getProperty(0)).getPropertyCount(); c++) {
-                    result2 = (SoapObject) result1.getProperty(c);
-                    CategorieIncident cat = new CategorieIncident(Integer.parseInt(result2.getProperty(0).toString()), result2.getProperty(1).toString());
-                    listCat.add(cat);
-                }
-
-
+                resultTicket = result.getProperty(0).toString();
             }
             //TODO test si null
         } catch (Exception ex) {
             //  System.out.println(ex.getMessage());
             ex.printStackTrace();
-            //  statement = Error.SERVEUR_INACESSIBLE.getError(); //erreur server
+          //  resultTicket = Error.SERVEUR_INACESSIBLE.getError(); //erreur server
         }
-        return listCat;
+        return resultTicket;
     }
 }
 

@@ -20,16 +20,21 @@ import java.util.List;
 public class CreateTicketActivity extends Activity {
 
     private Toast t;
+    static int id_user;
+    static int sousCategorieID;
+    static int batimentID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.createticket);
         t = new Toast(this.getApplicationContext());
         t.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
-
+         id_user=  getIntent().getExtras().getInt("userid");
         List<CategorieIncident> listCats;
         Activity thiss = this;
         Spinner category = (Spinner) findViewById(R.id.categorySpinner);
@@ -52,8 +57,9 @@ public class CreateTicketActivity extends Activity {
     }
 
     private void setupListeners() {
-        Spinner SpinnerCategorie = (Spinner) findViewById(R.id.categorySpinner);
-
+       Spinner spinnerBatiment=(Spinner)findViewById(R.id.buildingSpinner);
+        Spinner spinnerCategorie = (Spinner) findViewById(R.id.categorySpinner);
+        Spinner spinnerSubcategory = (Spinner) findViewById(R.id.subCategorySpinner);
         Button createTicketButton = (Button) findViewById(R.id.sendCreateTicket);
         createTicketButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,18 +67,40 @@ public class CreateTicketActivity extends Activity {
                 sendCreateTicket();
             }
         });
-
-        SpinnerCategorie.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerBatiment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                CategorieIncident item = (CategorieIncident) SpinnerCategorie.getSelectedItem();
+                Batiment item= (Batiment) spinnerBatiment.getSelectedItem();
+                batimentID=item.getId_batiment();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spinnerSubcategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                CategorieIncident item = (CategorieIncident) spinnerSubcategory.getSelectedItem();
+                sousCategorieID = item.getId_categorie_incident();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spinnerCategorie.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                CategorieIncident item = (CategorieIncident) spinnerCategorie.getSelectedItem();
                 dao.CategorieIncidentDAO categorieIncidentDAO = new CategorieIncidentDAO(getApplicationContext());
                 List<CategorieIncident> listSousCats;
                 listSousCats = categorieIncidentDAO.getListSousCategorie(item.getId_categorie_incident());
-                final Spinner Subcategory = (Spinner) findViewById(R.id.subCategorySpinner);
                 ArrayAdapter<CategorieIncident> stringArrayAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, listSousCats);
                 stringArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                Subcategory.setAdapter(stringArrayAdapter);
+                spinnerSubcategory.setAdapter(stringArrayAdapter);
                 setupListeners();
             }
 
@@ -81,11 +109,18 @@ public class CreateTicketActivity extends Activity {
 
             }
         });
+
     }
 
     private void sendCreateTicket() {
-      //  boolean validated = validateFields();
-       // Log.i("AndroidTickets", "Field validation result: " + validated);
+        //  boolean validated = validateFields();
+        // Log.i("AndroidTickets", "Field validation result: " + validated);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                soap.WebServiceSoap.createTicket(id_user,sousCategorieID,batimentID );
+            }
+        }).start();
     }
 
     private boolean validateFields() {
