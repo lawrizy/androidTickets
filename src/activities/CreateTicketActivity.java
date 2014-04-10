@@ -2,6 +2,7 @@ package activities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -57,9 +58,9 @@ public class CreateTicketActivity extends Activity {
     }
 
     private void setupListeners() {
-       Spinner spinnerBatiment=(Spinner)findViewById(R.id.buildingSpinner);
-        Spinner spinnerCategorie = (Spinner) findViewById(R.id.categorySpinner);
-        Spinner spinnerSubcategory = (Spinner) findViewById(R.id.subCategorySpinner);
+        final Spinner spinnerBatiment=(Spinner)findViewById(R.id.buildingSpinner);
+        final Spinner spinnerCategorie = (Spinner) findViewById(R.id.categorySpinner);
+        final Spinner spinnerSubcategory = (Spinner) findViewById(R.id.subCategorySpinner);
         Button createTicketButton = (Button) findViewById(R.id.sendCreateTicket);
         createTicketButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,16 +110,20 @@ public class CreateTicketActivity extends Activity {
 
             }
         });
-
     }
 
     private void sendCreateTicket() {
         //  boolean validated = validateFields();
         // Log.i("AndroidTickets", "Field validation result: " + validated);
+        final Context thisContext = this.getApplicationContext();
+
         new Thread(new Runnable() {
             @Override
             public void run() {
                 soap.WebServiceSoap.createTicket(id_user,sousCategorieID,batimentID );
+
+                Intent i = new Intent(thisContext, TicketSummary.class);
+                startActivity(i);
             }
         }).start();
     }
