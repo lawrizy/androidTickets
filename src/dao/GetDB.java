@@ -12,17 +12,24 @@ public class GetDB extends SQLiteOpenHelper {
     // il suffit d'appeler la méthode "static getInstance()" qui renvoie l'instance
     // unique de la connexion (constructeur privé donc création impossible)
 
-    private GetDB(Context context, String name, CursorFactory factory, int version) {
+    public GetDB(Context context, String name, CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
     private static GetDB instance;
+    public static Context mycontext;
 
     public static GetDB getInstance(Context context) {
+
+        mycontext = context;
         if (instance == null)
-            instance = new GetDB(context, "websystickets", null, 0);
+            instance = new GetDB(context, "db_ticketing.db", null, 1);
+
         return instance;
+
     }
+
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
