@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="apk" name="androidTickets">
+  <artifact type="apk" build-on-make="true" name="androidTickets">
     <output-path>$PROJECT_DIR$/out/artifacts/androidTickets</output-path>
     <properties id="android-properties">
       <options>
