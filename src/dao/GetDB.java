@@ -17,11 +17,9 @@ public class GetDB extends SQLiteOpenHelper {
     }
 
     private static GetDB instance;
-    public static Context mycontext;
 
     public static GetDB getInstance(Context context) {
 
-        mycontext = context;
         if (instance == null)
             instance = new GetDB(context, "db_ticketing.db", null, 1);
 

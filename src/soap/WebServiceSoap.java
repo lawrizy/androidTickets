@@ -9,7 +9,9 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 /**
  * Created by User on 1/04/2014.
@@ -77,7 +79,7 @@ public class WebServiceSoap implements KvmSerializable {
         return statement;
     }
 
-    public static String createTicket(int id_user, int sousCategorie, int id_batiment) {
+    public static String createTicket(int id_user, int sousCategorie, int id_batiment,String etage,String bureau,String descriptif) {
       String resultTicket ="";
         String NAMESPACE = "urn:AndroidControllerwsdl";
         String METHOD_NAME = "createTicket";
@@ -100,6 +102,22 @@ public class WebServiceSoap implements KvmSerializable {
         id_batimentPropriety.setValue(id_batiment);
         id_batimentPropriety.setType(int.class);
         MethodCreateTicket.addProperty(id_batimentPropriety);
+        PropertyInfo etageProriety = new PropertyInfo();
+        etageProriety.setName("etage");
+        etageProriety.setValue(etage);
+        etageProriety.setType(String.class);
+        MethodCreateTicket.addProperty(etageProriety);
+        PropertyInfo bureauProriety = new PropertyInfo();
+        bureauProriety.setName("bureau");
+        bureauProriety.setValue(bureau);
+        bureauProriety.setType(String.class);
+        MethodCreateTicket.addProperty(bureauProriety);
+        MethodCreateTicket.addProperty(etageProriety);
+        PropertyInfo descriptifProriety = new PropertyInfo();
+        descriptifProriety.setName("descriptif");
+        descriptifProriety.setValue(bureau);
+        descriptifProriety.setType(String.class);
+        MethodCreateTicket.addProperty(descriptifProriety);
         final SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.setOutputSoapObject(MethodCreateTicket);
         envelope.dotNet = true;
@@ -117,6 +135,82 @@ public class WebServiceSoap implements KvmSerializable {
           //  resultTicket = Error.SERVEUR_INACESSIBLE.getError(); //erreur server
         }
         return resultTicket;
+    }
+    public static List<String> listIdBuilding(int id_user)
+    {
+        List<String>maList = new ArrayList<>();
+        String NAMESPACE = "urn:AndroidControllerwsdl";
+        String METHOD_NAME = "getMyBuilding";
+        String URL ="http://192.168.1.25/W3S-tickets/index.php/android/websys?ws=1";
+        String SOAP_ACTION = "urn:AndroidControllerwsdl#getMyBuilding";
+
+        SoapObject MethodeGetMyBuilding = new SoapObject(NAMESPACE, METHOD_NAME);
+        PropertyInfo id_userPropriety = new PropertyInfo();
+        id_userPropriety.setName("id_user");
+        id_userPropriety.setValue(id_user);
+        id_userPropriety.setType(int.class);
+        MethodeGetMyBuilding.addProperty(id_userPropriety);
+        final SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(MethodeGetMyBuilding);
+        envelope.dotNet = true;
+        final HttpTransportSE androidHttp = new HttpTransportSE(URL);
+        try {
+            androidHttp.call(SOAP_ACTION, envelope);
+            SoapObject result = (SoapObject) envelope.bodyIn;
+            SoapObject result1=(SoapObject)result.getProperty(0);
+            SoapObject result2=(SoapObject)result.getProperty(0);
+            if (result != null) {
+                    for(int c=0;c<result1.getPropertyCount();c++)
+                    {
+                        String id=result1.getPropertyAsString(c);
+                            maList.add( id);
+                    }
+            }
+            //TODO test si null
+        } catch (Exception ex) {
+            //  System.out.println(ex.getMessage());
+            ex.printStackTrace();
+            //  resultTicket = Error.SERVEUR_INACESSIBLE.getError(); //erreur server
+        }
+
+
+        return maList;
+    }
+
+    public static void getBarsDatas(int id_batiment)
+    {
+        String NAMESPACE = "urn:AndroidControllerwsdl";
+        String METHOD_NAME = "getBarsDatas";
+        String URL ="http://192.168.1.20/W3S-tickets/index.php/android/websys?ws=1";
+        String SOAP_ACTION = "urn:AndroidControllerwsdl#getBarsDatas";
+
+        SoapObject MethodegetBarsDatas= new SoapObject(NAMESPACE, METHOD_NAME);
+        PropertyInfo id_batimentPropriety = new PropertyInfo();
+        id_batimentPropriety.setName("id_batiment");
+        id_batimentPropriety.setValue(id_batiment);
+        id_batimentPropriety.setType(int.class);
+        MethodegetBarsDatas.addProperty(id_batimentPropriety);
+        final SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(MethodegetBarsDatas);
+        envelope.dotNet = true;
+        final HttpTransportSE androidHttp = new HttpTransportSE(URL);
+        try {
+            androidHttp.call(SOAP_ACTION, envelope);
+            SoapObject result = (SoapObject) envelope.bodyIn;
+            SoapObject result1=(SoapObject)result.getProperty(0);
+            SoapObject result2=(SoapObject)result.getProperty(0);
+            if (result != null) {
+                for(int c=0;c<result1.getPropertyCount();c++)
+                {
+                 //
+                }
+            }
+            //TODO test si null
+        } catch (Exception ex) {
+            //  System.out.println(ex.getMessage());
+            ex.printStackTrace();
+            //  resultTicket = Error.SERVEUR_INACESSIBLE.getError(); //erreur server
+        }
     }
 }
 
