@@ -18,11 +18,11 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_below="@+id/textView"
-            android:layout_alignBottom="@+id/linearLayout" android:layout_marginBottom="380dp"
-            android:layout_alignParentRight="true">
+            android:layout_alignParentRight="true" android:id="@+id/linearLayout3"
+            android:layout_above="@+id/linearLayout2">
         <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="56dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="@string/summary_a_mail_has_been_sent"
                 android:id="@+id/mail_sent_textview"
@@ -32,10 +32,10 @@
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/linearLayout"
-            android:layout_alignParentLeft="true" android:layout_below="@+id/textView" android:layout_marginTop="76dp"
-            android:layout_alignBottom="@+id/linearLayout2" android:layout_marginBottom="188dp">
+            android:layout_marginTop="77dp" android:layout_below="@+id/textView"
+            android:layout_marginBottom="104dp" android:layout_alignParentBottom="true">
 
         <LinearLayout
                 android:orientation="horizontal"
@@ -166,7 +166,8 @@
     </LinearLayout>
 
     <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="vertical"
-                  android:id="@+id/linearLayout2" android:layout_below="@+id/textView" android:layout_marginTop="270dp">
+                  android:id="@+id/linearLayout2" android:layout_marginTop="266dp"
+                  android:layout_alignTop="@+id/linearLayout">
 
         <Button
                 android:layout_width="match_parent"
@@ -178,7 +179,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/summary_button_exit"
-                android:id="@+id/buttonExit"
+                android:id="@+id/summary_exitButton"
                 />
     </LinearLayout>
 </RelativeLayout>

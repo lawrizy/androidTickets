@@ -80,7 +80,7 @@ public class WebServiceSoap implements KvmSerializable {
     }
 
     public static String createTicket(int id_user, int sousCategorie, int id_batiment,String etage,String bureau,String descriptif) {
-      String resultTicket ="";
+      String resultTicket = "OK";
         String NAMESPACE = "urn:AndroidControllerwsdl";
         String METHOD_NAME = "createTicket";
         String URL ="http://192.168.1.25/W3S-tickets/index.php/android/websys?ws=1";
@@ -132,7 +132,7 @@ public class WebServiceSoap implements KvmSerializable {
         } catch (Exception ex) {
             //  System.out.println(ex.getMessage());
             ex.printStackTrace();
-          //  resultTicket = Error.SERVEUR_INACESSIBLE.getError(); //erreur server
+            resultTicket = Error.SERVEUR_INACESSIBLE.name(); //erreur server
         }
         return resultTicket;
     }

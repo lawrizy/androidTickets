@@ -15,13 +15,13 @@ import dao.BatimentDAO;
 import dao.CategorieIncidentDAO;
 import model.Batiment;
 import model.CategorieIncident;
+import model.UserSessionInfo;
 
 import java.util.List;
 
 public class CreateTicketActivity extends Activity {
 
     private Toast t;
-    static int id_user;
     static int sousCategorieID;
     static int batimentID;
 
@@ -33,9 +33,7 @@ public class CreateTicketActivity extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.createticket);
-        t = new Toast(this.getApplicationContext());
-        t.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
-        id_user = getIntent().getExtras().getInt("userid");
+
         List<CategorieIncident> listCats;
         Activity thiss = this;
         Spinner category = (Spinner) findViewById(R.id.categorySpinner);
@@ -49,7 +47,7 @@ public class CreateTicketActivity extends Activity {
         List<Batiment> batimentList;
         Spinner batiment = (Spinner) findViewById(R.id.buildingSpinner);
         dao.BatimentDAO batimentDAO = new BatimentDAO(this);
-        batimentList = batimentDAO.getListBatiment(id_user);
+        batimentList = batimentDAO.getListBatiment(UserSessionInfo.USER_ID);
         ArrayAdapter<Batiment> batimentArrayAdapter = new ArrayAdapter<>(thiss, android.R.layout.simple_spinner_dropdown_item, batimentList);
         batimentArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         batiment.setAdapter(batimentArrayAdapter);
@@ -61,11 +59,20 @@ public class CreateTicketActivity extends Activity {
         final Spinner spinnerBatiment=(Spinner)findViewById(R.id.buildingSpinner);
         final Spinner spinnerCategorie = (Spinner) findViewById(R.id.categorySpinner);
         final Spinner spinnerSubcategory = (Spinner) findViewById(R.id.subCategorySpinner);
+
         Button createTicketButton = (Button) findViewById(R.id.sendCreateTicket);
         createTicketButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sendCreateTicket();
+            }
+        });
+
+        Button resetButton = (Button)findViewById(R.id.resetForm);
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetAllFields();
             }
         });
 
@@ -105,11 +112,11 @@ public class CreateTicketActivity extends Activity {
                 batimentID = ((Batiment) spinnerBat.getSelectedItem()).getId_batiment();
                 Spinner spinnerSousCat = (Spinner) findViewById(R.id.subCategorySpinner);
                 sousCategorieID = ((CategorieIncident) spinnerSousCat.getSelectedItem()).getId_categorie_incident();
-                soap.WebServiceSoap.createTicket(id_user, sousCategorieID, batimentID, floorTextField.getText().toString(), officeTextField.getText().toString(), descriptionMultilineTextField.getText().toString());
+                String result = soap.WebServiceSoap.createTicket(UserSessionInfo.USER_ID, sousCategorieID, batimentID, floorTextField.getText().toString(), officeTextField.getText().toString(), descriptionMultilineTextField.getText().toString());
                 
                 Intent i = new Intent(thisContext, TicketSummary.class);
                 Bundle extras = new Bundle();
-                extras.putInt("userid", id_user);
+                extras.putInt("userid", UserSessionInfo.USER_ID);
                 i.putExtras(extras);
                 startActivity(i);
             }
