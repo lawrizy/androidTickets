@@ -26,7 +26,17 @@
     <string name="errorCategoryRequired">Please select a category</string>
     <string name="errorSubCategoryRequired">Please select a sub-category</string>
     <string name="errorBuildingRequired">Please select a building</string>
-    <string name="graphTypeSelectionPrompt">Please select a type of graph :</string><string name="dashboard_building_filter_prompt">Please select a building</string>
-
+    <string name="graphTypeSelectionPrompt">Please select a type of graph :</string>
+    <string name="dashboard_building_filter_prompt">Please select a building</string>
+    <string name="summary_ticket_number">Ticket\'s number</string>
+    <string name="summary_user_name">User name</string>
+    <string name="summary_category_name">Category</string>
+    <string name="summary_subCategory_name">Sub-category</string>
+    <string name="summary_building_name">Building name</string>
+    <string name="summary_assigned_to">Assigned to</string>
+    <string name="summary_way_of_creation">Way of creation</string>
+    <string name="summary_a_mail_has_been_sent">A mail has been sent to</string>
+    <string name="summary_finish_creation">Confirm and finish</string>
+    <string name="summary_button_exit">Exit</string>
 
 </resources>

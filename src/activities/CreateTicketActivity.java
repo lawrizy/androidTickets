@@ -123,6 +123,9 @@ public class CreateTicketActivity extends Activity {
                 soap.WebServiceSoap.createTicket(id_user,sousCategorieID,batimentID );
 
                 Intent i = new Intent(thisContext, TicketSummary.class);
+                Bundle extras = new Bundle();
+                extras.putInt("userid", id_user);
+                i.putExtras(extras);
                 startActivity(i);
             }
         }).start();

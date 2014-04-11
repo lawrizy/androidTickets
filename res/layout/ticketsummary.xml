@@ -2,7 +2,7 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" android:padding="16dp">
+                android:layout_height="match_parent" android:padding="16dp" android:background="@drawable/gradient_bg">
 
 
     <TextView
@@ -13,4 +13,172 @@
             android:id="@+id/textView"
             android:textColor="@color/title_text_color" android:textStyle="bold|italic" android:textSize="32dp"
             android:layout_alignParentTop="true" android:layout_centerHorizontal="true"/>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/textView"
+            android:layout_alignBottom="@+id/linearLayout" android:layout_marginBottom="380dp"
+            android:layout_alignParentRight="true">
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/summary_a_mail_has_been_sent"
+                android:id="@+id/textView4"
+                android:textStyle="italic"
+                android:textColor="@color/mail_sent_color"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/linearLayout"
+            android:layout_alignParentLeft="true" android:layout_below="@+id/textView" android:layout_marginTop="76dp"
+            android:layout_alignBottom="@+id/linearLayout2" android:layout_marginBottom="188dp">
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                >
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/summary_ticket_number"
+                    android:id="@+id/textView2" android:gravity="center_vertical|left" android:layout_weight=".5"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="New Text"
+                    android:id="@+id/numTicket" android:gravity="center_vertical|right" android:layout_weight=".5"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                >
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/summary_user_name"
+                    android:id="@+id/textView2" android:gravity="center_vertical|left" android:layout_weight=".5"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="New Text"
+                    android:id="@+id/username" android:gravity="center_vertical|right" android:layout_weight=".5"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                >
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/summary_category_name"
+                    android:id="@+id/textView2" android:gravity="center_vertical|left" android:layout_weight=".5"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="New Text"
+                    android:id="@+id/category" android:gravity="center_vertical|right" android:layout_weight=".5"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                >
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/summary_subCategory_name"
+                    android:id="@+id/textView2" android:gravity="center_vertical|left" android:layout_weight=".5"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="New Text"
+                    android:id="@+id/subCategory" android:gravity="center_vertical|right" android:layout_weight=".5"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                >
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/summary_building_name"
+                    android:id="@+id/textView2" android:gravity="center_vertical|left" android:layout_weight=".5"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="New Text"
+                    android:id="@+id/bulidingName" android:gravity="center_vertical|right" android:layout_weight=".5"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                >
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/summary_assigned_to"
+                    android:id="@+id/textView2" android:gravity="center_vertical|left" android:layout_weight=".5"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="New Text"
+                    android:id="@+id/assignedTo" android:gravity="center_vertical|right" android:layout_weight=".5"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                >
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/summary_way_of_creation"
+                    android:id="@+id/textView2" android:gravity="center_vertical|left" android:layout_weight=".5"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="New Text"
+                    android:id="@+id/wayOfCreation" android:gravity="center_vertical|right" android:layout_weight=".5"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="vertical"
+                  android:id="@+id/linearLayout2" android:layout_below="@+id/textView" android:layout_marginTop="270dp">
+
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/summary_finish_creation"
+                android:id="@+id/buttonBackToCreation"
+                />
+        <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/summary_button_exit"
+                android:id="@+id/buttonExit"
+                />
+    </LinearLayout>
 </RelativeLayout>
