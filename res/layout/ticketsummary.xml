@@ -25,7 +25,7 @@
                 android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="@string/summary_a_mail_has_been_sent"
-                android:id="@+id/textView4"
+                android:id="@+id/mail_sent_textview"
                 android:textStyle="italic"
                 android:textColor="@color/mail_sent_color"/>
     </LinearLayout>

@@ -38,7 +38,5 @@
     <string name="summary_a_mail_has_been_sent">A mail has been sent to</string>
     <string name="summary_finish_creation">Confirm and finish</string>
     <string name="summary_button_exit">Exit</string>
-
-</resou<string name="common_exit">Exit</string>
-
-es>
+    <string name="common_exit">Exit</string>
+</resources>

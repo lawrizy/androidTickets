@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.web3sys.W3S_Tickets.R;
+import model.UserSessionInfo;
 import soap.WebServiceSoap;
 
 public class MainActivity extends Activity {
@@ -56,6 +57,8 @@ public class MainActivity extends Activity {
                         int response = WebServiceSoap.getUser(editEmail.getText().toString(), editPassword.getText().toString());
                         if (response > 0)//en dessous de zero errors et au dessus c'est l'ID de l'utilisateur
                         {
+                            UserSessionInfo.USER_ID = response;
+                            UserSessionInfo.USER_EMAIL = editEmail.getText().toString();
                             Log.i("AndroidTickets" , "User " + editEmail.getText().toString() + " logged in with ID " + response + ".");
                             Intent i = new Intent(thisContext, CreateTicketActivity.class);
                             Bundle extras = new Bundle();

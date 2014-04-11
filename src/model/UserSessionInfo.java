@@ -10,7 +10,7 @@ package model;
  */
 public class UserSessionInfo
 {
-    public static int       USER_ID;
-    public static String    USER_EMAIL;
-    public static String    USER_NAME;
+    public static int USER_ID;
+    public static String USER_EMAIL;
+    public static String USER_NAME;
 }
