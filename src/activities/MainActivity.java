@@ -56,15 +56,28 @@ public class MainActivity extends Activity {
                         WebServiceSoap.getBarsDatas(0);
                         Log.i("AndroidTickets", "User " + editEmail.getText().toString() + " trying to login...");
                         int response = WebServiceSoap.getUser(editEmail.getText().toString(), editPassword.getText().toString());
+                        UserSessionInfo.USER_FUNCTION = WebServiceSoap.getUserFunction(response);
                         if (response > 0)//en dessous de zero errors et au dessus c'est l'ID de l'utilisateur
                         {
                             UserSessionInfo.USER_ID = response;
                             UserSessionInfo.USER_EMAIL = editEmail.getText().toString();
                             Log.i("AndroidTickets" , "User " + editEmail.getText().toString() + " logged in with ID " + response + ".");
-                            Intent i = new Intent(thisContext, CreateTicketActivity.class);
-                            Bundle extras = new Bundle();
-                            extras.putInt("userid", (int)response);
-                            i.putExtras(extras);
+                            Log.i("AndroidTickets", "User function is : " + UserSessionInfo.USER_FUNCTION.functionName);
+
+                            Intent i = null;
+                            switch(UserSessionInfo.USER_FUNCTION)
+                            {
+                                case Admin:
+                                case Root:
+                                    i = new Intent(thisContext, Dashboard.class);
+                                    break;
+                                case Locataire:
+                                    i = new Intent(thisContext, CreateTicketActivity.class);
+                                    Bundle extras = new Bundle();
+                                    extras.putInt("userid", (int)response);
+                                    i.putExtras(extras);
+                                    break;
+                            }
 
                             startActivity(i);
                         }
