@@ -30,6 +30,11 @@
             android:layout_height="fill_parent"
             android:layout_alignParentLeft="true" android:layout_marginTop="284dp"
             android:id="@+id/buttons" android:layout_alignTop="@+id/graphLayout">
+        <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="@string/common_exit"
+                android:id="@+id/exitButton"/>
     </LinearLayout>
 
     <!-- Layout du spinner de sélection du type de graphique & filtre par building -->

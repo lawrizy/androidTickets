@@ -39,4 +39,6 @@
     <string name="summary_finish_creation">Confirm and finish</string>
     <string name="summary_button_exit">Exit</string>
 
-</resources>
+</resou<string name="common_exit">Exit</string>
+
+es>
