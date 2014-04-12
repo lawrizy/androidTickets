@@ -14,11 +14,20 @@ import model.UserSessionInfo;
  * Created by User on 8/04/14.
  */
 public class TicketSummary extends Activity {
+    private String categorie;
+    private String subCategorie;
+    private String building;
+    private String ticketNumber;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ticketsummary);
 
         //todo récupérer cat + subcat + building depuis le bundle envoyé par createTicket
+        categorie = getIntent().getExtras().getString("category");
+        subCategorie = getIntent().getExtras().getString("subCategory");
+        building = getIntent().getExtras().getString("building");
+        ticketNumber = getIntent().getExtras().getString("ticketNumber");
 
         setupListeners();
         setupLayout();
@@ -31,7 +40,15 @@ public class TicketSummary extends Activity {
         mailSentMessage.setText(newMessage);
 
         // Mise à jour du texte des différents champs
+        TextView categoryText = (TextView)findViewById(R.id.summary_category);
+        TextView subCategoryText = (TextView)findViewById(R.id.summary_subCategory);
+        TextView buildingText = (TextView)findViewById(R.id.summary_buildingName);
+        TextView ticketNumberText = (TextView)findViewById(R.id.summary_numTicket);
 
+        categoryText.setText(categorie);
+        subCategoryText.setText(subCategorie);
+        buildingText.setText(building);
+        ticketNumberText.setText(ticketNumber);
     }
 
     private void setupListeners() {

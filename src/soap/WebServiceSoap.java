@@ -86,7 +86,7 @@ public class WebServiceSoap implements KvmSerializable {
       String resultTicket = "OK";
         String NAMESPACE = "urn:AndroidControllerwsdl";
         String METHOD_NAME = "createTicket";
-        String URL ="http://192.168.1.25/W3S-tickets/index.php/android/websys?ws=1";
+        String URL ="http://192.168.1.19/W3S-tickets/index.php/android/websys?ws=1";
         String SOAP_ACTION = "urn:AndroidControllerwsdl#createTicket";
 
         SoapObject MethodCreateTicket = new SoapObject(NAMESPACE, METHOD_NAME);
@@ -131,7 +131,6 @@ public class WebServiceSoap implements KvmSerializable {
             if (result != null) {
                 resultTicket = result.getProperty(0).toString();
             }
-            //TODO test si null
         } catch (Exception ex) {
             //  System.out.println(ex.getMessage());
             ex.printStackTrace();
