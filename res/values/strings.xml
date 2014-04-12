@@ -39,4 +39,13 @@
     <string name="summary_finish_creation">Back to ticket creation menu</string>
     <string name="summary_button_exit">Exit</string>
     <string name="common_exit">Exit</string>
+    <string name="dashboard_graphType_ticketsForCategory"># tickets by category</string>
+    <string name="dashboard_graphType_ticketsForStatus"># tickets by status</string>
+    <string name="dashboard_graphType_TicketsByCompanies"># tickets by company</string>
+
+    <string-array name="dashboard_graph_type_name">
+        <item>Tickets by category</item>
+        <item>Tickets by status</item>
+        <item>Tickets by entreprise</item>
+    </string-array>
 </resources>

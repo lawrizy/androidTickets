@@ -53,7 +53,6 @@ public class MainActivity extends Activity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        WebServiceSoap.getBarsDatas(0);
                         Log.i("AndroidTickets", "User " + editEmail.getText().toString() + " trying to login...");
                         int response = WebServiceSoap.getUser(editEmail.getText().toString(), editPassword.getText().toString());
                         UserSessionInfo.USER_FUNCTION = WebServiceSoap.getUserFunction(response);

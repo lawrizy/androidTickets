@@ -18,6 +18,8 @@ public class TicketSummary extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ticketsummary);
 
+        //todo récupérer cat + subcat + building depuis le bundle envoyé par createTicket
+
         setupListeners();
         setupLayout();
     }
@@ -27,6 +29,9 @@ public class TicketSummary extends Activity {
         TextView mailSentMessage = (TextView)findViewById(R.id.mail_sent_textview);
         String newMessage = mailSentMessage.getText().toString() + " " + UserSessionInfo.USER_EMAIL;
         mailSentMessage.setText(newMessage);
+
+        // Mise à jour du texte des différents champs
+
     }
 
     private void setupListeners() {

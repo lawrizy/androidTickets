@@ -44,6 +44,7 @@ public class CreateTicketActivity extends Activity {
         ArrayAdapter<CategorieIncident> stringArrayAdapter = new ArrayAdapter<>(thiss, android.R.layout.simple_spinner_dropdown_item, listCats);
         stringArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         category.setAdapter(stringArrayAdapter);
+
         List<Batiment> batimentList;
         Spinner batiment = (Spinner) findViewById(R.id.buildingSpinner);
         dao.BatimentDAO batimentDAO = new BatimentDAO(this);
