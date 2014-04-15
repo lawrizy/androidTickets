@@ -2,9 +2,6 @@
 <resources>
     <!-- Général -->
     <string name="app_name">W3S-Tickets</string>
-    <string name="TitleLogin">Login</string>
-    <string name="CategorieDropdownlist">Select a category</string>
-    <string name="Login_please_fill_message">Please fill out the following form with your login credentials:</string>
     <string name="footer_copyright">Copyright Ticket System © v0.2.0 2014 by Web3Sys.\nAll Rights Reserved.</string>
     <string name="fields_marked_message">Fields marked with a * are required</string>
 
@@ -33,11 +30,6 @@
         test message. This is an error test message. This is an error test message.
     </string>
     <string name="dashboard_title">Dashboard</string>
-    <string name="errorInvalidCredentialsMessage">You entered the wrong email and/or password, please try again.
-    </string>
-    <string name="errorCategoryRequired">Please select a category</string>
-    <string name="errorSubCategoryRequired">Please select a sub-category</string>
-    <string name="errorBuildingRequired">Please select a building</string>
     <string name="dashboard_graphTypeSelectionPrompt">Please select a type of graph :</string>
     <string name="dashboard_building_filter_prompt">Please select a building</string>
 
