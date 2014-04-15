@@ -30,17 +30,18 @@ public class BatimentDAO {
 
     public List<Batiment> CursorToBatimentList(Cursor c) {
         if (c.getCount() == 0) return null;
-
+        listBatiment.add(new Batiment(0,"ALL"));
         while (c.moveToNext()) {
             Batiment batiment = new Batiment(c.getInt(0), c.getString(1));
             listBatiment.add(batiment);
         }
 
+
         return listBatiment;
 
     }
 
-    public List<Batiment> getListBatiment(int id_user) {
+    public List<Batiment> getListBatiment(final int id_user) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Callable<List<String>> callable = () -> soap.WebServiceSoap.listIdBuilding(id_user);
         Future<List<String>> future = executor.submit(callable);

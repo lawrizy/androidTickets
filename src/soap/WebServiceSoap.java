@@ -2,6 +2,7 @@ package soap;
 
 import android.util.Log;
 import common.Error;
+import enums.Langue;
 import model.UserSessionInfo;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.SoapFault;
@@ -24,7 +25,7 @@ public class WebServiceSoap implements KvmSerializable {
 
     public static String NAMESPACE = "urn:AndroidControllerwsdl";
     public static String METHOD_NAME = "testLogin";
-    public static String URL = "http://192.168.1.25/W3S-tickets/index.php/android/websys?ws=1";
+    public static String URL = "http://192.168.1.19/W3S-tickets/index.php/android/websys?ws=1";
     public static String SOAP_ACTION = "urn:AndroidControllerwsdl#testLogin";
 
     @Override
@@ -178,7 +179,7 @@ public class WebServiceSoap implements KvmSerializable {
         return maList;
     }
 
-    public static void getBarsDatas(int id_batiment,int langue)
+    public static void getBarsDatas(int id_batiment, Langue langue)
     {
         String NAMESPACE = "urn:AndroidControllerwsdl";
         String METHOD_NAME = "getBarsDatas";
@@ -193,7 +194,7 @@ public class WebServiceSoap implements KvmSerializable {
         MethodegetBarsDatas.addProperty(id_batimentPropriety);
         PropertyInfo langueProperty = new PropertyInfo();
         langueProperty.setName("langue");
-        langueProperty.setValue(langue);
+        langueProperty.setValue(langue.getID());
         langueProperty.setType(int.class);
         MethodegetBarsDatas.addProperty(langueProperty);
         final SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);

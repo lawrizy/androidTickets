@@ -17,6 +17,8 @@
             android:label="CreateTicketActivity" />
         <activity android:name="activities.Dashboard" android:label="dashboard"/>
         <activity android:name="activities.TicketSummary" android:label="ticketsummary"/>
+        <activity android:name="org.achartengine.GraphicalActivity"/>
+        <activity android:name="activities.TestChart" android:label="testChart"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 </manifest>

@@ -28,18 +28,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:id="@+id/graphTypeSpinner" android:layout_marginBottom="10dp"
-                    android:prompt="@string/dashboard_graphTypeSelectionPrompt"/>
+                    android:prompt="@string/dashboard_graphTypeSelectionPrompt" android:spinnerMode="dialog"/>
             <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:id="@+id/buildingFilterSpinner" android:layout_marginBottom="10dp"
-                    android:prompt="@string/dashboard_building_filter_prompt"/>
+                    android:prompt="@string/dashboard_building_filter_prompt" android:spinnerMode="dialog"/>
         </LinearLayout>
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="275dp" android:id="@+id/graphLayout" android:layout_marginBottom="10dp"
-                android:layout_weight="30">
+                android:layout_height="250dp" android:id="@+id/graphLayout" android:layout_marginBottom="10dp"
+                android:layout_weight="5.53">
         </LinearLayout>
         <LinearLayout
                 android:orientation="vertical"
@@ -47,7 +47,7 @@
                 android:layout_height="fill_parent" android:id="@+id/buttonsLayout">
             <Button
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:text="@string/common_exit"
                     android:id="@+id/dashboard_exitButton" android:layout_weight="1"/>
         </LinearLayout>

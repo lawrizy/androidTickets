@@ -20,6 +20,7 @@ public class UserSessionInfo
 
         public final int functionNo;
         public final String functionName;
+        public String idLangue;
 
         UserFunction(int functionNo, String functionName)
         {
