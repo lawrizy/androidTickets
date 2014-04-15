@@ -42,12 +42,7 @@ public class BatimentDAO {
 
     public List<Batiment> getListBatiment(int id_user) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        Callable<List<String>> callable = new Callable<List<String>>() {
-            @Override
-            public List<String> call() {
-                return soap.WebServiceSoap.listIdBuilding(id_user);
-            }
-        };
+        Callable<List<String>> callable = () -> soap.WebServiceSoap.listIdBuilding(id_user);
         Future<List<String>> future = executor.submit(callable);
         executor.shutdown();
 
