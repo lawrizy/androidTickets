@@ -25,7 +25,7 @@ public class WebServiceSoap implements KvmSerializable {
 
     public static String NAMESPACE = "urn:AndroidControllerwsdl";
     public static String METHOD_NAME = "testLogin";
-    public static String URL = "http://192.168.1.25/W3S-tickets/index.php/android/websys?ws=1";
+    public static String URL = "http://192.168.1.19/W3S-tickets/index.php/android/websys?ws=1";
     public static String SOAP_ACTION = "urn:AndroidControllerwsdl#testLogin";
 
     @Override
