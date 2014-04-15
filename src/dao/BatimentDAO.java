@@ -13,8 +13,15 @@ import java.util.concurrent.*;
  * Created by User on 8/04/2014.
  */
 public class BatimentDAO {
+    private static final int DB_VERSION = 1;
+    private static final String TABLE_BATIMENT = "w3sys_batiment";
+    private static final String COL_BATIMENT_ID = "id_batiment";
+    private static final String COL_BATIMENT_NOM = "nom";
     List<Batiment> listBatiment = new ArrayList<>();
+
     private SQLiteDatabase db;
+
+
 
     public BatimentDAO(Context context) {
         db = GetDB.getInstance(context).getWritableDatabase();
