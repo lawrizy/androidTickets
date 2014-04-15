@@ -18,18 +18,6 @@ public class CategorieIncidentDAO {
         db = GetDB.getInstance(context).getWritableDatabase();
     }
 
-//    public List<CategorieIncident> CursorToCategorieIncidentList(Cursor c) {
-//        if (c.getCount() == 0) return null;
-//
-//        while (c.moveToNext()) {
-//                CategorieIncident categorieIncident = new CategorieIncident(c.getInt(0), c.getString(1));
-//                listCategorie.add(categorieIncident);
-//            }
-//
-//        return listCategorie;
-//
-//    }
-
 
     public List<CategorieIncident>getListSousCategorie(int fk_parent)
     {

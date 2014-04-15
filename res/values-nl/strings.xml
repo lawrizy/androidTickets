@@ -1,5 +1,48 @@
-<resources>
+<?xml version="1.0" encoding="utf-8"?>
+    <resources>
+        <!-- Général -->
+        <string name="app_name">W3S-Tickets</string>
+        <string name="footer_copyright">Auteursrecht Ticket System © v0.2.0 2014 door Web3Sys.\nAlle rechten voorbehouden.</string>
+        <string name="fields_marked_message">Velden gemarkeerd met een * zijn verplicht</string>
 
-    <string name="CategorieDropdownlist">Kiez een kategorie</string>
+        <!-- Vue connexion -->
+        <string name="TitleLogin">Login</string>
+        <string name="errorInvalidCredentialsMessage">U heeft een verkeerde e-mailadres en/of wachtwoord, probeer het opnieuw.</string>
+        <string name="Login_please_fill_message">Vul het onderstaande formulier in met uw inloggegevens:</string>
+        <string name="Login">Login</string>
+        <string name="Exit">Uitgang</string>
 
-</resources>
+        <!-- Vue création de ticket -->
+        <string name="errorCategoryRequired">Kiez een categorie</string>
+        <string name="errorSubCategoryRequired">Kiez een subcategorie</string>
+        <string name="errorBuildingRequired">Kiez een gebouw</string>
+        <string name="CategorieDropdownlist">Kiez een categorie</string>
+        <string name="create_ticket_title">Maak een nieuw ticket</string>
+        <string name="select_category_text">Kiez een categorie *</string>
+        <string name="selectSubCategoryMsg">Kiez een subcategorie *</string>
+        <string name="selectBuildingMsg">Kiez een gebouw *</string>
+        <string name="inputEtage">Verdieping</string>
+        <string name="inputOfficeNumber">Kantoor nummer</string>
+        <string name="inputDescription">Beschrijving</string>
+        <string name="resetTicketView_label">Reset</string>
+        <string name="createTicket_label">Maak de ticket</string>
+
+        <!-- Vue résumé ticket -->
+        <string name="summary_title">Ticket samenvatting</string>
+        <string name="summary_ticket_number">Ticketnummer</string>
+        <string name="summary_user_name">Gebruikersnaam</string>
+        <string name="summary_category_name">Categorie</string>
+        <string name="summary_subCategory_name">Subcategorie</string>
+        <string name="summary_building_name">Gebouw naam</string>
+        <string name="summary_assigned_to">Toegewezen aan</string>
+        <string name="summary_way_of_creation">Manier van de schepping</string>
+        <string name="summary_a_mail_has_been_sent">Een e-mail is gestuurd</string>
+        <string name="summary_finish_creation">Bevestigen en afwerking</string>
+        <string name="summary_button_exit">Uitgang</string>
+
+        <!-- Vue Tableau de Bord -->
+        <string name="graphTypeSelectionPrompt">Kiez een grafiektype :</string>
+        <string name="dashboard_building_filter_prompt">Kiez een gebouw</string>
+        <string name="dashboard_title">Dashboard</string>
+
+    </resources>

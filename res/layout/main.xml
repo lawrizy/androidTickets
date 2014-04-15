@@ -25,7 +25,7 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fields marked with * are required"
+            android:text="@string/fields_marked_message"
             android:id="@+id/FieldMarked"
             android:textColor="#3BA3D0"
             android:layout_below="@+id/FillText" android:layout_alignParentLeft="true" android:textSize="14dp"
@@ -62,7 +62,7 @@
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login"
+            android:text="@string/Login"
             android:id="@+id/button"
             android:textColor="@color/button_text_color"
             android:layout_below="@+id/textView"

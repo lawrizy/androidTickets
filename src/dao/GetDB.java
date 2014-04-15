@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GetDB extends SQLiteOpenHelper {
-    private  List<CategorieIncident> listCategorie;
+    private List<CategorieIncident> listCategorie;
     private List<Batiment> listBatiment;
     private SQLiteDatabase db;
-    private static final String DB_NAME = "Ridounet.db";
+    private static final String DB_NAME = "db_ticketing.db";
     private static final int DB_VERSION = 1;
     private static final String TABLE_BATIMENT = "w3sys_batiment";
     private static final String COL_BATIMENT_ID = "id_batiment";
@@ -24,8 +24,11 @@ public class GetDB extends SQLiteOpenHelper {
     private static String TABLE_CATEGORIE_INCIDENT = "w3sys_categorie_incident";
     private static String COL_CATEGORIE_INCIDENT_ID = "id_categorie_incident";
     private static String COL_CATEGORIE_INCIDENT_LABEL = "label";
+    private static String COL_FR = "FR";
+    private static String COL_EN = "EN";
+    private static String COL_NL = "NL";
     private static String COL_CATEGORIE_INCIDENT_FK_PARENT = "fk_parent";
-    private static String CREATE_TABLE_CATEGORIE_INCIDENT = "CREATE TABLE " + TABLE_CATEGORIE_INCIDENT + "(" + COL_CATEGORIE_INCIDENT_ID + " INTEGER," + COL_CATEGORIE_INCIDENT_LABEL + " TEXT," + COL_CATEGORIE_INCIDENT_FK_PARENT + " INTEGER);";
+    private static String CREATE_TABLE_CATEGORIE_INCIDENT = "CREATE TABLE " + TABLE_CATEGORIE_INCIDENT + "(" + COL_CATEGORIE_INCIDENT_ID + " INTEGER," + COL_CATEGORIE_INCIDENT_LABEL + " TEXT," + COL_FR + " TEXT," + COL_EN + " TEXT," + COL_NL + " TEXT," + COL_CATEGORIE_INCIDENT_FK_PARENT + " INTEGER);";
 
 
     // Pattern Singleton implémenté pour éviter des doublons de connexion vers la DB.
@@ -109,58 +112,57 @@ public class GetDB extends SQLiteOpenHelper {
             values.put(COL_BATIMENT_NOM, batiment.getNom());
             db.insert(TABLE_BATIMENT, null, values);
         }
-        listCategorie=new ArrayList<>();
-        listCategorie.add(new CategorieIncident(1, "Sanitaire", 0));
-        listCategorie.add(new CategorieIncident(2, "Electricité", 0));
-        listCategorie.add(new CategorieIncident(3, "Ascenseurs", 0));
-        listCategorie.add(new CategorieIncident(4, "HVAC", 0));
-        listCategorie.add(new CategorieIncident(14, "Sécurité", 0));
-        listCategorie.add(new CategorieIncident(15, "Divers", 0));
-        listCategorie.add(new CategorieIncident(5, "Panne d'électricité", 2));
-        listCategorie.add(new CategorieIncident(6, "Ampoule / néon défectueux", 2));
-        listCategorie.add(new CategorieIncident(7, "Fuite eau", 1));
-        listCategorie.add(new CategorieIncident(8, "WC bouché", 1));
-        listCategorie.add(new CategorieIncident(9, "Ascenseur en panne", 3));
-        listCategorie.add(new CategorieIncident(10, "Arrêt", 3));
-        listCategorie.add(new CategorieIncident(11, "Radiateur en panne", 4));
-        listCategorie.add(new CategorieIncident(12, "Local trop chaud", 4));
-        listCategorie.add(new CategorieIncident(13, "Local trop froid", 4));
-        listCategorie.add(new CategorieIncident(16, "Thermostat défectueux", 4));
-        listCategorie.add(new CategorieIncident(17, "Climatisation en panne", 4));
-        listCategorie.add(new CategorieIncident(18, "Fuite d'eau au niveau du radiateur", 4));
-        listCategorie.add(new CategorieIncident(19, "Autre", 4));
-        listCategorie.add(new CategorieIncident(20, "Evier bouché", 1));
-        listCategorie.add(new CategorieIncident(21, "Chasse d'eau défectueuse", 1));
-        listCategorie.add(new CategorieIncident(22, "Robinetterie défectueuse", 1));
-        listCategorie.add(new CategorieIncident(23, "Mauvaise odeur au niveau des canalisations", 1));
-        listCategorie.add(new CategorieIncident(24, "Autre", 1));
-        listCategorie.add(new CategorieIncident(25, "Prise défectueuse", 2));
-        listCategorie.add(new CategorieIncident(26, "Autre", 2));
-        listCategorie.add(new CategorieIncident(27, "Badge défectueux", 14));
-        listCategorie.add(new CategorieIncident(28, "Lecteur de badge défectueux", 14));
-        listCategorie.add(new CategorieIncident(29, "Problème d'accès au batiment", 14));
-        listCategorie.add(new CategorieIncident(30, "Problème d'accès au parking", 14));
-        listCategorie.add(new CategorieIncident(31, "Caméra défectueuse", 14));
-        listCategorie.add(new CategorieIncident(32, "Détecteur d'incendie défectueux", 14));
-        listCategorie.add(new CategorieIncident(33, "Parlophone / visiophone défectueux", 14));
-        listCategorie.add(new CategorieIncident(34, "Porte bloquée", 14));
-        listCategorie.add(new CategorieIncident(35, "Autre", 14));
-        listCategorie.add(new CategorieIncident(36, "Nettoyage", 15));
-        listCategorie.add(new CategorieIncident(37, "Déblayage", 15));
-        listCategorie.add(new CategorieIncident(38, "Papier WC manquant", 15));
-        listCategorie.add(new CategorieIncident(39, "Produit sanitaire manquant", 15));
-        listCategorie.add(new CategorieIncident(40, "Autre", 15));
+        listCategorie = new ArrayList<>();
+        listCategorie.add(new CategorieIncident(1, "Sanitaire", "Sanitaire", "Sanitary", "Sanitair", 0));
+        listCategorie.add(new CategorieIncident(2, "Electricité", "Electricité", "Electricity", "Elektriciteit", 0));
+        listCategorie.add(new CategorieIncident(3, "Ascenseurs", "Ascenseurs", "Lift", "Lift", 0));
+        listCategorie.add(new CategorieIncident(4, "HVAC", "HVAC", "HVAC", "HVAC", 0));
+        listCategorie.add(new CategorieIncident(14, "Sécurité", "Sécurité", "Security", "Veiligheid", 0));
+        listCategorie.add(new CategorieIncident(15, "Divers", "Divers", "Miscellaneous", "Diversen", 0));
+        listCategorie.add(new CategorieIncident(5, "Panne d'électricité", "Panne d'électricité", "Electricity breakdown", "Uitsplitsing elektriciteit", 2));
+        listCategorie.add(new CategorieIncident(6, "Ampoule / néon défectueux", "Ampoule / néon défectueux", "Bulb /defective neon", "Gloeilamp /defecte neon", 2));
+        listCategorie.add(new CategorieIncident(7, "Fuite eau", "Fuite eau", "Water leak", "Water Lek", 1));
+        listCategorie.add(new CategorieIncident(8, "WC bouché", "WC bouché", "Blocked WC", "Verstopte WC", 1));
+        listCategorie.add(new CategorieIncident(9, "Ascenseur en panne", "Ascenseur en panne", "Stuck lift", "Kapotte lift", 3));
+        listCategorie.add(new CategorieIncident(10, "Arrêt", "Arrêt", "Stuck", "Stop", 3));
+        listCategorie.add(new CategorieIncident(11, "Radiateur en panne", "Radiateur en panne", "Broken down radiator", "Radiator beneden", 4));
+        listCategorie.add(new CategorieIncident(12, "Local trop chaud", "Local trop chaud", "Room too hot", "Lokaal te warm", 4));
+        listCategorie.add(new CategorieIncident(13, "Local trop froid", "Local trop froid", "Room too cold", "Lokaal te koud", 4));
+        listCategorie.add(new CategorieIncident(16, "Thermostat défectueux", "Thermostat défectueux", "Defective thermostat", "Defecte thermostaat", 4));
+        listCategorie.add(new CategorieIncident(17, "Climatisation en panne", "Climatisation en panne", "Broken down air conditioner", "Uitgesplitst airconditioner", 4));
+        listCategorie.add(new CategorieIncident(18, "Fuite d'eau au niveau du radiateur", "Fuite d'eau au niveau du radiateur", "Radiator leaking water", "Waterlek in de radiator", 4));
+        listCategorie.add(new CategorieIncident(19, "Autre", "Autre", "Other", "Aanderen", 4));
+        listCategorie.add(new CategorieIncident(20, "Evier bouché", "Evier bouché", "", "", 1));
+        listCategorie.add(new CategorieIncident(21, "Chasse d'eau défectueuse", "Chasse d'eau défectueuse", "Defective flush", "Defecte waterspoeling", 1));
+        listCategorie.add(new CategorieIncident(22, "Robinetterie défectueuse", "Robinetterie défectueuse", "Defective plumbing", "Kleppen defect", 1));
+        listCategorie.add(new CategorieIncident(23, "Mauvaise odeur au niveau des canalisations", "Mauvaise odeur au niveau des canalisations", "Foul smell in the piping", "Slechte geur in leidingen", 1));
+        listCategorie.add(new CategorieIncident(24, "Autre", "Autre", "Other", "Aanderen", 1));
+        listCategorie.add(new CategorieIncident(25, "Prise défectueuse", "Prise défectueuse", "Defective plug", "Defecte beslissing", 2));
+        listCategorie.add(new CategorieIncident(26, "Autre", "Autre", "Other", "Aanderen", 2));
+        listCategorie.add(new CategorieIncident(27, "Badge défectueux","Badge défectueux", "Defective badge", "Defecte badge", 14));
+        listCategorie.add(new CategorieIncident(28, "Lecteur de badge défectueux", "Lecteur de badge défectueux", "Defective badge reader", "Speler defect badge", 14));
+        listCategorie.add(new CategorieIncident(29, "Problème d'accès au batiment", "Problème d'accès au batiment", "Building access problem", "Probleem van de toegang tot het gebouw", 14));
+        listCategorie.add(new CategorieIncident(30, "Problème d'accès au parking", "Problème d'accès au parking", "Parking access problem", "Probleem van de toegang tot de parkeerplaats", 14));
+        listCategorie.add(new CategorieIncident(31, "Caméra défectueuse", "Caméra défectueuse", "Defective security camera", "Defecte camera", 14));
+        listCategorie.add(new CategorieIncident(32, "Détecteur d'incendie défectueux", "Détecteur d'incendie défectueux", "Defective fire alarm", "Brandmelder defect", 14));
+        listCategorie.add(new CategorieIncident(33, "Parlophone / visiophone défectueux", "Parlophone / visiophone défectueux", "Defective videophone", "Intercom / videofoon defect", 14));
+        listCategorie.add(new CategorieIncident(34, "Porte bloquée", "Porte bloquée", "Stuck door", "Geblokkeerde deur", 14));
+        listCategorie.add(new CategorieIncident(35, "Autre", "Autre", "Other", "Aanderen", 14));
+        listCategorie.add(new CategorieIncident(36, "Nettoyage", "Nettoyage", "Cleaning", "Schoonmaken", 15));
+        listCategorie.add(new CategorieIncident(37, "Déblayage", "Déblayage", "Clearing", "Uitmesten", 15));
+        listCategorie.add(new CategorieIncident(38, "Papier WC manquant", "Papier WC manquant", "Missing toilet paper", "Papier ontbrekende wc", 15));
+        listCategorie.add(new CategorieIncident(39, "Produit sanitaire manquant", "Produit sanitaire manquant", "Missing detergent", "Sanitizer vermist", 15));
+        listCategorie.add(new CategorieIncident(40, "Autre", "Autre", "Other", "Aanderen", 15));
 
         //insert db
 
         ContentValues Categoryvalues = new ContentValues();
-        for (CategorieIncident categorieIncident: listCategorie) {
+        for (CategorieIncident categorieIncident : listCategorie) {
             Categoryvalues.put(COL_CATEGORIE_INCIDENT_ID, categorieIncident.getId_categorie_incident());
             Categoryvalues.put(COL_CATEGORIE_INCIDENT_LABEL, categorieIncident.getLabel());
-            Categoryvalues.put(COL_CATEGORIE_INCIDENT_FK_PARENT,categorieIncident.getFk_parent());
+            Categoryvalues.put(COL_CATEGORIE_INCIDENT_FK_PARENT, categorieIncident.getFk_parent());
             db.insert(TABLE_CATEGORIE_INCIDENT, null, Categoryvalues);
         }
-
 
 
     }
