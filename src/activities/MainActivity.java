@@ -51,7 +51,7 @@ public class MainActivity extends Activity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        WebServiceSoap.getBarsDatas(0);
+           //            WebServiceSoap.getBarsDatas(1,2);
                         Log.i("AndroidTickets", "User " + editEmail.getText().toString() + " trying to login...");
                         int response = WebServiceSoap.getUser(editEmail.getText().toString(), editPassword.getText().toString());
                         if (response > 0)//en dessous de zero errors et au dessus c'est l'ID de l'utilisateur

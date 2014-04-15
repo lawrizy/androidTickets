@@ -177,7 +177,7 @@ public class WebServiceSoap implements KvmSerializable {
         return maList;
     }
 
-    public static void getBarsDatas(int id_batiment)
+    public static void getBarsDatas(int id_batiment,int langue)
     {
         String NAMESPACE = "urn:AndroidControllerwsdl";
         String METHOD_NAME = "getBarsDatas";
@@ -186,10 +186,15 @@ public class WebServiceSoap implements KvmSerializable {
 
         SoapObject MethodegetBarsDatas= new SoapObject(NAMESPACE, METHOD_NAME);
         PropertyInfo id_batimentPropriety = new PropertyInfo();
-        id_batimentPropriety.setName("id_batiment");
+        id_batimentPropriety.setName("idBatiment");
         id_batimentPropriety.setValue(id_batiment);
         id_batimentPropriety.setType(int.class);
         MethodegetBarsDatas.addProperty(id_batimentPropriety);
+        PropertyInfo langueProperty = new PropertyInfo();
+        langueProperty.setName("langue");
+        langueProperty.setValue(langue);
+        langueProperty.setType(int.class);
+        MethodegetBarsDatas.addProperty(langueProperty);
         final SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.setOutputSoapObject(MethodegetBarsDatas);
         envelope.dotNet = true;
