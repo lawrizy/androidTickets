@@ -45,7 +45,7 @@ public class BatimentDAO {
         Callable<List<String>> callable = new Callable<List<String>>() {
             @Override
             public List<String> call() {
-                return soap.WebServiceSoap.listIdBuilding(17);
+                return soap.WebServiceSoap.listIdBuilding(id_user);
             }
         };
         Future<List<String>> future = executor.submit(callable);
@@ -68,5 +68,10 @@ public class BatimentDAO {
         return CursorToBatimentList(c);
     }
 
+public List<Batiment> getAllBuildings()
+{
+    Cursor c = db.query("w3sys_batiment", new String[]{"id_batiment", "nom"}, null, null, null, null, null);
+    return CursorToBatimentList(c);
+}
 
 }
