@@ -43,12 +43,16 @@ public class MainActivity extends Activity {
         Button btn = (Button) findViewById(R.id.button);
         final EditText editEmail = (EditText) findViewById(R.id.loginEmail);
         final EditText editPassword = (EditText) findViewById(R.id.loginPass);
-
+        Context thiss = this;
       //  final WebServiceRest webServiceRest = new WebServiceRest();
         btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //------
+                String locale = getResources().getConfiguration().locale.getLanguage();
+                Toast t = new Toast(thiss);
+                t.makeText(thiss, locale, 10000);
+                //------
                 new Thread(new Runnable() {
                     @Override
                     public void run() {

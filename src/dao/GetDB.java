@@ -24,9 +24,9 @@ public class GetDB extends SQLiteOpenHelper {
     private static String TABLE_CATEGORIE_INCIDENT = "w3sys_categorie_incident";
     private static String COL_CATEGORIE_INCIDENT_ID = "id_categorie_incident";
     private static String COL_CATEGORIE_INCIDENT_LABEL = "label";
-    private static String COL_FR = "FR";
-    private static String COL_EN = "EN";
-    private static String COL_NL = "NL";
+    private static String COL_FR = "fr";
+    private static String COL_EN = "en";
+    private static String COL_NL = "nl";
     private static String COL_CATEGORIE_INCIDENT_FK_PARENT = "fk_parent";
     private static String CREATE_TABLE_CATEGORIE_INCIDENT = "CREATE TABLE " + TABLE_CATEGORIE_INCIDENT + "(" + COL_CATEGORIE_INCIDENT_ID + " INTEGER," + COL_CATEGORIE_INCIDENT_LABEL + " TEXT," + COL_FR + " TEXT," + COL_EN + " TEXT," + COL_NL + " TEXT," + COL_CATEGORIE_INCIDENT_FK_PARENT + " INTEGER);";
 
@@ -161,6 +161,9 @@ public class GetDB extends SQLiteOpenHelper {
             Categoryvalues.put(COL_CATEGORIE_INCIDENT_ID, categorieIncident.getId_categorie_incident());
             Categoryvalues.put(COL_CATEGORIE_INCIDENT_LABEL, categorieIncident.getLabel());
             Categoryvalues.put(COL_CATEGORIE_INCIDENT_FK_PARENT, categorieIncident.getFk_parent());
+            Categoryvalues.put(COL_FR,categorieIncident.getFR());
+            Categoryvalues.put(COL_EN,categorieIncident.getEN());
+            Categoryvalues.put(COL_NL,categorieIncident.getNL());
             db.insert(TABLE_CATEGORIE_INCIDENT, null, Categoryvalues);
         }
 
