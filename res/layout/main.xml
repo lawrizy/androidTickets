@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools" android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@drawable/gradient_bg" android:padding="35dp" tools:context="activities.MainActivity">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/gradient_bg" android:padding="35dp"
+                tools:context="activities.MainActivity">
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/TitleLogin"
+            android:layout_marginBottom="15dp"
             android:id="@id/LoginTitle"
-            android:layout_alignParentTop="true" android:layout_alignParentLeft="true" android:textColor="@color/title_text_color"
+            android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
+            android:textColor="@color/title_text_color"
             android:textSize="65px" android:layout_alignParentRight="true" android:textStyle="bold|italic"
             android:gravity="center_vertical|center_horizontal"/>
     <TextView
@@ -29,54 +32,60 @@
             android:autoText="false"/>
     <EditText
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:id="@+id/loginEmail"
+            android:textSize="32dp"
             android:editable="true" android:clickable="true"
-        android:textColor="@color/textfield_text_color" style="@style/border" android:background="#dcdcdc"
-        android:singleLine="true" android:layout_below="@+id/FieldMarked" android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true" android:layout_marginTop="10dp" android:layout_marginBottom="10dp"/>
-    <EditText style="@style/border" android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:textColor="@color/textfield_text_color" style="@style/border" android:background="#dcdcdc"
+            android:singleLine="true" android:layout_below="@+id/FieldMarked" android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true" android:layout_marginTop="10dp" android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal"
+            />
+    <EditText style="@style/border" android:layout_width="wrap_content" android:layout_height="35dp"
               android:id="@+id/loginPass"
               android:editable="true"
               android:clickable="true"
-        android:textColor="@color/textfield_text_color" android:background="#dcdcdc"
-        android:singleLine="true"
-        android:password="true" android:layout_below="@+id/loginEmail" android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"/>
+              android:textColor="@color/textfield_text_color" android:background="#dcdcdc"
+              android:singleLine="true"
+              android:password="true" android:layout_below="@+id/loginEmail" android:layout_alignParentLeft="true"
+              android:layout_alignParentRight="true"
+              android:gravity="center_horizontal"
+              android:textSize="35dp"
+            />
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:layout_below="@+id/loginPass"
-        android:layout_alignLeft="@+id/loginPass"
-        android:layout_alignRight="@+id/loginPass" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView"
+            android:layout_below="@+id/loginPass"
+            android:layout_alignLeft="@+id/loginPass"
+            android:layout_alignRight="@+id/loginPass"/>
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Login"
             android:id="@+id/button"
             android:textColor="@color/button_text_color"
-        android:layout_below="@+id/textView"
-        android:layout_centerVertical="true"
-        android:layout_alignRight="@+id/loginPass"
-        android:layout_alignLeft="@+id/textView" android:background="@drawable/rounded_corners"
-        android:layout_marginBottom="10dp"/>
-    <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/Exit"
+            android:layout_below="@+id/textView"
+            android:layout_centerVertical="true"
+            android:layout_alignRight="@+id/loginPass"
+            android:layout_alignLeft="@+id/textView" android:background="@drawable/rounded_corners"
+            android:layout_marginBottom="5dp"/>
+    <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Exit"
             android:id="@+id/button2" android:textColor="@color/button_text_color"
-        android:layout_below="@+id/button"
-        android:layout_alignLeft="@+id/button"
-        android:layout_alignRight="@+id/loginPass" android:background="@drawable/rounded_corners"/>
+            android:layout_below="@+id/button"
+            android:layout_alignLeft="@+id/button"
+            android:layout_alignRight="@+id/loginPass" android:background="@drawable/rounded_corners"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/footer_copyright"
-        android:id="@+id/textView2"
-        android:textColor="@color/footer_text_color" android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/button2" android:layout_alignLeft="@+id/button"
-        android:layout_alignParentLeft="false" android:layout_alignWithParentIfMissing="false"
-        android:lines="2" android:singleLine="false" android:textSize="12dp" android:typeface="sans"
-        android:gravity="center_vertical|center_horizontal" android:textStyle="bold"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Copyright Ticket System © v0.2.0 2014 by Web3Sys.\nAll Rights Reserved."
+            android:id="@+id/textView2"
+            android:textColor="@color/footer_text_color" android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/button2" android:layout_alignLeft="@+id/button"
+            android:layout_alignParentLeft="false" android:layout_alignWithParentIfMissing="false"
+            android:lines="2" android:singleLine="false" android:textSize="12dp" android:typeface="sans"
+            android:gravity="center_vertical|center_horizontal" android:textStyle="bold"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

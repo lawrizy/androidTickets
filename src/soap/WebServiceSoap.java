@@ -2,13 +2,16 @@ package soap;
 
 import android.util.Log;
 import common.Error;
+import model.UserSessionInfo;
 import org.ksoap2.SoapEnvelope;
+import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.KvmSerializable;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -80,10 +83,10 @@ public class WebServiceSoap implements KvmSerializable {
     }
 
     public static String createTicket(int id_user, int sousCategorie, int id_batiment,String etage,String bureau,String descriptif) {
-      String resultTicket ="";
+      String resultTicket = "OK";
         String NAMESPACE = "urn:AndroidControllerwsdl";
         String METHOD_NAME = "createTicket";
-        String URL ="http://192.168.1.25/W3S-tickets/index.php/android/websys?ws=1";
+        String URL ="http://192.168.1.19/W3S-tickets/index.php/android/websys?ws=1";
         String SOAP_ACTION = "urn:AndroidControllerwsdl#createTicket";
 
         SoapObject MethodCreateTicket = new SoapObject(NAMESPACE, METHOD_NAME);
@@ -128,11 +131,10 @@ public class WebServiceSoap implements KvmSerializable {
             if (result != null) {
                 resultTicket = result.getProperty(0).toString();
             }
-            //TODO test si null
         } catch (Exception ex) {
             //  System.out.println(ex.getMessage());
             ex.printStackTrace();
-          //  resultTicket = Error.SERVEUR_INACESSIBLE.getError(); //erreur server
+            resultTicket = Error.SERVEUR_INACESSIBLE.name(); //erreur server
         }
         return resultTicket;
     }
@@ -217,7 +219,41 @@ public class WebServiceSoap implements KvmSerializable {
             //  resultTicket = Error.SERVEUR_INACESSIBLE.getError(); //erreur server
         }
     }
+
+    public static UserSessionInfo.UserFunction getUserFunction(int userID) {
+        UserSessionInfo.UserFunction result = UserSessionInfo.UserFunction.Unknown;
+        String NAMESPACE = "urn:AndroidControllerwsdl";
+        String METHOD_NAME = "getUserPermissionLevel";
+        String URL = "http://192.168.1.19/W3S-tickets/index.php/android/websys?ws=1";
+        String SOAP_ACTION = "urn:AndroidControllerwsdl#getUserPermissionLevel";
+
+        SoapObject requete = new SoapObject(NAMESPACE, METHOD_NAME);
+        PropertyInfo idUser = new PropertyInfo();
+        idUser.setName("idUser");
+        idUser.setValue(userID);
+        idUser.setType(int.class);
+        requete.addProperty(idUser);
+
+        final SoapSerializationEnvelope packet = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        packet.setOutputSoapObject(requete);
+        packet.dotNet = true;
+
+        final HttpTransportSE androidHttp = new HttpTransportSE(URL);
+
+        try {
+            androidHttp.call(SOAP_ACTION, packet);
+            Object answer = packet.bodyIn;
+            if (answer instanceof SoapObject) {
+                SoapObject finalAnswer = (SoapObject) answer;
+                result = UserSessionInfo.UserFunction.getUserFunctionByFunctionID(Integer.parseInt(finalAnswer.getProperty(0).toString()));
+            } else if(answer instanceof SoapFault)
+            {
+                SoapFault fault = (SoapFault) answer;
+                Log.i("AndroidTickets", "Fatal error: " + fault.getMessage());
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return result;
+    }
 }
-
-
-

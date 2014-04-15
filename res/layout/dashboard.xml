@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/gradient_bg"
@@ -16,41 +16,47 @@
         android:textStyle="italic|bold"
         android:textColor="@color/title_text_color"
         android:id="@+id/textView" android:layout_marginBottom="10dp"/>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:weightSum="1">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/spinnersLayout">
+            <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:id="@+id/graphTypeSpinner" android:layout_marginBottom="10dp"
+                    android:prompt="@string/dashboard_graphTypeSelectionPrompt"/>
+            <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:id="@+id/buildingFilterSpinner" android:layout_marginBottom="10dp"
+                    android:prompt="@string/dashboard_building_filter_prompt"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="275dp" android:id="@+id/graphLayout" android:layout_marginBottom="10dp"
+                android:layout_weight="30">
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" android:id="@+id/buttonsLayout">
+            <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/common_exit"
+                    android:id="@+id/dashboard_exitButton" android:layout_weight="1"/>
+        </LinearLayout>
+    </LinearLayout>
 
     <!-- Layout du graphique à afficher -->
-    <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
-                  android:layout_marginBottom="74dp" android:layout_alignParentBottom="true"
-                  android:id="@+id/graphLayout" android:layout_below="@+id/textView" android:layout_marginTop="70dp">
-    </LinearLayout>
 
     <!-- Layout des boutons -->
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_alignParentLeft="true" android:layout_marginTop="284dp"
-            android:id="@+id/buttons" android:layout_alignTop="@+id/graphLayout">
-    </LinearLayout>
 
     <!-- Layout du spinner de sélection du type de graphique & filtre par building -->
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_alignParentRight="true"
-            android:layout_above="@+id/buttons" android:layout_below="@+id/textView"
-            android:id="@+id/selectionSpinnerLayout" android:layout_marginBottom="10dp">
-        <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:id="@+id/graphTypeSpinner"
-                android:prompt="@string/graphTypeSelectionPrompt" android:layout_weight="1"
-                android:spinnerMode="dialog"/>
-        <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:id="@+id/buildingFilterSpinner" android:layout_weight="1" android:spinnerMode="dialog"
-                android:prompt="@string/dashboard_building_filter_prompt"/>
-    </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
