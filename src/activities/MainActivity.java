@@ -3,7 +3,6 @@ package activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaRouter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -64,6 +63,7 @@ public class MainActivity extends Activity {
                             Log.i("AndroidTickets", "User function is : " + UserSessionInfo.USER_FUNCTION.functionName);
 
                             Intent i = null;
+                            Bundle extras;
                             switch(UserSessionInfo.USER_FUNCTION)
                             {
                                 case Admin:
@@ -72,7 +72,13 @@ public class MainActivity extends Activity {
                                     break;
                                 case Locataire:
                                     i = new Intent(thisContext, CreateTicketActivity.class);
-                                    Bundle extras = new Bundle();
+                                     extras = new Bundle();
+                                    extras.putInt("userid", (int)response);
+                                    i.putExtras(extras);
+                                    break;
+                                default:
+                                    i = new Intent(thisContext, CreateTicketActivity.class);
+                                     extras = new Bundle();
                                     extras.putInt("userid", (int)response);
                                     i.putExtras(extras);
                                     break;

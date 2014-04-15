@@ -11,7 +11,6 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -86,7 +85,7 @@ public class WebServiceSoap implements KvmSerializable {
       String resultTicket = "OK";
         String NAMESPACE = "urn:AndroidControllerwsdl";
         String METHOD_NAME = "createTicket";
-        String URL ="http://192.168.1.19/W3S-tickets/index.php/android/websys?ws=1";
+        String URL ="http://192.168.1.25/W3S-tickets/index.php/android/websys?ws=1";
         String SOAP_ACTION = "urn:AndroidControllerwsdl#createTicket";
 
         SoapObject MethodCreateTicket = new SoapObject(NAMESPACE, METHOD_NAME);
@@ -183,7 +182,7 @@ public class WebServiceSoap implements KvmSerializable {
     {
         String NAMESPACE = "urn:AndroidControllerwsdl";
         String METHOD_NAME = "getBarsDatas";
-        String URL ="http://192.168.1.20/W3S-tickets/index.php/android/websys?ws=1";
+        String URL ="http://192.168.1.25/W3S-tickets/index.php/android/websys?ws=1";
         String SOAP_ACTION = "urn:AndroidControllerwsdl#getBarsDatas";
 
         SoapObject MethodegetBarsDatas= new SoapObject(NAMESPACE, METHOD_NAME);
@@ -224,7 +223,7 @@ public class WebServiceSoap implements KvmSerializable {
         UserSessionInfo.UserFunction result = UserSessionInfo.UserFunction.Unknown;
         String NAMESPACE = "urn:AndroidControllerwsdl";
         String METHOD_NAME = "getUserPermissionLevel";
-        String URL = "http://192.168.1.19/W3S-tickets/index.php/android/websys?ws=1";
+        String URL = "http://192.168.1.25/W3S-tickets/index.php/android/websys?ws=1";
         String SOAP_ACTION = "urn:AndroidControllerwsdl#getUserPermissionLevel";
 
         SoapObject requete = new SoapObject(NAMESPACE, METHOD_NAME);
