@@ -9,7 +9,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Ticket creation summary"
+            android:text="@string/summary_title"
             android:id="@+id/textView"
             android:textColor="@color/title_text_color" android:textStyle="bold|italic" android:textSize="32dp"
             android:layout_alignParentTop="true" android:layout_centerHorizontal="true"/>

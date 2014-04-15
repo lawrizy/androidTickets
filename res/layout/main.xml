@@ -22,7 +22,7 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fields marked with * are required"
+            android:text="@string/fields_marked_message"
             android:id="@+id/FieldMarked"
             android:textColor="#3BA3D0"
             android:layout_below="@+id/FillText" android:layout_alignParentLeft="true" android:textSize="14dp"
@@ -53,7 +53,7 @@
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login"
+            android:text="@string/Login"
             android:id="@+id/button"
             android:textColor="@color/button_text_color"
         android:layout_below="@+id/textView"
@@ -61,7 +61,7 @@
         android:layout_alignRight="@+id/loginPass"
         android:layout_alignLeft="@+id/textView" android:background="@drawable/rounded_corners"
         android:layout_marginBottom="10dp"/>
-    <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Exit"
+    <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/Exit"
             android:id="@+id/button2" android:textColor="@color/button_text_color"
         android:layout_below="@+id/button"
         android:layout_alignLeft="@+id/button"
@@ -70,7 +70,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Copyright Ticket System © v0.2.0 2014 by Web3Sys.\nAll Rights Reserved."
+        android:text="@string/footer_copyright"
         android:id="@+id/textView2"
         android:textColor="@color/footer_text_color" android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/button2" android:layout_alignLeft="@+id/button"

@@ -1,5 +1,47 @@
-<resources>
+<?xml version="1.0" encoding="utf-8"?>
+    <resources>
+        <!-- Général -->
+        <string name="app_name">W3S-Tickets</string>
+        <string name="footer_copyright">Copyright Ticket System © v0.2.0 2014 par Web3Sys.\nTous Droits Reservés.</string>
+        <string name="fields_marked_message">Les champs marqués d\'un * sont requis</string>
 
-    <string name="CategorieDropdownlist">Sélectionnez une catégorie</string>
+        <!-- Vue connexion -->
+        <string name="TitleLogin">Connexion</string>
+        <string name="errorInvalidCredentialsMessage">Mauvais email et/ou mot de passe, veuillez re-essayer</string>
+        <string name="Login_please_fill_message">Veuillez remplir les champs avec vos identifiants de connexion</string>
+        <string name="Login">Se connecter</string>
+        <string name="Exit">Quitter</string>
 
-</resources>
+        <!-- Vue création de ticket -->
+        <string name="errorCategoryRequired">Veuillez choisir une catégorie</string>
+        <string name="errorSubCategoryRequired">Veuillez choisir une sous-catégorie</string>
+        <string name="errorBuildingRequired">Veuillez choisir un bâtiment</string>
+        <string name="CategorieDropdownlist">Sélectionnez une catégorie</string>
+        <string name="create_ticket_title">Créer un nouveau ticket</string>
+        <string name="select_category_text">Selectionnez une catégorie *</string>
+        <string name="selectSubCategoryMsg">Selectionnez une sous-catégorie *</string>
+        <string name="selectBuildingMsg">Selectionnez un bâtiment *</string>
+        <string name="inputEtage">Numéro d\'étage</string>
+        <string name="inputOfficeNumber">Bureau</string>
+        <string name="inputDescription">Description</string>
+        <string name="resetTicketView_label">Ré-initialiser les champs</string>
+        <string name="createTicket_label">Créer le ticket</string>
+
+        <!-- Vue résumé ticket -->
+        <string name="summary_title">Résumé du ticket</string>
+        <string name="summary_ticket_number">Numéro de ticket</string>
+        <string name="summary_user_name">Identifiant</string>
+        <string name="summary_category_name">Catégorie</string>
+        <string name="summary_subCategory_name">Sous-Catégorie</string>
+        <string name="summary_building_name">Nom du bâtiment</string>
+        <string name="summary_assigned_to">Assigné à </string>
+        <string name="summary_way_of_creation">Créé via</string>
+        <string name="summary_a_mail_has_been_sent">Un mail a été envoyé à l\'adresse suivante</string>
+        <string name="summary_finish_creation">Confirmer et terminer</string>
+        <string name="summary_button_exit">Quitter</string>
+
+        <!-- Vue Tableau de Bord -->
+        <string name="dashboard_title">Tableau de Bord</string>
+        <string name="graphTypeSelectionPrompt">Veuillez choisir un type de graphique</string>
+        <string name="dashboard_building_filter_prompt">Veuillez choisir un bâtiment</string>
+    </resources>

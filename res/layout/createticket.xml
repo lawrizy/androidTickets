@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create a new ticket"
+        android:text="@string/create_ticket_title"
         android:id="@+id/textView"
         android:textSize="40px"
         android:password="false"
@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fields with * are required."
+        android:text="@string/fields_marked_message"
         android:id="@+id/textView2"
         android:textColor="@color/normal_text_color"
         android:layout_below="@+id/textView" android:layout_alignParentLeft="true" android:layout_marginBottom="20dp"/>
@@ -48,7 +48,7 @@
                           android:layout_gravity="center" android:layout_weight="0.5"/>
                 <Spinner android:layout_width="fill_parent" android:layout_height="43dp"
                          android:id="@+id/subCategorySpinner" android:layout_gravity="center" android:spinnerMode="dialog"
-                         android:prompt="@string/select_category_text" android:layout_weight=".75"/>
+                         android:prompt="@string/selectSubCategoryMsg" android:layout_weight=".75"/>
             </LinearLayout>
             <LinearLayout android:orientation="horizontal" android:layout_width="match_parent"
                           android:layout_height="wrap_content" android:id="@+id/linearLayout2"
