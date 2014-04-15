@@ -13,8 +13,15 @@ import java.util.concurrent.*;
  * Created by User on 8/04/2014.
  */
 public class BatimentDAO {
-    List<Batiment> batimentList=new ArrayList<>();
+    private static final int DB_VERSION = 1;
+    private static final String TABLE_BATIMENT = "w3sys_batiment";
+    private static final String COL_BATIMENT_ID = "id_batiment";
+    private static final String COL_BATIMENT_NOM = "nom";
+    List<Batiment> listBatiment = new ArrayList<>();
+
     private SQLiteDatabase db;
+
+
 
     public BatimentDAO(Context context) {
         db = GetDB.getInstance(context).getWritableDatabase();
@@ -25,48 +32,40 @@ public class BatimentDAO {
 
         while (c.moveToNext()) {
             Batiment batiment = new Batiment(c.getInt(0), c.getString(1));
-            batimentList.add(batiment);
+            listBatiment.add(batiment);
         }
 
-        return batimentList;
+        return listBatiment;
 
     }
 
-    public List<Batiment>getListBatiment(int id_user)
-    {
-         List<String> maList =new ArrayList<>();
+    public List<Batiment> getListBatiment(int id_user) {
+        List<String> maList = new ArrayList<>();
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Callable<List<String>> callable = new Callable<List<String>>() {
             @Override
             public List<String> call() {
-                return  soap.WebServiceSoap.listIdBuilding(17);
+                return soap.WebServiceSoap.listIdBuilding(17);
             }
         };
         Future<List<String>> future = executor.submit(callable);
-        // future.get() returns 2
+
         executor.shutdown();
 
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//              maList[0] =  soap.WebServiceSoap.listIdBuilding(18);
-//            }
-//        }).start();
         try {
-            maList=future.get();
+            maList = future.get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        String inBatiment="";
-        for(String str: maList)
-        {
-                inBatiment+="'"+str+"',";
+        String inBatiment = "";
+        for (String str : maList) {
+            inBatiment += "'" + str + "',";
         }
-      inBatiment=  inBatiment.substring(0,inBatiment.length()-1);
+        inBatiment = inBatiment.substring(0, inBatiment.length() - 1);
 
-        Cursor c = db.query("w3sys_batiment", new String[]{"id_batiment", "nom"}," id_batiment in ("+inBatiment+")",null,null,null,null);
+        Cursor c = db.query("w3sys_batiment", new String[]{"id_batiment", "nom"}, " id_batiment in (" + inBatiment + ")", null, null, null, null);
         return CursorToBatimentList(c);
     }
 

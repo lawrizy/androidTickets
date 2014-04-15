@@ -37,21 +37,21 @@ public class CreateTicketActivity extends Activity {
         t.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
         id_user = getIntent().getExtras().getInt("userid");
         List<CategorieIncident> listCats;
-        Activity thiss = this;
         Spinner category = (Spinner) findViewById(R.id.categorySpinner);
         dao.CategorieIncidentDAO categorieIncidentDAO = new CategorieIncidentDAO(this);
         listCats = categorieIncidentDAO.getListCategorie();
 
 
-        ArrayAdapter<CategorieIncident> stringArrayAdapter = new ArrayAdapter<>(thiss, android.R.layout.simple_spinner_dropdown_item, listCats);
+
+        ArrayAdapter<CategorieIncident> stringArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, listCats);
         stringArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         category.setAdapter(stringArrayAdapter);
         List<Batiment> batimentList;
         Spinner batiment = (Spinner) findViewById(R.id.buildingSpinner);
         dao.BatimentDAO batimentDAO = new BatimentDAO(this);
         batimentList = batimentDAO.getListBatiment(id_user);
-        ArrayAdapter<Batiment> batimentArrayAdapter = new ArrayAdapter<>(thiss, android.R.layout.simple_spinner_dropdown_item, batimentList);
-        batimentArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<Batiment> batimentArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, batimentList);
+         batimentArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         batiment.setAdapter(batimentArrayAdapter);
 
         setupListeners();
