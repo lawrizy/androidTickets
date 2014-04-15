@@ -3,8 +3,6 @@
     <string name="app_name">W3S-Tickets</string>
     <string name="TitleLogin">Login</string>
     <string name="CategorieDropdownlist">Select a category</string>
-
-
     <string name="Login_please_fill_message">Please fill out the following form with your login credentials:</string>
     <string name="footer_copyright">Copyright Ticket System © v0.2.0 2014 by Web3Sys.\nAll Rights Reserved.</string>
     <string name="fields_marked_message">Fields marked with a * are required</string>
@@ -26,7 +24,7 @@
     <string name="errorCategoryRequired">Please select a category</string>
     <string name="errorSubCategoryRequired">Please select a sub-category</string>
     <string name="errorBuildingRequired">Please select a building</string>
-    <string name="graphTypeSelectionPrompt">Please select a type of graph :</string>
+    <string name="dashboard_graphTypeSelectionPrompt">Please select a type of graph :</string>
     <string name="dashboard_building_filter_prompt">Please select a building</string>
     <string name="summary_ticket_number">Ticket\'s number</string>
     <string name="summary_user_name">User name</string>
@@ -42,10 +40,5 @@
     <string name="dashboard_graphType_ticketsForCategory"># tickets by category</string>
     <string name="dashboard_graphType_ticketsForStatus"># tickets by status</string>
     <string name="dashboard_graphType_TicketsByCompanies"># tickets by company</string>
-
-    <string-array name="dashboard_graph_type_name">
-        <item>Tickets by category</item>
-        <item>Tickets by status</item>
-        <item>Tickets by entreprise</item>
-    </string-array>
+    <string name="common_cancel">Cancel</string>
 </resources>

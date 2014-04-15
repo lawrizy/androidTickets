@@ -1,10 +1,12 @@
 package activities;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import com.web3sys.W3S_Tickets.R;
 import dao.BatimentDAO;
@@ -12,6 +14,7 @@ import model.Batiment;
 import model.UserSessionInfo;
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
+import org.achartengine.chart.BarChart;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.SimpleSeriesRenderer;
@@ -24,14 +27,22 @@ import java.util.List;
  * Created by User on 5/04/14.
  */
 public class Dashboard extends Activity {
+    private GraphicalView mChartView;
+    private XYMultipleSeriesDataset dataset;
+    private XYMultipleSeriesRenderer renderer;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
 
-        redrawGraph();
-
         setupListeners();
         setupSpinners();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        redrawGraph();
     }
 
     private void setupListeners() {
@@ -50,13 +61,24 @@ public class Dashboard extends Activity {
 
     private void redrawGraph() {
         //todo
-        XYMultipleSeriesDataset ds = new XYMultipleSeriesDataset();
-        XYMultipleSeriesRenderer dsr = new XYMultipleSeriesRenderer();
+        fillDataSet();
 
-        ds.addSeries(0, new XYSeries("Test", 100));
-        dsr.addSeriesRenderer(0, new SimpleSeriesRenderer());
-        GraphicalView mChartView = ChartFactory.getLineChartView(this.getApplicationContext(), ds, dsr);
+        if(mChartView == null)
+        {
+            LinearLayout graphLayout = (LinearLayout)findViewById(R.id.graphLayout);
+            mChartView = ChartFactory.getBarChartView(this, dataset, renderer, BarChart.Type.DEFAULT);
+            graphLayout.addView(mChartView);
+        }
         mChartView.repaint();
+    }
+
+    private void fillDataSet() {
+        //todo remplir le dataset et son renderer en fonction du type de graphique sélectionné
+        dataset = new XYMultipleSeriesDataset();
+        renderer = new XYMultipleSeriesRenderer();
+
+        dataset.addSeries(new XYSeries("Test"));
+
     }
 
     private void setupSpinners() {

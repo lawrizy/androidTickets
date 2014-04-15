@@ -19,24 +19,27 @@
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content" android:weightSum="1">
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/spinnersLayout">
             <Spinner
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/graphTypeSpinner" android:layout_marginBottom="10dp"/>
+                    android:layout_height="30dp"
+                    android:id="@+id/graphTypeSpinner" android:layout_marginBottom="10dp"
+                    android:prompt="@string/dashboard_graphTypeSelectionPrompt"/>
             <Spinner
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/buildingFilterSpinner" android:layout_marginBottom="10dp"/>
+                    android:layout_height="30dp"
+                    android:id="@+id/buildingFilterSpinner" android:layout_marginBottom="10dp"
+                    android:prompt="@string/dashboard_building_filter_prompt"/>
         </LinearLayout>
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent" android:id="@+id/graphLayout" android:layout_marginBottom="10dp">
+                android:layout_height="275dp" android:id="@+id/graphLayout" android:layout_marginBottom="10dp"
+                android:layout_weight="30">
         </LinearLayout>
         <LinearLayout
                 android:orientation="vertical"
