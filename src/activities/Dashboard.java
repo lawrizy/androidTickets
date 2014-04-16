@@ -143,9 +143,9 @@ public class Dashboard extends Activity {
             final int nr = listCats.size();
 
             for (int i = 0; i < SERIES_NR; ++i) {
-                CategorySeries series = new CategorySeries("");
+                CategorySeries series = new CategorySeries("Nb tickets");
                 for(int j = 0 ; j < nr ; ++j)
-                    series.add(listCats.get(i).getNbTicket());
+                    series.add(listCats.get(j).getNbTicket());
                 dataset.addSeries(series.toXYSeries());
             }
         }
@@ -175,15 +175,23 @@ public class Dashboard extends Activity {
         renderer.setXAxisMin(-1);
         renderer.setXAxisMax(7);
         renderer.setYAxisMin(0);
-        renderer.setYAxisMax(500);
+        int maxY = 0;
+        for(CategorieIncident ci : listCats)
+        {
+            if(ci.getNbTicket() > maxY)
+                maxY = ci.getNbTicket();
+        }
+        renderer.setYAxisMax(maxY+5);
         renderer.setYLabelsAlign(Paint.Align.RIGHT);
         renderer.setBarSpacing(1);
         renderer.setBarWidth(20);
         renderer.setXTitle("Category");
         renderer.setYTitle("Nb Tickets");
+        renderer.setShowLabels(true);
+        renderer.setShowLegend(false);
 
         for(int i = 0 ; i < listCats.size() ; ++i)
-            renderer.addXTextLabel(i, listCats.get(i).getLabel());
+            renderer.addXTextLabel(i+1, listCats.get(i).getLabel() + " (" + listCats.get(i).getNbTicket() + ")");
 
         renderer.setShowGrid(true);
         renderer.setGridColor(Color.GRAY);
@@ -245,6 +253,7 @@ public class Dashboard extends Activity {
         renderer.addXTextLabel(3, "2012");
         renderer.addXTextLabel(4, "2013");
         renderer.setYLabelsAlign(Paint.Align.RIGHT);
+        renderer.setXLabelsAngle(90f);
         renderer.setBarSpacing(0.5);
         renderer.setXTitle("Years");
         renderer.setYTitle("Performance");
