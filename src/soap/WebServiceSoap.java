@@ -228,19 +228,19 @@ public class WebServiceSoap implements KvmSerializable {
         String URL = "http://192.168.1.20/W3S-tickets/index.php/android/websys?ws=1";
         String SOAP_ACTION = "urn:AndroidControllerwsdl#getPieDatas";
 
-        SoapObject MethodegetBarsDatas = new SoapObject(NAMESPACE, METHOD_NAME);
+        SoapObject MethodegetPieDatas = new SoapObject(NAMESPACE, METHOD_NAME);
         PropertyInfo id_batimentPropriety = new PropertyInfo();
         id_batimentPropriety.setName("idBatiment");
         id_batimentPropriety.setValue(id_batiment);
         id_batimentPropriety.setType(int.class);
-        MethodegetBarsDatas.addProperty(id_batimentPropriety);
+        MethodegetPieDatas.addProperty(id_batimentPropriety);
         PropertyInfo langueProperty = new PropertyInfo();
         langueProperty.setName("langue");
         langueProperty.setValue(langue.getID());
         langueProperty.setType(int.class);
-        MethodegetBarsDatas.addProperty(langueProperty);
+        MethodegetPieDatas.addProperty(langueProperty);
         final SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-        envelope.setOutputSoapObject(MethodegetBarsDatas);
+        envelope.setOutputSoapObject(MethodegetPieDatas);
         envelope.dotNet = true;
         final HttpTransportSE androidHttp = new HttpTransportSE(URL);
         try {
