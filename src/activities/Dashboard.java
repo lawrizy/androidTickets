@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -46,6 +47,8 @@ public class Dashboard extends Activity {
     private DrawMode mode = DrawMode.TICKETS_FOR_CATEGORIES;
     private int batimentFilter = 0; // All buildings
 
+    private List<CategorieIncident> listCats;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
@@ -53,7 +56,7 @@ public class Dashboard extends Activity {
         setupListeners();
         setupSpinners();
         redrawGraph();
-       setupTestGraph();
+        //setupTestGraph();
     }
 
     private void setupListeners() {
@@ -102,6 +105,9 @@ public class Dashboard extends Activity {
         fillDataSet();
         buildRenderer();
         makeConfig();
+        mChartView = ChartFactory.getBarChartView(this, dataset, renderer, BarChart.Type.DEFAULT);
+        LinearLayout graphLayout = (LinearLayout)findViewById(R.id.graphLayout);
+        graphLayout.addView(mChartView);
         mChartView.repaint();
     }
 
@@ -113,7 +119,6 @@ public class Dashboard extends Activity {
             String langue = getResources().getConfiguration().locale.getLanguage();
             final Langue langues = (langue.equals("en") ? Langue.EN : (langue.equals("fr") ? Langue.FR : Langue.NL));
            // WebServiceSoap.getBarsDatas( ((Batiment)buildingSpinner.getSelectedItem()).getId_batiment(), langues);
-            ArrayList<CategorieIncident> legendTitles = new ArrayList<>(); // Sanitaire, ...
 
             ExecutorService executor = Executors.newSingleThreadExecutor();
             Callable<List<CategorieIncident>> callable = new Callable<List<CategorieIncident>>() {
@@ -126,24 +131,21 @@ public class Dashboard extends Activity {
             executor.shutdown();
 
             try {
-                legendTitles = (ArrayList<CategorieIncident>) future.get();
+                listCats = (ArrayList<CategorieIncident>) future.get();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-            XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-            final int nr = 0;
+            dataset = new XYMultipleSeriesDataset();
+
             final int SERIES_NR = 1;
-          //  ArrayList<CategorieIncident> legendTitles = new ArrayList<String>(); // Sanitaire, ...
+            final int nr = listCats.size();
 
-           // legendTitles.add("Sanitaire");
-
-            for (int i = 0; i < SERIES_NR; i++) {
-                CategorySeries series = new CategorySeries(legendTitles.get(i).getLabel());
-                for (int k = 0; k < nr; k++) {
-                    //series.add(100 + r.nextInt() % 100);
-                }
+            for (int i = 0; i < SERIES_NR; ++i) {
+                CategorySeries series = new CategorySeries("");
+                for(int j = 0 ; j < nr ; ++j)
+                    series.add(listCats.get(i).getNbTicket());
                 dataset.addSeries(series.toXYSeries());
             }
         }
@@ -154,39 +156,41 @@ public class Dashboard extends Activity {
     }
 
     private void buildRenderer() {
-        XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
+        renderer = new XYMultipleSeriesRenderer();
         renderer.setAxisTitleTextSize(16);
         renderer.setChartTitleTextSize(20);
         renderer.setLabelsTextSize(15);
         renderer.setLegendTextSize(15);
         renderer.setMargins(new int[] { 30, 40, 15, 0 });
-        SimpleSeriesRenderer r = new SimpleSeriesRenderer();
-        r.setColor(Color.BLUE);
-        renderer.addSeriesRenderer(r);
-        r = new SimpleSeriesRenderer();
-        r.setColor(Color.RED);
-        renderer.addSeriesRenderer(r);
+
+        SimpleSeriesRenderer r;
+//        for(int i = 0 ; i < listCats.size(); ++i) {
+            r = new SimpleSeriesRenderer();
+            renderer.addSeriesRenderer(r);
+//        }
     }
 
     private void makeConfig() {
-        renderer.setChartTitle("Truiton's Performance by AChartEngine BarChart");
-        renderer.setXAxisMin(0.5);
-        renderer.setXAxisMax(10.5);
+        renderer.setChartTitle("Tickets for category");
+        renderer.setXAxisMin(-1);
+        renderer.setXAxisMax(7);
         renderer.setYAxisMin(0);
-        renderer.setYAxisMax(210);
-        renderer.addXTextLabel(1, "2010");
-        renderer.addXTextLabel(2, "2011");
-        renderer.addXTextLabel(3, "2012");
-        renderer.addXTextLabel(4, "2013");
+        renderer.setYAxisMax(500);
         renderer.setYLabelsAlign(Paint.Align.RIGHT);
-        renderer.setBarSpacing(0.5);
-        renderer.setXTitle("Years");
-        renderer.setYTitle("Performance");
+        renderer.setBarSpacing(1);
+        renderer.setBarWidth(20);
+        renderer.setXTitle("Category");
+        renderer.setYTitle("Nb Tickets");
+
+        for(int i = 0 ; i < listCats.size() ; ++i)
+            renderer.addXTextLabel(i, listCats.get(i).getLabel());
+
         renderer.setShowGrid(true);
         renderer.setGridColor(Color.GRAY);
         renderer.setXLabels(0); // sets the number of integer labels to appear
     }
 
+    /******************************** TEST CHART *********************************/
     private void setupTestGraph() {
         XYMultipleSeriesRenderer renderer = getTestBarRenderer();
         testChartSettings(renderer);
