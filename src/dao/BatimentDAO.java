@@ -30,7 +30,6 @@ public class BatimentDAO {
 
     public List<Batiment> CursorToBatimentList(Cursor c) {
         if (c.getCount() == 0) return null;
-        listBatiment.add(new Batiment(0,"ALL"));
         while (c.moveToNext()) {
             Batiment batiment = new Batiment(c.getInt(0), c.getString(1));
             listBatiment.add(batiment);
@@ -43,7 +42,12 @@ public class BatimentDAO {
 
     public List<Batiment> getListBatiment(final int id_user) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        Callable<List<String>> callable = () -> soap.WebServiceSoap.listIdBuilding(id_user);
+        Callable<List<String>> callable = new Callable<List<String>>() {
+            @Override
+            public List<String> call() throws Exception {
+                return soap.WebServiceSoap.listIdBuilding(id_user);
+            }
+        };
         Future<List<String>> future = executor.submit(callable);
         executor.shutdown();
 
@@ -64,10 +68,10 @@ public class BatimentDAO {
         return CursorToBatimentList(c);
     }
 
-public List<Batiment> getAllBuildings()
-{
-    Cursor c = db.query("w3sys_batiment", new String[]{"id_batiment", "nom"}, null, null, null, null, null);
-    return CursorToBatimentList(c);
-}
+    public List<Batiment> getAllBuildings() {
+        listBatiment.add(new Batiment(0, "ALL"));
+        Cursor c = db.query("w3sys_batiment", new String[]{"id_batiment", "nom"}, null, null, null, null, null);
+        return CursorToBatimentList(c);
+    }
 
 }

@@ -3,6 +3,7 @@ package soap;
 import android.util.Log;
 import common.Error;
 import enums.Langue;
+import model.CategorieIncident;
 import model.UserSessionInfo;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.SoapFault;
@@ -15,6 +16,7 @@ import org.ksoap2.transport.HttpTransportSE;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * Created by User on 1/04/2014.
@@ -25,7 +27,7 @@ public class WebServiceSoap implements KvmSerializable {
 
     public static String NAMESPACE = "urn:AndroidControllerwsdl";
     public static String METHOD_NAME = "testLogin";
-    public static String URL = "http://192.168.1.19/W3S-tickets/index.php/android/websys?ws=1";
+    public static String URL = "http://192.168.1.25/W3S-tickets/index.php/android/websys?ws=1";
     public static String SOAP_ACTION = "urn:AndroidControllerwsdl#testLogin";
 
     @Override
@@ -82,11 +84,11 @@ public class WebServiceSoap implements KvmSerializable {
         return statement;
     }
 
-    public static String createTicket(int id_user, int sousCategorie, int id_batiment,String etage,String bureau,String descriptif) {
-      String resultTicket = "OK";
+    public static String createTicket(int id_user, int sousCategorie, int id_batiment, String etage, String bureau, String descriptif) {
+        String resultTicket = "OK";
         String NAMESPACE = "urn:AndroidControllerwsdl";
         String METHOD_NAME = "createTicket";
-        String URL ="http://192.168.1.25/W3S-tickets/index.php/android/websys?ws=1";
+        String URL = "http://192.168.1.25/W3S-tickets/index.php/android/websys?ws=1";
         String SOAP_ACTION = "urn:AndroidControllerwsdl#createTicket";
 
         SoapObject MethodCreateTicket = new SoapObject(NAMESPACE, METHOD_NAME);
@@ -138,12 +140,12 @@ public class WebServiceSoap implements KvmSerializable {
         }
         return resultTicket;
     }
-    public static List<String> listIdBuilding(int id_user)
-    {
-        List<String>maList = new ArrayList<>();
+
+    public static List<String> listIdBuilding(int id_user) {
+        List<String> maList = new ArrayList<>();
         String NAMESPACE = "urn:AndroidControllerwsdl";
         String METHOD_NAME = "getMyBuilding";
-        String URL ="http://192.168.1.25/W3S-tickets/index.php/android/websys?ws=1";
+        String URL = "http://192.168.1.25/W3S-tickets/index.php/android/websys?ws=1";
         String SOAP_ACTION = "urn:AndroidControllerwsdl#getMyBuilding";
 
         SoapObject MethodeGetMyBuilding = new SoapObject(NAMESPACE, METHOD_NAME);
@@ -159,14 +161,13 @@ public class WebServiceSoap implements KvmSerializable {
         try {
             androidHttp.call(SOAP_ACTION, envelope);
             SoapObject result = (SoapObject) envelope.bodyIn;
-            SoapObject result1=(SoapObject)result.getProperty(0);
-            SoapObject result2=(SoapObject)result.getProperty(0);
+            SoapObject result1 = (SoapObject) result.getProperty(0);
+            SoapObject result2 = (SoapObject) result.getProperty(0);
             if (result != null) {
-                    for(int c=0;c<result1.getPropertyCount();c++)
-                    {
-                        String id=result1.getPropertyAsString(c);
-                            maList.add( id);
-                    }
+                for (int c = 0; c < result1.getPropertyCount(); c++) {
+                    String id = result1.getPropertyAsString(c);
+                    maList.add(id);
+                }
             }
             //TODO test si null
         } catch (Exception ex) {
@@ -179,14 +180,14 @@ public class WebServiceSoap implements KvmSerializable {
         return maList;
     }
 
-    public static void getBarsDatas(int id_batiment, Langue langue)
-    {
+    public static List<CategorieIncident> getBarsDatas(int id_batiment, Langue langue) {
+        List<CategorieIncident> CategorieDash = new ArrayList<>();
         String NAMESPACE = "urn:AndroidControllerwsdl";
         String METHOD_NAME = "getBarsDatas";
-        String URL ="http://192.168.1.25/W3S-tickets/index.php/android/websys?ws=1";
+        String URL = "http://192.168.1.20/W3S-tickets/index.php/android/websys?ws=1";
         String SOAP_ACTION = "urn:AndroidControllerwsdl#getBarsDatas";
 
-        SoapObject MethodegetBarsDatas= new SoapObject(NAMESPACE, METHOD_NAME);
+        SoapObject MethodegetBarsDatas = new SoapObject(NAMESPACE, METHOD_NAME);
         PropertyInfo id_batimentPropriety = new PropertyInfo();
         id_batimentPropriety.setName("idBatiment");
         id_batimentPropriety.setValue(id_batiment);
@@ -204,12 +205,13 @@ public class WebServiceSoap implements KvmSerializable {
         try {
             androidHttp.call(SOAP_ACTION, envelope);
             SoapObject result = (SoapObject) envelope.bodyIn;
-            SoapObject result1=(SoapObject)result.getProperty(0);
-            SoapObject result2=(SoapObject)result.getProperty(0);
+            SoapObject result1 = (SoapObject) result.getProperty(0);
+            Vector<Object> result2;
+
             if (result != null) {
-                for(int c=0;c<result1.getPropertyCount();c++)
-                {
-                 //
+                for (int c = 0; c < result1.getPropertyCount(); c++) {
+                    result2 = (Vector) result1.getProperty(c);
+                    CategorieDash.add(new CategorieIncident(result2.get(0).toString(), Integer.parseInt(result2.get(1).toString())));
                 }
             }
             //TODO test si null
@@ -218,6 +220,7 @@ public class WebServiceSoap implements KvmSerializable {
             ex.printStackTrace();
             //  resultTicket = Error.SERVEUR_INACESSIBLE.getError(); //erreur server
         }
+        return CategorieDash;
     }
 
     public static UserSessionInfo.UserFunction getUserFunction(int userID) {
@@ -246,8 +249,7 @@ public class WebServiceSoap implements KvmSerializable {
             if (answer instanceof SoapObject) {
                 SoapObject finalAnswer = (SoapObject) answer;
                 result = UserSessionInfo.UserFunction.getUserFunctionByFunctionID(Integer.parseInt(finalAnswer.getProperty(0).toString()));
-            } else if(answer instanceof SoapFault)
-            {
+            } else if (answer instanceof SoapFault) {
                 SoapFault fault = (SoapFault) answer;
                 Log.i("AndroidTickets", "Fatal error: " + fault.getMessage());
             }

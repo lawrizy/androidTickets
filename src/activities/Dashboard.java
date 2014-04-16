@@ -12,7 +12,10 @@ import android.widget.Spinner;
 import com.web3sys.W3S_Tickets.R;
 import dao.BatimentDAO;
 import enums.Langue;
-import model.*;
+import model.Batiment;
+import model.CategorieIncident;
+import model.GraphType;
+import model.GraphTypeSpinnerAdapter;
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.BarChart;
@@ -20,11 +23,11 @@ import org.achartengine.model.CategorySeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
-import soap.WebServiceSoap;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.*;
 
 /**
  * Created by User on 5/04/14.
@@ -50,7 +53,7 @@ public class Dashboard extends Activity {
         setupListeners();
         setupSpinners();
         redrawGraph();
-        //setupTestGraph();
+       setupTestGraph();
     }
 
     private void setupListeners() {
@@ -106,19 +109,38 @@ public class Dashboard extends Activity {
         //todo remplir le dataset et son renderer en fonction du type de graphique sélectionné
         if(mode == DrawMode.TICKETS_FOR_CATEGORIES)
         {
-            Spinner buildingSpinner = (Spinner) findViewById(R.id.buildingFilterSpinner);
+            final Spinner buildingSpinner = (Spinner) findViewById(R.id.buildingFilterSpinner);
             String langue = getResources().getConfiguration().locale.getLanguage();
-            Langue leNomDeSkeTuVeuxRenvoyer = (langue.equals("en") ? Langue.EN : (langue.equals("fr") ? Langue.FR : Langue.NL));
-            WebServiceSoap.getBarsDatas( ((Batiment)buildingSpinner.getSelectedItem()).getId_batiment(), leNomDeSkeTuVeuxRenvoyer);
+            final Langue langues = (langue.equals("en") ? Langue.EN : (langue.equals("fr") ? Langue.FR : Langue.NL));
+           // WebServiceSoap.getBarsDatas( ((Batiment)buildingSpinner.getSelectedItem()).getId_batiment(), langues);
+            ArrayList<CategorieIncident> legendTitles = new ArrayList<>(); // Sanitaire, ...
+
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            Callable<List<CategorieIncident>> callable = new Callable<List<CategorieIncident>>() {
+                @Override
+                public List<CategorieIncident> call() throws Exception {
+                    return soap.WebServiceSoap.getBarsDatas(((Batiment) buildingSpinner.getSelectedItem()).getId_batiment(), langues);
+                }
+            };
+            Future<List<CategorieIncident>> future = executor.submit(callable);
+            executor.shutdown();
+
+            try {
+                legendTitles = (ArrayList<CategorieIncident>) future.get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
             XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
             final int nr = 0;
             final int SERIES_NR = 1;
-            ArrayList<String> legendTitles = new ArrayList<String>(); // Sanitaire, ...
+          //  ArrayList<CategorieIncident> legendTitles = new ArrayList<String>(); // Sanitaire, ...
 
-            legendTitles.add("Sanitaire");
+           // legendTitles.add("Sanitaire");
 
             for (int i = 0; i < SERIES_NR; i++) {
-                CategorySeries series = new CategorySeries(legendTitles.get(i));
+                CategorySeries series = new CategorySeries(legendTitles.get(i).getLabel());
                 for (int k = 0; k < nr; k++) {
                     //series.add(100 + r.nextInt() % 100);
                 }

@@ -8,6 +8,20 @@ public class CategorieIncident {
     private String EN;
     private String NL;
 
+    public CategorieIncident(String label, int nbTicket) {
+        this.label = label;
+        this.nbTicket = nbTicket;
+    }
+
+    public int getNbTicket() {
+        return nbTicket;
+    }
+
+    public void setNbTicket(int nbTicket) {
+        this.nbTicket = nbTicket;
+    }
+
+    private int nbTicket;
     private int id_categorie_incident;
     private String label;
 
