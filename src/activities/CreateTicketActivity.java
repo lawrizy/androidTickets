@@ -112,9 +112,11 @@ public class CreateTicketActivity extends Activity {
                 EditText officeTextField = (EditText) findViewById(R.id.officeInput);
                 EditText descriptionMultilineTextField = (EditText) findViewById(R.id.descriptionInput);
                 Spinner spinnerBat = (Spinner) findViewById(R.id.buildingSpinner);
+
                 batimentID = ((Batiment) spinnerBat.getSelectedItem()).getId_batiment();
                 Spinner spinnerSousCat = (Spinner) findViewById(R.id.subCategorySpinner);
                 sousCategorieID = ((CategorieIncident) spinnerSousCat.getSelectedItem()).getId_categorie_incident();
+
                 String result = soap.WebServiceSoap.createTicket(UserSessionInfo.USER_ID, sousCategorieID, batimentID, floorTextField.getText().toString(), officeTextField.getText().toString(), descriptionMultilineTextField.getText().toString());
 
                 Intent i = new Intent(thisContext, TicketSummary.class);
@@ -122,6 +124,7 @@ public class CreateTicketActivity extends Activity {
                 extras.putString("category", spinnerCategorie.getSelectedItem().toString());
                 extras.putString("subCategory", spinnerSubcategory.getSelectedItem().toString());
                 extras.putString("building", spinnerBatiment.getSelectedItem().toString());
+                extras.putString("description", descriptionMultilineTextField.getText().toString());
                 extras.putString("ticketNumber", result);
                 i.putExtras(extras);
                 startActivity(i);

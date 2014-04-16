@@ -18,6 +18,7 @@ public class TicketSummary extends Activity {
     private String subCategorie;
     private String building;
     private String ticketNumber;
+    private String description;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +29,7 @@ public class TicketSummary extends Activity {
         subCategorie = getIntent().getExtras().getString("subCategory");
         building = getIntent().getExtras().getString("building");
         ticketNumber = getIntent().getExtras().getString("ticketNumber");
+        description = getIntent().getExtras().getString("description");
 
         setupListeners();
         setupLayout();
@@ -44,11 +46,13 @@ public class TicketSummary extends Activity {
         TextView subCategoryText = (TextView)findViewById(R.id.summary_subCategory);
         TextView buildingText = (TextView)findViewById(R.id.summary_buildingName);
         TextView ticketNumberText = (TextView)findViewById(R.id.summary_numTicket);
+        TextView descriptionText = (TextView) findViewById(R.id.summary_description);
 
         categoryText.setText(categorie);
         subCategoryText.setText(subCategorie);
         buildingText.setText(building);
         ticketNumberText.setText(ticketNumber);
+        descriptionText.setText(description);
     }
 
     private void setupListeners() {
