@@ -16,7 +16,6 @@ import org.ksoap2.transport.HttpTransportSE;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.Vector;
 
 /**
  * Created by User on 1/04/2014.
@@ -186,6 +185,48 @@ public class WebServiceSoap implements KvmSerializable {
         String METHOD_NAME = "getBarsDatas";
         String URL = "http://192.168.1.20/W3S-tickets/index.php/android/websys?ws=1";
         String SOAP_ACTION = "urn:AndroidControllerwsdl#getBarsDatas";
+
+        SoapObject MethodegetBarsDatas = new SoapObject(NAMESPACE, METHOD_NAME);
+        PropertyInfo id_batimentPropriety = new PropertyInfo();
+        id_batimentPropriety.setName("idBatiment");
+        id_batimentPropriety.setValue(id_batiment);
+        id_batimentPropriety.setType(int.class);
+        MethodegetBarsDatas.addProperty(id_batimentPropriety);
+        PropertyInfo langueProperty = new PropertyInfo();
+        langueProperty.setName("langue");
+        langueProperty.setValue(langue.getID());
+        langueProperty.setType(int.class);
+        MethodegetBarsDatas.addProperty(langueProperty);
+        final SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(MethodegetBarsDatas);
+        envelope.dotNet = true;
+        final HttpTransportSE androidHttp = new HttpTransportSE(URL);
+        try {
+            androidHttp.call(SOAP_ACTION, envelope);
+            SoapObject result = (SoapObject) envelope.bodyIn;
+            SoapObject result1 = (SoapObject) result.getProperty(0);
+            SoapObject result2;
+
+            if (result != null) {
+                for (int c = 0; c < result1.getPropertyCount(); c++) {
+                    result2 = (SoapObject) result1.getProperty(c);
+                    CategorieDash.add(new CategorieIncident(result2.getProperty(0).toString(), Integer.parseInt(result2.getProperty(1).toString())));
+                }
+            }
+            //TODO test si null
+        } catch (Exception ex) {
+            //  System.out.println(ex.getMessage());
+            ex.printStackTrace();
+            //  resultTicket = Error.SERVEUR_INACESSIBLE.getError(); //erreur server
+        }
+        return CategorieDash;
+    }
+    public static List<CategorieIncident> getPieDatas(int id_batiment, Langue langue) {
+        List<CategorieIncident> CategorieDash = new ArrayList<>();
+        String NAMESPACE = "urn:AndroidControllerwsdl";
+        String METHOD_NAME = "getPieDatas";
+        String URL = "http://192.168.1.20/W3S-tickets/index.php/android/websys?ws=1";
+        String SOAP_ACTION = "urn:AndroidControllerwsdl#getPieDatas";
 
         SoapObject MethodegetBarsDatas = new SoapObject(NAMESPACE, METHOD_NAME);
         PropertyInfo id_batimentPropriety = new PropertyInfo();
