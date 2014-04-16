@@ -6,10 +6,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
+import android.widget.*;
 import com.web3sys.W3S_Tickets.R;
 import dao.BatimentDAO;
 import enums.Langue;
@@ -89,6 +86,18 @@ public class Dashboard extends Activity {
         ArrayAdapter<Batiment> batimentArrayAdapter = new ArrayAdapter<>(this.getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, batimentList);
         batimentArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         batiment.setAdapter(batimentArrayAdapter);
+
+        batiment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                redrawGraph();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private GraphType[] populateGraphicTypeArray()
@@ -102,6 +111,8 @@ public class Dashboard extends Activity {
     }
 
     private void redrawGraph() {
+        Log.i("AndroidTickets", "Redrawing graphics");
+        clearGraphic();
         fillDataSet();
         buildRenderer();
         makeConfig();
@@ -109,6 +120,11 @@ public class Dashboard extends Activity {
         LinearLayout graphLayout = (LinearLayout)findViewById(R.id.graphLayout);
         graphLayout.addView(mChartView);
         mChartView.repaint();
+    }
+
+    private void clearGraphic() {
+        LinearLayout graphLayout = (LinearLayout)findViewById(R.id.graphLayout);
+        graphLayout.removeAllViews();
     }
 
     private void fillDataSet() {

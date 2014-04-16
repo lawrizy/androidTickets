@@ -206,12 +206,12 @@ public class WebServiceSoap implements KvmSerializable {
             androidHttp.call(SOAP_ACTION, envelope);
             SoapObject result = (SoapObject) envelope.bodyIn;
             SoapObject result1 = (SoapObject) result.getProperty(0);
-            Vector<Object> result2;
+            SoapObject result2;
 
             if (result != null) {
                 for (int c = 0; c < result1.getPropertyCount(); c++) {
-                    result2 = (Vector) result1.getProperty(c);
-                    CategorieDash.add(new CategorieIncident(result2.get(0).toString(), Integer.parseInt(result2.get(1).toString())));
+                    result2 = (SoapObject) result1.getProperty(c);
+                    CategorieDash.add(new CategorieIncident(result2.getProperty(0).toString(), Integer.parseInt(result2.getProperty(1).toString())));
                 }
             }
             //TODO test si null
@@ -254,7 +254,7 @@ public class WebServiceSoap implements KvmSerializable {
                 Log.i("AndroidTickets", "Fatal error: " + fault.getMessage());
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
+            Log.e("AndroidTickets", ex.getMessage());
         }
         return result;
     }
