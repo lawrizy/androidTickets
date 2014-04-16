@@ -39,7 +39,7 @@ public class GraphTypeSpinnerAdapter extends ArrayAdapter<GraphType> {
     public View getView(int position, View convertView, ViewGroup parent) {
         TextView label = new TextView(context);
         label.setTextColor(Color.WHITE);
-        label.setText(values[position].getTypeName());
+        label.setText(values[position].getMode().getName());
         return label;
     }
 
@@ -47,7 +47,7 @@ public class GraphTypeSpinnerAdapter extends ArrayAdapter<GraphType> {
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
         TextView label = new TextView(context);
         label.setTextColor(Color.WHITE);
-        label.setText(values[position].getTypeName());
+        label.setText(values[position].getMode().getName());
 
         return label;
     }

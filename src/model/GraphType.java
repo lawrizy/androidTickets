@@ -1,18 +1,20 @@
 package model;
 
+import activities.Dashboard;
+
 /**
  * Created by User on 15/04/2014.
  */
 public class GraphType {
     private static int id_giver = 1;
     private final int id;
-    private final String typeName;
+    private final Dashboard.DrawMode mode;
 
-    public GraphType(String typeName)
+    public GraphType(Dashboard.DrawMode mode)
     {
         this.id = id_giver;
         ++id_giver;
-        this.typeName = typeName;
+        this.mode = mode;
     }
 
     public int getID()
@@ -20,14 +22,14 @@ public class GraphType {
         return id;
     }
 
-    public String getTypeName()
+    public Dashboard.DrawMode getMode()
     {
-        return typeName;
+        return mode;
     }
 
     @Override
     public String toString()
     {
-        return typeName;
+        return mode.getName();
     }
 }

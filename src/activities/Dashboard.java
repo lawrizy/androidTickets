@@ -24,17 +24,25 @@ import org.achartengine.renderer.XYMultipleSeriesRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.*;
 
 /**
  * Created by User on 5/04/14.
  */
 public class Dashboard extends Activity {
-    enum DrawMode
-    {
-        TICKETS_FOR_CATEGORIES,
-        TICKETS_FOR_STATUS,
+    public enum DrawMode {
+        TICKETS_FOR_CATEGORIES("Tickets for categories"),
+        TICKETS_FOR_STATUS("Tickets for status");
+
+        private String name;
+
+        DrawMode(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
     }
 
     private GraphicalView mChartView;
@@ -42,9 +50,9 @@ public class Dashboard extends Activity {
     private XYMultipleSeriesRenderer renderer;
 
     private DrawMode mode = DrawMode.TICKETS_FOR_CATEGORIES;
-    private int batimentFilter = 0; // All buildings
 
     private List<CategorieIncident> listCats;
+    private List<CategorieIncident> listStatus;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,9 +65,8 @@ public class Dashboard extends Activity {
     }
 
     private void setupListeners() {
-        //todo on item selected spinners
-        Button exit = (Button)findViewById(R.id.dashboard_exitButton);
-        Spinner graphTypeSpinner = (Spinner)findViewById(R.id.graphTypeSpinner);
+        Button exit = (Button) findViewById(R.id.dashboard_exitButton);
+        Spinner graphTypeSpinner = (Spinner) findViewById(R.id.graphTypeSpinner);
         Spinner batiment = (Spinner) findViewById(R.id.buildingFilterSpinner);
 
         exit.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +79,7 @@ public class Dashboard extends Activity {
 
     private void setupSpinners() {
         //Graphic type spinner
-        Spinner graphTypeSpinner = (Spinner)findViewById(R.id.graphTypeSpinner);
+        final Spinner graphTypeSpinner = (Spinner) findViewById(R.id.graphTypeSpinner);
         //ArrayAdapter<String> entries = new ArrayAdapter<>(this.getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, populateGraphicTypeArray());
         GraphTypeSpinnerAdapter entries = new GraphTypeSpinnerAdapter(Dashboard.this, android.R.layout.simple_spinner_item, populateGraphicTypeArray());
         entries.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -98,14 +105,27 @@ public class Dashboard extends Activity {
 
             }
         });
+
+        graphTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mode = ((GraphType) (graphTypeSpinner.getSelectedItem())).getMode();
+                Log.i("AndroidTickets", "New graph mode : " + mode.getName());
+                redrawGraph();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
-    private GraphType[] populateGraphicTypeArray()
-    {
+    private GraphType[] populateGraphicTypeArray() {
         int typeAmount = 2;
         GraphType[] result = new GraphType[typeAmount];
-        result[0] = new GraphType(getString(R.string.dashboard_graphType_ticketsForCategory));
-        result[1] = new GraphType(getString(R.string.dashboard_graphType_ticketsForStatus));
+        result[0] = new GraphType(DrawMode.TICKETS_FOR_CATEGORIES);
+        result[1] = new GraphType(DrawMode.TICKETS_FOR_STATUS);
         //result[2] = new GraphType(getString(R.string.dashboard_graphType_TicketsByCompanies));
         return result;
     }
@@ -117,25 +137,24 @@ public class Dashboard extends Activity {
         buildRenderer();
         makeConfig();
         mChartView = ChartFactory.getBarChartView(this, dataset, renderer, BarChart.Type.DEFAULT);
-        LinearLayout graphLayout = (LinearLayout)findViewById(R.id.graphLayout);
+        LinearLayout graphLayout = (LinearLayout) findViewById(R.id.graphLayout);
         graphLayout.addView(mChartView);
         mChartView.repaint();
     }
 
     private void clearGraphic() {
-        LinearLayout graphLayout = (LinearLayout)findViewById(R.id.graphLayout);
+        LinearLayout graphLayout = (LinearLayout) findViewById(R.id.graphLayout);
         graphLayout.removeAllViews();
     }
 
     private void fillDataSet() {
-        //todo remplir le dataset et son renderer en fonction du type de graphique sélectionné
-        if(mode == DrawMode.TICKETS_FOR_CATEGORIES)
-        {
+        if (mode == DrawMode.TICKETS_FOR_CATEGORIES) {
+            // preparation langue
             final Spinner buildingSpinner = (Spinner) findViewById(R.id.buildingFilterSpinner);
             String langue = getResources().getConfiguration().locale.getLanguage();
             final Langue langues = (langue.equals("en") ? Langue.EN : (langue.equals("fr") ? Langue.FR : Langue.NL));
-           // WebServiceSoap.getBarsDatas( ((Batiment)buildingSpinner.getSelectedItem()).getId_batiment(), langues);
 
+            // Fetch des datas via SOAP
             ExecutorService executor = Executors.newSingleThreadExecutor();
             Callable<List<CategorieIncident>> callable = new Callable<List<CategorieIncident>>() {
                 @Override
@@ -153,6 +172,8 @@ public class Dashboard extends Activity {
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
+
+            // Création du dataset en fct des datas reçues
             dataset = new XYMultipleSeriesDataset();
 
             final int SERIES_NR = 1;
@@ -160,14 +181,47 @@ public class Dashboard extends Activity {
 
             for (int i = 0; i < SERIES_NR; ++i) {
                 CategorySeries series = new CategorySeries("Nb tickets");
-                for(int j = 0 ; j < nr ; ++j)
+                for (int j = 0; j < nr; ++j)
                     series.add(listCats.get(j).getNbTicket());
                 dataset.addSeries(series.toXYSeries());
             }
-        }
-        else if(mode == DrawMode.TICKETS_FOR_STATUS)
-        {
+        } else if (mode == DrawMode.TICKETS_FOR_STATUS) { // TODO
+            // preparation langue
+            final Spinner buildingSpinner = (Spinner) findViewById(R.id.buildingFilterSpinner);
+            String langue = getResources().getConfiguration().locale.getLanguage();
+            final Langue langues = (langue.equals("en") ? Langue.EN : (langue.equals("fr") ? Langue.FR : Langue.NL));
 
+            // Fetch des datas via SOAP
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            Callable<List<CategorieIncident>> callable = new Callable<List<CategorieIncident>>() {
+                @Override
+                public List<CategorieIncident> call() throws Exception {
+                    return soap.WebServiceSoap.getPieDatas(((Batiment) buildingSpinner.getSelectedItem()).getId_batiment(), langues);
+                }
+            };
+            Future<List<CategorieIncident>> future = executor.submit(callable);
+            executor.shutdown();
+
+            try {
+                listStatus = (ArrayList<CategorieIncident>) future.get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            // Création du dataset en fct des datas reçues
+            dataset = new XYMultipleSeriesDataset();
+
+            final int SERIES_NR = 3;
+            final int nr = 1;
+
+            for (int i = 0; i < SERIES_NR; ++i) {
+                CategorySeries series = new CategorySeries(listStatus.get(i).getLabel());
+                for (int j = 0; j < nr; ++j)
+                    series.add(listCats.get(j).getNbTicket());
+                dataset.addSeries(series.toXYSeries());
+            }
         }
     }
 
@@ -177,102 +231,40 @@ public class Dashboard extends Activity {
         renderer.setChartTitleTextSize(20);
         renderer.setLabelsTextSize(15);
         renderer.setLegendTextSize(15);
-        renderer.setMargins(new int[] { 30, 40, 15, 0 });
+        renderer.setMargins(new int[]{30, 40, 15, 0});
 
         SimpleSeriesRenderer r;
-//        for(int i = 0 ; i < listCats.size(); ++i) {
+        if (mode == DrawMode.TICKETS_FOR_CATEGORIES) {
             r = new SimpleSeriesRenderer();
             renderer.addSeriesRenderer(r);
-//        }
+        } else if (mode == DrawMode.TICKETS_FOR_STATUS) {
+            for (int i = 0; i < listCats.size(); ++i) {
+                r = new SimpleSeriesRenderer();
+                renderer.addSeriesRenderer(r);
+            }
+        }
     }
 
     private void makeConfig() {
-        renderer.setChartTitle("Tickets for category");
+        renderer.setChartTitle("Tickets for status");
         renderer.setXAxisMin(-1);
         renderer.setXAxisMax(7);
         renderer.setYAxisMin(0);
         int maxY = 0;
-        for(CategorieIncident ci : listCats)
-        {
-            if(ci.getNbTicket() > maxY)
+        for (CategorieIncident ci : listCats) {
+            if (ci.getNbTicket() > maxY)
                 maxY = ci.getNbTicket();
         }
-        renderer.setYAxisMax(maxY+5);
+        renderer.setYAxisMax(maxY + 5);
         renderer.setYLabelsAlign(Paint.Align.RIGHT);
         renderer.setBarSpacing(1);
         renderer.setBarWidth(20);
-        renderer.setXTitle("Category");
-        renderer.setYTitle("Nb Tickets");
         renderer.setShowLabels(true);
         renderer.setShowLegend(false);
 
-        for(int i = 0 ; i < listCats.size() ; ++i)
-            renderer.addXTextLabel(i+1, listCats.get(i).getLabel() + " (" + listCats.get(i).getNbTicket() + ")");
+        for (int i = 0; i < listCats.size(); ++i)
+            renderer.addXTextLabel(i + 1, listCats.get(i).getLabel() + " (" + listCats.get(i).getNbTicket() + ")");
 
-        renderer.setShowGrid(true);
-        renderer.setGridColor(Color.GRAY);
-        renderer.setXLabels(0); // sets the number of integer labels to appear
-    }
-
-    /******************************** TEST CHART *********************************/
-    private void setupTestGraph() {
-        XYMultipleSeriesRenderer renderer = getTestBarRenderer();
-        testChartSettings(renderer);
-        mChartView = ChartFactory.getBarChartView(this, getTestBarDataSet(), renderer, BarChart.Type.DEFAULT);
-        LinearLayout graphLayout = (LinearLayout)findViewById(R.id.graphLayout);
-        graphLayout.addView(mChartView);
-        mChartView.repaint();
-    }
-
-    private XYMultipleSeriesDataset getTestBarDataSet() {
-        XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-        final int nr = 4;
-        final int SERIES_NR = 2;
-        Random r = new Random();
-        ArrayList<String> legendTitles = new ArrayList<String>();
-        legendTitles.add("Sales");
-        legendTitles.add("Expenses");
-        for (int i = 0; i < SERIES_NR; i++) {
-            CategorySeries series = new CategorySeries(legendTitles.get(i));
-            for (int k = 0; k < nr; k++) {
-                series.add(100 + r.nextInt() % 100);
-            }
-            dataset.addSeries(series.toXYSeries());
-        }
-        return dataset;
-    }
-
-    public XYMultipleSeriesRenderer getTestBarRenderer() {
-        XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
-        renderer.setAxisTitleTextSize(16);
-        renderer.setChartTitleTextSize(20);
-        renderer.setLabelsTextSize(15);
-        renderer.setLegendTextSize(15);
-        renderer.setMargins(new int[] { 30, 40, 15, 0 });
-        SimpleSeriesRenderer r = new SimpleSeriesRenderer();
-        r.setColor(Color.BLUE);
-        renderer.addSeriesRenderer(r);
-        r = new SimpleSeriesRenderer();
-        r.setColor(Color.RED);
-        renderer.addSeriesRenderer(r);
-        return renderer;
-    }
-
-    private void testChartSettings(XYMultipleSeriesRenderer renderer) {
-        renderer.setChartTitle("Truiton's Performance by AChartEngine BarChart");
-        renderer.setXAxisMin(0.5);
-        renderer.setXAxisMax(10.5);
-        renderer.setYAxisMin(0);
-        renderer.setYAxisMax(210);
-        renderer.addXTextLabel(1, "2010");
-        renderer.addXTextLabel(2, "2011");
-        renderer.addXTextLabel(3, "2012");
-        renderer.addXTextLabel(4, "2013");
-        renderer.setYLabelsAlign(Paint.Align.RIGHT);
-        renderer.setXLabelsAngle(90f);
-        renderer.setBarSpacing(0.5);
-        renderer.setXTitle("Years");
-        renderer.setYTitle("Performance");
         renderer.setShowGrid(true);
         renderer.setGridColor(Color.GRAY);
         renderer.setXLabels(0); // sets the number of integer labels to appear
