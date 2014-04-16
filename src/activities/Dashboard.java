@@ -225,7 +225,7 @@ public class Dashboard extends Activity {
             final int nr = 1;
 
             for (int i = 0; i < SERIES_NR; ++i) {
-                datasetPie.add(listStatus.get(i).getLabel(), listStatus.get(i).getNbTicket());
+                datasetPie.add(listStatus.get(i).getLabel() + " (" + listStatus.get(i).getNbTicket() + ")", listStatus.get(i).getNbTicket());
             }
         }
     }
@@ -243,10 +243,15 @@ public class Dashboard extends Activity {
             r = new SimpleSeriesRenderer();
             renderer.addSeriesRenderer(r);
         } else if (mode == DrawMode.TICKETS_FOR_STATUS) {
-            for (int i = 0; i < listStatus.size(); ++i) {
-                r = new SimpleSeriesRenderer();
-                renderer.addSeriesRenderer(r);
-            }
+            r = new SimpleSeriesRenderer();
+            r.setColor(Color.RED);
+            renderer.addSeriesRenderer(r);
+            r = new SimpleSeriesRenderer();
+            r.setColor(Color.BLUE);
+            renderer.addSeriesRenderer(r);
+            r = new SimpleSeriesRenderer();
+            r.setColor(Color.GREEN);
+            renderer.addSeriesRenderer(r);
         }
     }
 
