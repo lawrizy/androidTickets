@@ -1,9 +1,9 @@
 package soap;
 
 import org.ksoap2.serialization.KvmSerializable;
-        import org.ksoap2.serialization.PropertyInfo;
+import org.ksoap2.serialization.PropertyInfo;
 
-        import java.util.Hashtable;
+import java.util.Hashtable;
 
 public class Request implements KvmSerializable {
     @Override

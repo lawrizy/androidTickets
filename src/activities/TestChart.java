@@ -1,8 +1,11 @@
 package activities;
 
-import java.util.ArrayList;
-import java.util.Random;
-
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Paint.Align;
+import android.os.Bundle;
+import android.view.Menu;
 import com.web3sys.W3S_Tickets.R;
 import org.achartengine.ChartFactory;
 import org.achartengine.chart.BarChart.Type;
@@ -11,12 +14,8 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 
-import android.os.Bundle;
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Paint.Align;
-import android.view.Menu;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class TestChart extends Activity {
     private static final int SERIES_NR = 2;
