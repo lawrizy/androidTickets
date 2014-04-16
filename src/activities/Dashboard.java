@@ -22,6 +22,7 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 
+import java.io.EOFException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
@@ -46,7 +47,8 @@ public class Dashboard extends Activity {
     }
 
     private GraphicalView mChartView;
-    private XYMultipleSeriesDataset dataset;
+    private XYMultipleSeriesDataset datasetBar;
+    private CategorySeries datasetPie;
     private XYMultipleSeriesRenderer renderer;
 
     private DrawMode mode = DrawMode.TICKETS_FOR_CATEGORIES;
@@ -136,7 +138,10 @@ public class Dashboard extends Activity {
         fillDataSet();
         buildRenderer();
         makeConfig();
-        mChartView = ChartFactory.getBarChartView(this, dataset, renderer, BarChart.Type.DEFAULT);
+        if(mode == DrawMode.TICKETS_FOR_CATEGORIES)
+            mChartView = ChartFactory.getBarChartView(this, datasetBar, renderer, BarChart.Type.DEFAULT);
+        else if(mode == DrawMode.TICKETS_FOR_STATUS)
+            mChartView = ChartFactory.getPieChartView(this, datasetPie, renderer);
         LinearLayout graphLayout = (LinearLayout) findViewById(R.id.graphLayout);
         graphLayout.addView(mChartView);
         mChartView.repaint();
@@ -168,13 +173,14 @@ public class Dashboard extends Activity {
             try {
                 listCats = (ArrayList<CategorieIncident>) future.get();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                e.getMessage();
             } catch (ExecutionException e) {
-                e.printStackTrace();
+                e.getMessage();
+//                e.printStackTrace();
             }
 
-            // Création du dataset en fct des datas reçues
-            dataset = new XYMultipleSeriesDataset();
+            // Création du datasetBar en fct des datas reçues
+            datasetBar = new XYMultipleSeriesDataset();
 
             final int SERIES_NR = 1;
             final int nr = listCats.size();
@@ -183,7 +189,7 @@ public class Dashboard extends Activity {
                 CategorySeries series = new CategorySeries("Nb tickets");
                 for (int j = 0; j < nr; ++j)
                     series.add(listCats.get(j).getNbTicket());
-                dataset.addSeries(series.toXYSeries());
+                datasetBar.addSeries(series.toXYSeries());
             }
         } else if (mode == DrawMode.TICKETS_FOR_STATUS) { // TODO
             // preparation langue
@@ -203,24 +209,23 @@ public class Dashboard extends Activity {
             executor.shutdown();
 
             try {
-                listStatus = (ArrayList<CategorieIncident>) future.get();
+                if(future.get() != null)
+                    listStatus = (ArrayList<CategorieIncident>) future.get();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                e.getMessage();
             } catch (ExecutionException e) {
-                e.printStackTrace();
+                e.getMessage();
+//                e.printStackTrace();
             }
 
-            // Création du dataset en fct des datas reçues
-            dataset = new XYMultipleSeriesDataset();
+            // Création du datasetBar en fct des datas reçues
+            datasetPie = new CategorySeries("Status");
 
             final int SERIES_NR = 3;
             final int nr = 1;
 
             for (int i = 0; i < SERIES_NR; ++i) {
-                CategorySeries series = new CategorySeries(listStatus.get(i).getLabel());
-                for (int j = 0; j < nr; ++j)
-                    series.add(listCats.get(j).getNbTicket());
-                dataset.addSeries(series.toXYSeries());
+                datasetPie.add(listStatus.get(i).getLabel(), listStatus.get(i).getNbTicket());
             }
         }
     }
@@ -238,7 +243,7 @@ public class Dashboard extends Activity {
             r = new SimpleSeriesRenderer();
             renderer.addSeriesRenderer(r);
         } else if (mode == DrawMode.TICKETS_FOR_STATUS) {
-            for (int i = 0; i < listCats.size(); ++i) {
+            for (int i = 0; i < listStatus.size(); ++i) {
                 r = new SimpleSeriesRenderer();
                 renderer.addSeriesRenderer(r);
             }

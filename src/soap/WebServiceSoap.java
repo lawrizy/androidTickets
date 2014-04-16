@@ -5,14 +5,19 @@ import common.Error;
 import enums.Langue;
 import model.CategorieIncident;
 import model.UserSessionInfo;
+import org.ksoap2.HeaderProperty;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.KvmSerializable;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.ksoap2.transport.HttpResponseException;
 import org.ksoap2.transport.HttpTransportSE;
+import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.EOFException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -65,11 +70,11 @@ public class WebServiceSoap implements KvmSerializable {
         final SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.setOutputSoapObject(MethodGetLogin);
         envelope.dotNet = true;
-        final HttpTransportSE androidHttp = new HttpTransportSE(URL);
-
-        Log.i("Avant Try", "WSDL result");
+        final HttpTransportSE androidHttp = new HttpTransportSE(URL, 600000);
+        ArrayList<HeaderProperty> properties = new ArrayList<>();
+        properties.add(new HeaderProperty("Connection", "close"));
         try {
-            androidHttp.call(SOAP_ACTION, envelope);
+            androidHttp.call(SOAP_ACTION, envelope, properties);
             SoapObject result = (SoapObject) envelope.bodyIn;
             if (result != null) {
                 statement = Integer.parseInt(result.getProperty(0).toString());
@@ -79,6 +84,9 @@ public class WebServiceSoap implements KvmSerializable {
             //  System.out.println(ex.getMessage());
             ex.printStackTrace();
             statement = Error.SERVEUR_INACESSIBLE.getError(); //erreur server
+        } finally
+        {
+            androidHttp.reset();
         }
         return statement;
     }
@@ -125,9 +133,11 @@ public class WebServiceSoap implements KvmSerializable {
         final SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.setOutputSoapObject(MethodCreateTicket);
         envelope.dotNet = true;
-        final HttpTransportSE androidHttp = new HttpTransportSE(URL);
+        final HttpTransportSE androidHttp = new HttpTransportSE(URL, 600000);
+        ArrayList<HeaderProperty> properties = new ArrayList<>();
+        properties.add(new HeaderProperty("Connection", "close"));
         try {
-            androidHttp.call(SOAP_ACTION, envelope);
+            androidHttp.call(SOAP_ACTION, envelope, properties);
             SoapObject result = (SoapObject) envelope.bodyIn;
             if (result != null) {
                 resultTicket = result.getProperty(0).toString();
@@ -136,6 +146,10 @@ public class WebServiceSoap implements KvmSerializable {
             //  System.out.println(ex.getMessage());
             ex.printStackTrace();
             resultTicket = Error.SERVEUR_INACESSIBLE.name(); //erreur server
+        }
+        finally
+        {
+            androidHttp.reset();
         }
         return resultTicket;
     }
@@ -156,9 +170,11 @@ public class WebServiceSoap implements KvmSerializable {
         final SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.setOutputSoapObject(MethodeGetMyBuilding);
         envelope.dotNet = true;
-        final HttpTransportSE androidHttp = new HttpTransportSE(URL);
+        final HttpTransportSE androidHttp = new HttpTransportSE(URL, 600000);
+        ArrayList<HeaderProperty> properties = new ArrayList<>();
+        properties.add(new HeaderProperty("Connection", "close"));
         try {
-            androidHttp.call(SOAP_ACTION, envelope);
+            androidHttp.call(SOAP_ACTION, envelope, properties);
             SoapObject result = (SoapObject) envelope.bodyIn;
             SoapObject result1 = (SoapObject) result.getProperty(0);
             SoapObject result2 = (SoapObject) result.getProperty(0);
@@ -174,8 +190,9 @@ public class WebServiceSoap implements KvmSerializable {
             ex.printStackTrace();
             //  resultTicket = Error.SERVEUR_INACESSIBLE.getError(); //erreur server
         }
-
-
+        finally {
+            androidHttp.reset();
+        }
         return maList;
     }
 
@@ -200,9 +217,11 @@ public class WebServiceSoap implements KvmSerializable {
         final SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.setOutputSoapObject(MethodegetBarsDatas);
         envelope.dotNet = true;
-        final HttpTransportSE androidHttp = new HttpTransportSE(URL);
+        final HttpTransportSE androidHttp = new HttpTransportSE(URL, 600000);
+        ArrayList<HeaderProperty> properties = new ArrayList<>();
+        properties.add(new HeaderProperty("Connection", "close"));
         try {
-            androidHttp.call(SOAP_ACTION, envelope);
+            androidHttp.call(SOAP_ACTION, envelope, properties);
             SoapObject result = (SoapObject) envelope.bodyIn;
             SoapObject result1 = (SoapObject) result.getProperty(0);
             SoapObject result2;
@@ -213,19 +232,23 @@ public class WebServiceSoap implements KvmSerializable {
                     CategorieDash.add(new CategorieIncident(result2.getProperty(0).toString(), Integer.parseInt(result2.getProperty(1).toString())));
                 }
             }
-            //TODO test si null
         } catch (Exception ex) {
             //  System.out.println(ex.getMessage());
             ex.printStackTrace();
             //  resultTicket = Error.SERVEUR_INACESSIBLE.getError(); //erreur server
         }
+        finally
+        {
+            androidHttp.reset();
+        }
         return CategorieDash;
     }
+
     public static List<CategorieIncident> getPieDatas(int id_batiment, Langue langue) {
         List<CategorieIncident> CategorieDash = new ArrayList<>();
         String NAMESPACE = "urn:AndroidControllerwsdl";
         String METHOD_NAME = "getPieDatas";
-        String URL = "http://192.168.1.25/W3S-tickets/index.php/android/websys?ws=1";
+        String URL = "http://192.168.1.20/W3S-tickets/index.php/android/websys?ws=1";
         String SOAP_ACTION = "urn:AndroidControllerwsdl#getPieDatas";
 
         SoapObject methodeGetPieDatas = new SoapObject(NAMESPACE, METHOD_NAME);
@@ -242,9 +265,11 @@ public class WebServiceSoap implements KvmSerializable {
         final SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.setOutputSoapObject(methodeGetPieDatas);
         envelope.dotNet = true;
-        final HttpTransportSE androidHttp = new HttpTransportSE(URL);
+        HttpTransportSE androidHttp = new HttpTransportSE(URL, 600000);
+        ArrayList<HeaderProperty> properties = new ArrayList<>();
+        properties.add(new HeaderProperty("Connection", "close"));
         try {
-            androidHttp.call(SOAP_ACTION, envelope);
+            androidHttp.call(SOAP_ACTION, envelope, properties);
             SoapObject result = (SoapObject) envelope.bodyIn;
             SoapObject result1 = (SoapObject) result.getProperty(0);
             SoapObject result2;
@@ -260,6 +285,10 @@ public class WebServiceSoap implements KvmSerializable {
             //  System.out.println(ex.getMessage());
             ex.printStackTrace();
             //  resultTicket = Error.SERVEUR_INACESSIBLE.getError(); //erreur server
+        }
+        finally
+        {
+            androidHttp.reset();
         }
         return CategorieDash;
     }
@@ -282,10 +311,11 @@ public class WebServiceSoap implements KvmSerializable {
         packet.setOutputSoapObject(requete);
         packet.dotNet = true;
 
-        final HttpTransportSE androidHttp = new HttpTransportSE(URL);
-
+        final HttpTransportSE androidHttp = new HttpTransportSE(URL, 600000);
+        ArrayList<HeaderProperty> properties = new ArrayList<>();
+        properties.add(new HeaderProperty("Connection", "close"));
         try {
-            androidHttp.call(SOAP_ACTION, packet);
+            androidHttp.call(SOAP_ACTION, packet, properties);
             Object answer = packet.bodyIn;
             if (answer instanceof SoapObject) {
                 SoapObject finalAnswer = (SoapObject) answer;
@@ -294,8 +324,17 @@ public class WebServiceSoap implements KvmSerializable {
                 SoapFault fault = (SoapFault) answer;
                 Log.i("AndroidTickets", "Fatal error: " + fault.getMessage());
             }
-        } catch (Exception ex) {
+        } catch (EOFException ex) {
             Log.e("AndroidTickets", ex.getMessage());
+        } catch (XmlPullParserException ex) {
+            Log.e("AndroidTickets", ex.getMessage());
+        } catch (HttpResponseException ex) {
+            Log.e("AndroidTickets", ex.getMessage());
+        } catch (IOException ex) {
+            Log.e("AndroidTickets", ex.getMessage());
+        } finally
+        {
+            androidHttp.reset();
         }
         return result;
     }
