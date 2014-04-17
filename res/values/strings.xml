@@ -50,4 +50,5 @@
     <string name="dashboard_graphType_ticketsForStatus"># tickets by status</string>
     <string name="dashboard_graphType_TicketsByCompanies"># tickets by company</string>
     <string name="common_cancel">Cancel</string>
+    <string name="dashboard_no_ticket">There is no ticket for this building.</string>
 </resources>

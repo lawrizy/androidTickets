@@ -207,13 +207,18 @@ public class Dashboard extends Activity {
             final int SERIES_NR = 1;
             // Le nombre de valeurs par séries
             final int nr = listCats.size();
-
+            int count = 0;
             // Cette boucle construit le dataset à partir de la liste retournée par SOAP
             for (int i = 0; i < SERIES_NR; ++i) {
                 CategorySeries series = new CategorySeries("Nb tickets");
+                count += listCats.get(i).getNbTicket();
                 for (CategorieIncident listCat : listCats)
                     series.add(listCat.getNbTicket());
                 datasetBar.addSeries(series.toXYSeries());
+            }
+            if(count == 0) {
+                Log.i("AndroidTickets", "No ticket for this building.");
+                Toast.makeText(this, getString(R.string.dashboard_no_ticket), Toast.LENGTH_SHORT).show();
             }
         }
         else if (mode == DrawMode.TICKETS_FOR_STATUS) // Mode graphique -> nombre de tickets par statut du ticket
@@ -246,10 +251,13 @@ public class Dashboard extends Activity {
 
             final int SERIES_NR = 3;
             final int nr = 1;
+            int count = 0;
 
             for (int i = 0; i < SERIES_NR; ++i) {
                 datasetPie.add(listStatus.get(i).getLabel() + " (" + listStatus.get(i).getNbTicket() + ")", listStatus.get(i).getNbTicket());
+                count += listStatus.get(i).getNbTicket();
             }
+            Toast.makeText(this, getString(R.string.dashboard_no_ticket), Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -44,4 +44,5 @@
         <string name="dashboard_title">Tableau de Bord</string>
         <string name="graphTypeSelectionPrompt">Veuillez choisir un type de graphique</string>
         <string name="dashboard_building_filter_prompt">Veuillez choisir un bâtiment</string>
-    </resources>
+    <string name="dashboard_no_ticket">Il n\'y a pas de ticket pour ce bâtiment.</string>
+</resources>
