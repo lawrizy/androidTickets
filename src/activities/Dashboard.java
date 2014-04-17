@@ -66,23 +66,28 @@ public class Dashboard extends Activity {
         //setupTestGraph();
     }
 
+    /**
+     * Crée les listeners pour les composants effectuant une action. (ex: bouton exit)
+     */
     private void setupListeners() {
         Button exit = (Button) findViewById(R.id.dashboard_exitButton);
-        Spinner graphTypeSpinner = (Spinner) findViewById(R.id.graphTypeSpinner);
-        Spinner batiment = (Spinner) findViewById(R.id.buildingFilterSpinner);
 
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /* Lorsqu'on clique sur le bouton exit, on envoie l'app en tâche de fond. L'OS se chargera de "kill"
+                * l'application ultérieurement. */
                 moveTaskToBack(true);
             }
         });
     }
 
+    /**
+     * Au démarrage de l'activité, prépare les spinners et les remplit avec toutes les données nécéssaires.
+     */
     private void setupSpinners() {
-        //Graphic type spinner
+        // Construction du spinner de sélection du type de graphique à afficher
         final Spinner graphTypeSpinner = (Spinner) findViewById(R.id.graphTypeSpinner);
-        //ArrayAdapter<String> entries = new ArrayAdapter<>(this.getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, populateGraphicTypeArray());
         GraphTypeSpinnerAdapter entries = new GraphTypeSpinnerAdapter(Dashboard.this, android.R.layout.simple_spinner_item, populateGraphicTypeArray());
         entries.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         graphTypeSpinner.setAdapter(entries);
@@ -123,6 +128,10 @@ public class Dashboard extends Activity {
         });
     }
 
+    /**
+     * Prépare l'array contenant tous les types de graphiques disponibles.
+     * @return array contenant tous les types de graphiques disponibles.
+     */
     private GraphType[] populateGraphicTypeArray() {
         int typeAmount = 2;
         GraphType[] result = new GraphType[typeAmount];
@@ -132,6 +141,10 @@ public class Dashboard extends Activity {
         return result;
     }
 
+    /**
+     * Redessine le graphique actuellement activé. Cette méthode est appelée soit à la création de l'activité, soit
+     * au changement de type de graphique, ou encore lors du filtrage des données par bâtiment.
+     */
     private void redrawGraph() {
         Log.i("AndroidTickets", "Redrawing graphics");
         clearGraphic();
@@ -147,30 +160,42 @@ public class Dashboard extends Activity {
         mChartView.repaint();
     }
 
+    /**
+     * Enlève toute trace du graphique précédemment créé et affiché.
+     */
     private void clearGraphic() {
         LinearLayout graphLayout = (LinearLayout) findViewById(R.id.graphLayout);
         graphLayout.removeAllViews();
     }
 
+    /**
+     * Remplit le dataset utile pour l'affichage des graphiques.
+     * Celui-ci contient toutes les valeurs, labels et légendes à dessiner.
+     */
     private void fillDataSet() {
+        // Mode graphique -> tickets par catégories
         if (mode == DrawMode.TICKETS_FOR_CATEGORIES) {
-            // preparation langue
+            // Préparation de la langue à envoyer à SOAP
             final Spinner buildingSpinner = (Spinner) findViewById(R.id.buildingFilterSpinner);
             String langue = getResources().getConfiguration().locale.getLanguage();
             final Langue langues = (langue.equals("en") ? Langue.EN : (langue.equals("fr") ? Langue.FR : Langue.NL));
 
-            // Fetch des datas via SOAP
+            // Préparation de l'ID du bâtiment à filtrer
+            final int batimentID = ((Batiment)(buildingSpinner.getSelectedItem())).getId_batiment();
+
+            // Fetch des datas via SOAP par un Executor
             ExecutorService executor = Executors.newSingleThreadExecutor();
             Callable<List<CategorieIncident>> callable = new Callable<List<CategorieIncident>>() {
                 @Override
                 public List<CategorieIncident> call() throws Exception {
-                    return soap.WebServiceSoap.getBarsDatas(((Batiment) buildingSpinner.getSelectedItem()).getId_batiment(), langues);
+                    return soap.WebServiceSoap.getBarsDatas(batimentID, langues);
                 }
             };
             Future<List<CategorieIncident>> future = executor.submit(callable);
             executor.shutdown();
 
             try {
+                // Cast de la liste retournée par SOAP
                 listCats = (ArrayList<CategorieIncident>) future.get();
             } catch (InterruptedException e) {
                 e.getMessage();
@@ -182,16 +207,21 @@ public class Dashboard extends Activity {
             // Création du datasetBar en fct des datas reçues
             datasetBar = new XYMultipleSeriesDataset();
 
+            // Le nombre de séries
             final int SERIES_NR = 1;
+            // Le nombre de valeurs par séries
             final int nr = listCats.size();
 
+            // Cette boucle construit le dataset à partir de la liste retournée par SOAP
             for (int i = 0; i < SERIES_NR; ++i) {
                 CategorySeries series = new CategorySeries("Nb tickets");
                 for (int j = 0; j < nr; ++j)
                     series.add(listCats.get(j).getNbTicket());
                 datasetBar.addSeries(series.toXYSeries());
             }
-        } else if (mode == DrawMode.TICKETS_FOR_STATUS) { // TODO
+        }
+        else if (mode == DrawMode.TICKETS_FOR_STATUS) // Mode graphique -> nombre de tickets par statut du ticket
+        {
             // preparation langue
             final Spinner buildingSpinner = (Spinner) findViewById(R.id.buildingFilterSpinner);
             String langue = getResources().getConfiguration().locale.getLanguage();
@@ -230,6 +260,9 @@ public class Dashboard extends Activity {
         }
     }
 
+    /**
+     * Construit l'objet qui permettra de dessiner le graphique sur l'écran, en fonction de divers paramètres.
+     */
     private void buildRenderer() {
         renderer = new XYMultipleSeriesRenderer();
         renderer.setAxisTitleTextSize(16);
@@ -241,6 +274,7 @@ public class Dashboard extends Activity {
         SimpleSeriesRenderer r;
         if (mode == DrawMode.TICKETS_FOR_CATEGORIES) {
             r = new SimpleSeriesRenderer();
+            r.setColor(Color.RED);
             renderer.addSeriesRenderer(r);
         } else if (mode == DrawMode.TICKETS_FOR_STATUS) {
             r = new SimpleSeriesRenderer();
@@ -255,8 +289,14 @@ public class Dashboard extends Activity {
         }
     }
 
+    /**
+     * Construit la configuration du graphique.
+     */
     private void makeConfig() {
-        renderer.setChartTitle("Tickets for status");
+        if(mode == DrawMode.TICKETS_FOR_CATEGORIES)
+            renderer.setChartTitle("Tickets for categories");
+        else if(mode == DrawMode.TICKETS_FOR_STATUS)
+            renderer.setChartTitle("Tickets for status");
         renderer.setXAxisMin(-1);
         renderer.setXAxisMax(7);
         renderer.setYAxisMin(0);
