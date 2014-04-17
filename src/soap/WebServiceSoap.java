@@ -170,7 +170,7 @@ public class WebServiceSoap implements KvmSerializable {
     /**
      *
      * @param id_user id de l'id de l'utilisateur
-     * @return maList
+     * @return maList une liste de string contenant les id des batiment du locataire
      */
     public static List<String> listIdBuilding(int id_user) {
         List<String> maList = new ArrayList<>();
@@ -193,7 +193,6 @@ public class WebServiceSoap implements KvmSerializable {
             androidHttp.call(SOAP_ACTION, envelope, properties);
             SoapObject result = (SoapObject) envelope.bodyIn;
             SoapObject result1 = (SoapObject) result.getProperty(0);
-            SoapObject result2 = (SoapObject) result.getProperty(0);
             if (result != null) {
                 for (int c = 0; c < result1.getPropertyCount(); c++) {
                     String id = result1.getPropertyAsString(c);
@@ -302,6 +301,11 @@ public class WebServiceSoap implements KvmSerializable {
         return CategorieDash;
     }
 
+    /**
+     *
+     * @param userID id de l'utilisateur
+     * @return une fonction
+     */
     public static UserSessionInfo.UserFunction getUserFunction(int userID) {
         UserSessionInfo.UserFunction result = UserSessionInfo.UserFunction.Unknown;
         final String METHOD_NAME = "getUserPermissionLevel";
