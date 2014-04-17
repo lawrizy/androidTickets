@@ -124,10 +124,9 @@ public class WebServiceSoap implements KvmSerializable {
         bureauProriety.setValue(bureau);
         bureauProriety.setType(String.class);
         MethodCreateTicket.addProperty(bureauProriety);
-        MethodCreateTicket.addProperty(etageProriety);
         PropertyInfo descriptifProriety = new PropertyInfo();
         descriptifProriety.setName("descriptif");
-        descriptifProriety.setValue(bureau);
+        descriptifProriety.setValue(descriptif);
         descriptifProriety.setType(String.class);
         MethodCreateTicket.addProperty(descriptifProriety);
         final SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
