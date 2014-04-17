@@ -22,7 +22,6 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 
-import java.io.EOFException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
@@ -197,11 +196,8 @@ public class Dashboard extends Activity {
             try {
                 // Cast de la liste retournée par SOAP
                 listCats = (ArrayList<CategorieIncident>) future.get();
-            } catch (InterruptedException e) {
+            } catch (InterruptedException | ExecutionException e) {
                 e.getMessage();
-            } catch (ExecutionException e) {
-                e.getMessage();
-//                e.printStackTrace();
             }
 
             // Création du datasetBar en fct des datas reçues
@@ -215,8 +211,8 @@ public class Dashboard extends Activity {
             // Cette boucle construit le dataset à partir de la liste retournée par SOAP
             for (int i = 0; i < SERIES_NR; ++i) {
                 CategorySeries series = new CategorySeries("Nb tickets");
-                for (int j = 0; j < nr; ++j)
-                    series.add(listCats.get(j).getNbTicket());
+                for (CategorieIncident listCat : listCats)
+                    series.add(listCat.getNbTicket());
                 datasetBar.addSeries(series.toXYSeries());
             }
         }
@@ -241,11 +237,8 @@ public class Dashboard extends Activity {
             try {
                 if(future.get() != null)
                     listStatus = (ArrayList<CategorieIncident>) future.get();
-            } catch (InterruptedException e) {
+            } catch (InterruptedException | ExecutionException e) {
                 e.getMessage();
-            } catch (ExecutionException e) {
-                e.getMessage();
-//                e.printStackTrace();
             }
 
             // Création du datasetBar en fct des datas reçues
