@@ -25,7 +25,7 @@ import java.util.List;
 public class WebServiceSoap implements KvmSerializable {
     //----Attibut de la classe-------
     final public static String NAMESPACE = "urn:AndroidControllerwsdl";//Nom du controlleur lié au webservice
-    final public static String URL = "http://192.168.1.25/W3S-tickets/index.php/android/websys?ws=1";// url de récupération des données
+    final public static String URL = "http://web3sys.com/tickets/index.php/android/websys?ws=1";// url de récupération des données
     private static int timeout = 6000000;
 
     //--------Méthode Override------
@@ -114,8 +114,9 @@ public class WebServiceSoap implements KvmSerializable {
         String resultTicket = "OK";
         final String METHOD_NAME = "createTicket";
         final String SOAP_ACTION = "urn:AndroidControllerwsdl#createTicket";
-
+        //--------------Préparation de la requête--------------
         SoapObject MethodCreateTicket = new SoapObject(NAMESPACE, METHOD_NAME);
+        //--------------Création des propriétés à envoyé-------
         PropertyInfo id_userPropriety = new PropertyInfo();
         id_userPropriety.setName("id_user");
         id_userPropriety.setValue(id_user);
@@ -146,7 +147,7 @@ public class WebServiceSoap implements KvmSerializable {
         descriptifProriety.setValue(descriptif);
         descriptifProriety.setType(String.class);
         MethodCreateTicket.addProperty(descriptifProriety);
-        final SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        final SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);//création de l'envellope
         envelope.setOutputSoapObject(MethodCreateTicket);
         envelope.dotNet = true;
         final HttpTransportSE androidHttp = new HttpTransportSE(URL, timeout);
@@ -156,8 +157,9 @@ public class WebServiceSoap implements KvmSerializable {
             androidHttp.call(SOAP_ACTION, envelope, properties);
             SoapObject result = (SoapObject) envelope.bodyIn;
             if (result != null) {
-                resultTicket = result.getProperty(0).toString();
+                resultTicket = result.getProperty(0).toString(); //récupération d'un string /ok si cre&tion réussi,
             }
+
         } catch (Exception ex) {
             ex.printStackTrace();
             resultTicket = Error.SERVEUR_INACESSIBLE.name(); //erreur server
@@ -168,6 +170,7 @@ public class WebServiceSoap implements KvmSerializable {
     }
 
     /**
+     * Méthode  qui récupere la liste d'id des batiments
      *
      * @param id_user id de l'id de l'utilisateur
      * @return maList une liste de string contenant les id des batiment du locataire
@@ -176,8 +179,9 @@ public class WebServiceSoap implements KvmSerializable {
         List<String> maList = new ArrayList<>();
         final String METHOD_NAME = "getMyBuilding";
         final String SOAP_ACTION = "urn:AndroidControllerwsdl#getMyBuilding";
-
+        //--------------Préparation de la requête--------------
         SoapObject MethodeGetMyBuilding = new SoapObject(NAMESPACE, METHOD_NAME);
+        //--------------Création des propriétés à envoyé-------
         PropertyInfo id_userPropriety = new PropertyInfo();
         id_userPropriety.setName("id_user");
         id_userPropriety.setValue(id_user);
@@ -195,7 +199,7 @@ public class WebServiceSoap implements KvmSerializable {
             SoapObject result1 = (SoapObject) result.getProperty(0);
             if (result != null) {
                 for (int c = 0; c < result1.getPropertyCount(); c++) {
-                    String id = result1.getPropertyAsString(c);
+                    String id = result1.getPropertyAsString(c); //recupération de la liste des id batiment du locataire
                     maList.add(id);
                 }
             }
@@ -208,13 +212,20 @@ public class WebServiceSoap implements KvmSerializable {
         return maList;
     }
 
-
+    /**
+     * Méthode qui recupere les information nécessaire pour le graphique camembert
+     *
+     * @param id_batiment id du bâtiment de l'incident
+     * @param langue      langue de l'utilisateur
+     * @return une liste avec le status et le nombre de ticket lié
+     */
     public static List<CategorieIncident> getPieDatas(int id_batiment, Langue langue) {
         List<CategorieIncident> CategorieDash = new ArrayList<>();
         final String METHOD_NAME = "getPieDatas";
         final String SOAP_ACTION = "urn:AndroidControllerwsdl#getPieDatas";
-
+        //--------------Préparation de la requête--------------
         SoapObject methodeGetPieDatas = new SoapObject(NAMESPACE, METHOD_NAME);
+        //--------------Création des propriétés à envoyé-------
         PropertyInfo id_batimentPropriety = new PropertyInfo();
         id_batimentPropriety.setName("idBatiment");
         id_batimentPropriety.setValue(id_batiment);
@@ -240,7 +251,7 @@ public class WebServiceSoap implements KvmSerializable {
             if (result != null) {
                 for (int c = 0; c < result1.getPropertyCount(); c++) {
                     result2 = (SoapObject) result1.getProperty(c);
-                    CategorieDash.add(new CategorieIncident(result2.getProperty(0).toString(), Integer.parseInt(result2.getProperty(1).toString())));
+                    CategorieDash.add(new CategorieIncident(result2.getProperty(0).toString(), Integer.parseInt(result2.getProperty(1).toString())));    //création d'une liste contenant le label et le nb de ticket
                 }
             }
             //TODO test si null
@@ -263,8 +274,9 @@ public class WebServiceSoap implements KvmSerializable {
         List<CategorieIncident> CategorieDash = new ArrayList<>();
         final String METHOD_NAME = "getBarsDatas";
         final String SOAP_ACTION = "urn:AndroidControllerwsdl#getBarsDatas";
-
+        //--------------Préparation de la requête--------------
         SoapObject MethodegetBarsDatas = new SoapObject(NAMESPACE, METHOD_NAME);
+        //--------------Création des propriétés à envoyé-------
         PropertyInfo id_batimentPropriety = new PropertyInfo();
         id_batimentPropriety.setName("idBatiment");
         id_batimentPropriety.setValue(id_batiment);
@@ -290,7 +302,7 @@ public class WebServiceSoap implements KvmSerializable {
             if (result != null) {
                 for (int c = 0; c < result1.getPropertyCount(); c++) {
                     result2 = (SoapObject) result1.getProperty(c);
-                    CategorieDash.add(new CategorieIncident(result2.getProperty(0).toString(), Integer.parseInt(result2.getProperty(1).toString())));
+                    CategorieDash.add(new CategorieIncident(result2.getProperty(0).toString(), Integer.parseInt(result2.getProperty(1).toString()))); //création d'une liste contenant le status du ticket et le nb de ticket
                 }
             }
         } catch (Exception ex) {
@@ -302,16 +314,18 @@ public class WebServiceSoap implements KvmSerializable {
     }
 
     /**
+     * Mérthode qui determine la fonction de l'utilisateur
      *
      * @param userID id de l'utilisateur
-     * @return une fonction
+     * @return une emum de fonction
      */
     public static UserSessionInfo.UserFunction getUserFunction(int userID) {
         UserSessionInfo.UserFunction result = UserSessionInfo.UserFunction.Unknown;
         final String METHOD_NAME = "getUserPermissionLevel";
         final String SOAP_ACTION = "urn:AndroidControllerwsdl#getUserPermissionLevel";
-
+        //--------------Préparation de la requête--------------
         SoapObject requete = new SoapObject(NAMESPACE, METHOD_NAME);
+        //--------------Création des propriétés à envoyé-------
         PropertyInfo idUser = new PropertyInfo();
         idUser.setName("idUser");
         idUser.setValue(userID);
@@ -330,7 +344,7 @@ public class WebServiceSoap implements KvmSerializable {
             Object answer = packet.bodyIn;
             if (answer instanceof SoapObject) {
                 SoapObject finalAnswer = (SoapObject) answer;
-                result = UserSessionInfo.UserFunction.getUserFunctionByFunctionID(Integer.parseInt(finalAnswer.getProperty(0).toString()));
+                result = UserSessionInfo.UserFunction.getUserFunctionByFunctionID(Integer.parseInt(finalAnswer.getProperty(0).toString()));// récupération de la fonction
             } else if (answer instanceof SoapFault) {
                 SoapFault fault = (SoapFault) answer;
                 Log.i("AndroidTickets", "Fatal error: " + fault.getMessage());
