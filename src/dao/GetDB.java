@@ -12,24 +12,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GetDB extends SQLiteOpenHelper {
-    private List<CategorieIncident> listCategorie;
-    private List<Batiment> listBatiment;
-    private SQLiteDatabase db;
-    private static final String DB_NAME = "db_ticketing.db";
-    private static final int DB_VERSION = 1;
-    private static final String TABLE_BATIMENT = "w3sys_batiment";
-    private static final String COL_BATIMENT_ID = "id_batiment";
-    private static final String COL_BATIMENT_NOM = "nom";
-    private static final String CREATE_TABLE_BATIMENT = "CREATE TABLE " + TABLE_BATIMENT + "(" + COL_BATIMENT_ID + " INTEGER," + COL_BATIMENT_NOM + " TEXT);";
-    private static String TABLE_CATEGORIE_INCIDENT = "w3sys_categorie_incident";
-    private static String COL_CATEGORIE_INCIDENT_ID = "id_categorie_incident";
-    private static String COL_CATEGORIE_INCIDENT_LABEL = "label";
-    private static String COL_FR = "fr";
-    private static String COL_EN = "en";
-    private static String COL_NL = "nl";
-    private static String COL_CATEGORIE_INCIDENT_FK_PARENT = "fk_parent";
+    //--------------Attribut de classe----------------------------
+    private List<CategorieIncident> listCategorie;  //list des categories qui seront inséré dans la db lors de la création
+    private List<Batiment> listBatiment;//liste des bâtiments qui seront inséré dans la db
+    private SQLiteDatabase db; //la db Slite
+    private static final String DB_NAME = "db_ticketing.db";//nom de la db
+    private static final int DB_VERSION = 1;// version de la db
+    private static final String TABLE_BATIMENT = "w3sys_batiment"; //Table w3sys_batiment
+    private static final String COL_BATIMENT_ID = "id_batiment";// colonne id_batiment
+    private static final String COL_BATIMENT_NOM = "nom";// colonne nom de la table w3sys_batiment
+    private static final String CREATE_TABLE_BATIMENT = "CREATE TABLE " + TABLE_BATIMENT + "(" + COL_BATIMENT_ID + " INTEGER," + COL_BATIMENT_NOM + " TEXT);"; //script de création de la table w3sys_batiment
+    private static String TABLE_CATEGORIE_INCIDENT = "w3sys_categorie_incident";//Table w3sys_categorie_incident
+    private static String COL_CATEGORIE_INCIDENT_ID = "id_categorie_incident";//colonne id_categorie_incident
+    private static String COL_CATEGORIE_INCIDENT_LABEL = "label";// colonne label
+    private static String COL_FR = "fr";// colonne fr
+    private static String COL_EN = "en";//colonne en
+    private static String COL_NL = "nl";//colonne nl
+    private static String COL_CATEGORIE_INCIDENT_FK_PARENT = "fk_parent";//colonne fk_parent
     private static String CREATE_TABLE_CATEGORIE_INCIDENT = "CREATE TABLE " + TABLE_CATEGORIE_INCIDENT + "(" + COL_CATEGORIE_INCIDENT_ID + " INTEGER," + COL_CATEGORIE_INCIDENT_LABEL + " TEXT," + COL_FR + " TEXT," + COL_EN + " TEXT," + COL_NL + " TEXT," + COL_CATEGORIE_INCIDENT_FK_PARENT + " INTEGER);";
-
+    // script de création de la table w3sys_categorie_incident
 
     // Pattern Singleton implémenté pour éviter des doublons de connexion vers la DB.
     // Ce sera toujours la même instance de la connexion qui sera utilisée, pour cela
@@ -53,10 +54,16 @@ public class GetDB extends SQLiteOpenHelper {
         return instance;
     }
 
+    /**
+     * Méthode executé lorsque la db n'existe pas
+     *
+     * @param db la db sqlite
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_TABLE_BATIMENT);
-        db.execSQL(CREATE_TABLE_CATEGORIE_INCIDENT);
+        db.execSQL(CREATE_TABLE_BATIMENT);//création de la table w3sys_batiment
+        db.execSQL(CREATE_TABLE_CATEGORIE_INCIDENT);//création de la table w3sys_categorie_incident
+        //--------------------Ajout des batimments dans la table---------------------------
         listBatiment = new ArrayList<Batiment>();
         listBatiment.add(new Batiment(1, "Alliance A & C"));
         listBatiment.add(new Batiment(2, "Alliance B"));
@@ -112,6 +119,7 @@ public class GetDB extends SQLiteOpenHelper {
             values.put(COL_BATIMENT_NOM, batiment.getNom());
             db.insert(TABLE_BATIMENT, null, values);
         }
+        //-----------------------Ajout des categories dans la table ----------------------------
         listCategorie = new ArrayList<>();
         listCategorie.add(new CategorieIncident(1, "Sanitaire", "Sanitaire", "Sanitary", "Sanitair", 0));
         listCategorie.add(new CategorieIncident(2, "Electricité", "Electricité", "Electricity", "Elektriciteit", 0));
@@ -139,7 +147,7 @@ public class GetDB extends SQLiteOpenHelper {
         listCategorie.add(new CategorieIncident(24, "Autre", "Autre", "Other", "Aanderen", 1));
         listCategorie.add(new CategorieIncident(25, "Prise défectueuse", "Prise défectueuse", "Defective plug", "Defecte beslissing", 2));
         listCategorie.add(new CategorieIncident(26, "Autre", "Autre", "Other", "Aanderen", 2));
-        listCategorie.add(new CategorieIncident(27, "Badge défectueux","Badge défectueux", "Defective badge", "Defecte badge", 14));
+        listCategorie.add(new CategorieIncident(27, "Badge défectueux", "Badge défectueux", "Defective badge", "Defecte badge", 14));
         listCategorie.add(new CategorieIncident(28, "Lecteur de badge défectueux", "Lecteur de badge défectueux", "Defective badge reader", "Speler defect badge", 14));
         listCategorie.add(new CategorieIncident(29, "Problème d'accès au batiment", "Problème d'accès au batiment", "Building access problem", "Probleem van de toegang tot het gebouw", 14));
         listCategorie.add(new CategorieIncident(30, "Problème d'accès au parking", "Problème d'accès au parking", "Parking access problem", "Probleem van de toegang tot de parkeerplaats", 14));
@@ -161,20 +169,27 @@ public class GetDB extends SQLiteOpenHelper {
             Categoryvalues.put(COL_CATEGORIE_INCIDENT_ID, categorieIncident.getId_categorie_incident());
             Categoryvalues.put(COL_CATEGORIE_INCIDENT_LABEL, categorieIncident.getLabel());
             Categoryvalues.put(COL_CATEGORIE_INCIDENT_FK_PARENT, categorieIncident.getFk_parent());
-            Categoryvalues.put(COL_FR,categorieIncident.getFR());
-            Categoryvalues.put(COL_EN,categorieIncident.getEN());
-            Categoryvalues.put(COL_NL,categorieIncident.getNL());
+            Categoryvalues.put(COL_FR, categorieIncident.getFR());
+            Categoryvalues.put(COL_EN, categorieIncident.getEN());
+            Categoryvalues.put(COL_NL, categorieIncident.getNL());
             db.insert(TABLE_CATEGORIE_INCIDENT, null, Categoryvalues);
         }
 
 
     }
 
+    /**
+     * Mehtode executé lors d'un upgrade de la base de donnée
+     *
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //db.execSQL("DROP TABLE "+TABLE_BATIMENT+";");
-        db.execSQL("DROP TABLE " + TABLE_CATEGORIE_INCIDENT + ";");
-        onCreate(db);
+        db.execSQL("DROP TABLE " + TABLE_BATIMENT + ";");//suppression de la table w3sys_batiment
+        db.execSQL("DROP TABLE " + TABLE_CATEGORIE_INCIDENT + ";");//suppression de la table w3sys_categorie_incident
+        onCreate(db);// appel de la méthod onCreate(db)
     }
 
 }
