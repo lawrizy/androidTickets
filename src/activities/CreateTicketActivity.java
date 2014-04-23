@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -99,13 +100,11 @@ public class CreateTicketActivity extends Activity {
         final Spinner spinnerCategorie = (Spinner) findViewById(R.id.categorySpinner);
         final Spinner spinnerSubcategory = (Spinner) findViewById(R.id.subCategorySpinner);
 
-        int resultTicketNumber;
-
         //  boolean validated = validateFields();
         // Log.i("AndroidTickets", "Field validation result: " + validated);
         final Context thisContext = this.getApplicationContext();
 
-        Runnable r = new Runnable() {
+        new Thread(new Runnable() {
             @Override
             public void run() {
                 EditText floorTextField = (EditText) findViewById(R.id.floorInput);
@@ -117,49 +116,33 @@ public class CreateTicketActivity extends Activity {
                 Spinner spinnerSousCat = (Spinner) findViewById(R.id.subCategorySpinner);
                 sousCategorieID = ((CategorieIncident) spinnerSousCat.getSelectedItem()).getId_categorie_incident();
 
-                String result = soap.WebServiceSoap.createTicket(UserSessionInfo.USER_ID, sousCategorieID, batimentID, floorTextField.getText().toString(), officeTextField.getText().toString(), descriptionMultilineTextField.getText().toString());
+                final String result = soap.WebServiceSoap.createTicket(UserSessionInfo.USER_ID, sousCategorieID, batimentID, floorTextField.getText().toString(), officeTextField.getText().toString(), descriptionMultilineTextField.getText().toString());
 
-                Intent i = new Intent(thisContext, TicketSummary.class);
-                Bundle extras = new Bundle();
-                extras.putString("category", spinnerCategorie.getSelectedItem().toString());
-                extras.putString("subCategory", spinnerSubcategory.getSelectedItem().toString());
-                extras.putString("building", spinnerBatiment.getSelectedItem().toString());
-                extras.putString("description", descriptionMultilineTextField.getText().toString());
-                extras.putString("ticketNumber", result);
-                i.putExtras(extras);
-                startActivity(i);
+                if(result.equals("OK"))
+                {
+                    Intent i = new Intent(thisContext, TicketSummary.class);
+                    Bundle extras = new Bundle();
+                    extras.putString("category", spinnerCategorie.getSelectedItem().toString());
+                    extras.putString("subCategory", spinnerSubcategory.getSelectedItem().toString());
+                    extras.putString("building", spinnerBatiment.getSelectedItem().toString());
+                    extras.putString("description", descriptionMultilineTextField.getText().toString());
+                    extras.putString("ticketNumber", result);
+                    i.putExtras(extras);
+                    startActivity(i);
+                }
+                else
+                {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            t = Toast.makeText(thisContext, getString(R.string.CreationTicketErreurCatcherMessage) + result, Toast.LENGTH_LONG);
+                            t.setGravity(Gravity.TOP, Gravity.CENTER_HORIZONTAL, 200);
+                            t.show();
+                        }
+                    });
+                }
             }
-        };
-        new Thread(r).start();
-    }
-
-    private boolean validateFields() {
-        Context context = getApplicationContext();
-        Spinner catSpinner = (Spinner) findViewById(R.id.categorySpinner);
-        Spinner subCatSpinner = (Spinner) findViewById(R.id.subCategorySpinner);
-        Spinner buildingSpinner = (Spinner) findViewById(R.id.buildingSpinner);
-        StringBuilder bld = new StringBuilder();
-
-        boolean retVal = true;
-
-        if (catSpinner.getSelectedItem() == null) {
-            bld.append(context.getString(R.string.errorCategoryRequired) + "\n");
-            retVal = false;
-        }
-        if (subCatSpinner.getSelectedItem() == null) {
-            bld.append(context.getString(R.string.errorSubCategoryRequired) + "\n");
-            retVal = false;
-        }
-        if (buildingSpinner.getSelectedItem() == null) {
-            bld.append(context.getString(R.string.errorBuildingRequired) + "\n");
-            retVal = false;
-        }
-
-        String finalString = bld.substring(0, bld.toString().length() - 1);
-
-        t.makeText(this.getApplicationContext(), finalString, Toast.LENGTH_LONG).show();
-
-        return retVal;
+        }).start();
     }
 
     private void resetAllFields() {

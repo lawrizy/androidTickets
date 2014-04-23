@@ -51,4 +51,6 @@
     <string name="dashboard_graphType_TicketsByCompanies"># tickets by company</string>
     <string name="common_cancel">Cancel</string>
     <string name="dashboard_no_ticket">There is no ticket for this building.</string>
+    <string name="CreationTicketErreurCatcherMessage">An error has occurred during the creation process :
+    </string>
 </resources>

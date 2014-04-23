@@ -45,5 +45,7 @@
         <string name="dashboard_building_filter_prompt">Kiez een gebouw</string>
         <string name="dashboard_title">Dashboard</string>
     <string name="dashboard_no_ticket">Er is geen ticket voor dit gebouw.</string>
+    <string name="CreationTicketErreurCatcherMessage">Er is een fout opgetreden tijdens het creatieproces :
+    </string>
 
 </resources>
