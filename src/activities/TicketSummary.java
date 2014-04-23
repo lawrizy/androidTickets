@@ -37,15 +37,15 @@ public class TicketSummary extends Activity {
 
     private void setupLayout() {
         // Mettre à jour le message qui signifie qu'un mail a été envoyé ("A mail has been sent to")
-        TextView mailSentMessage = (TextView)findViewById(R.id.mail_sent_textview);
+        TextView mailSentMessage = (TextView) findViewById(R.id.mail_sent_textview);
         String newMessage = mailSentMessage.getText().toString() + " " + UserSessionInfo.USER_EMAIL;
         mailSentMessage.setText(newMessage);
 
         // Mise à jour du texte des différents champs
-        TextView categoryText = (TextView)findViewById(R.id.summary_category);
-        TextView subCategoryText = (TextView)findViewById(R.id.summary_subCategory);
-        TextView buildingText = (TextView)findViewById(R.id.summary_buildingName);
-        TextView ticketNumberText = (TextView)findViewById(R.id.summary_numTicket);
+        TextView categoryText = (TextView) findViewById(R.id.summary_category);
+        TextView subCategoryText = (TextView) findViewById(R.id.summary_subCategory);
+        TextView buildingText = (TextView) findViewById(R.id.summary_buildingName);
+        TextView ticketNumberText = (TextView) findViewById(R.id.summary_numTicket);
         TextView descriptionText = (TextView) findViewById(R.id.summary_description);
 
         categoryText.setText(categorie);
@@ -58,8 +58,8 @@ public class TicketSummary extends Activity {
     private void setupListeners() {
         final Context thisContext = this.getApplicationContext();
 
-        Button backToTicketCreationButton = (Button)findViewById(R.id.buttonBackToCreation);
-        Button exitButton = (Button)findViewById(R.id.summary_exitButton);
+        Button backToTicketCreationButton = (Button) findViewById(R.id.buttonBackToCreation);
+        Button exitButton = (Button) findViewById(R.id.summary_exitButton);
 
         backToTicketCreationButton.setOnClickListener(new View.OnClickListener() {
             @Override

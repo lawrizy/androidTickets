@@ -54,7 +54,7 @@ public class CreateTicketActivity extends Activity {
     }
 
     private void setupListeners() {
-        final Spinner spinnerBatiment=(Spinner)findViewById(R.id.buildingSpinner);
+        final Spinner spinnerBatiment = (Spinner) findViewById(R.id.buildingSpinner);
         final Spinner spinnerCategorie = (Spinner) findViewById(R.id.categorySpinner);
         final Spinner spinnerSubcategory = (Spinner) findViewById(R.id.subCategorySpinner);
 
@@ -66,7 +66,7 @@ public class CreateTicketActivity extends Activity {
             }
         });
 
-        Button resetButton = (Button)findViewById(R.id.resetForm);
+        Button resetButton = (Button) findViewById(R.id.resetForm);
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,7 +96,7 @@ public class CreateTicketActivity extends Activity {
     }
 
     private void sendCreateTicket() {
-        final Spinner spinnerBatiment=(Spinner)findViewById(R.id.buildingSpinner);
+        final Spinner spinnerBatiment = (Spinner) findViewById(R.id.buildingSpinner);
         final Spinner spinnerCategorie = (Spinner) findViewById(R.id.categorySpinner);
         final Spinner spinnerSubcategory = (Spinner) findViewById(R.id.subCategorySpinner);
 
@@ -118,8 +118,7 @@ public class CreateTicketActivity extends Activity {
 
                 final String result = soap.WebServiceSoap.createTicket(UserSessionInfo.USER_ID, sousCategorieID, batimentID, floorTextField.getText().toString(), officeTextField.getText().toString(), descriptionMultilineTextField.getText().toString());
 
-                if(result.equals("OK"))
-                {
+                if (result.equals("OK")) {
                     Intent i = new Intent(thisContext, TicketSummary.class);
                     Bundle extras = new Bundle();
                     extras.putString("category", spinnerCategorie.getSelectedItem().toString());
@@ -129,9 +128,7 @@ public class CreateTicketActivity extends Activity {
                     extras.putString("ticketNumber", result);
                     i.putExtras(extras);
                     startActivity(i);
-                }
-                else
-                {
+                } else {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

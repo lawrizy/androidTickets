@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
         Button btn = (Button) findViewById(R.id.button);
         final EditText editEmail = (EditText) findViewById(R.id.loginEmail);
         final EditText editPassword = (EditText) findViewById(R.id.loginPass);
-      //  final WebServiceRest webServiceRest = new WebServiceRest();
+        //  final WebServiceRest webServiceRest = new WebServiceRest();
         btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,35 +57,32 @@ public class MainActivity extends Activity {
                         {
                             UserSessionInfo.USER_ID = response;
                             UserSessionInfo.USER_EMAIL = editEmail.getText().toString();
-                            Log.i("AndroidTickets" , "User " + editEmail.getText().toString() + " logged in with ID " + response + ".");
+                            Log.i("AndroidTickets", "User " + editEmail.getText().toString() + " logged in with ID " + response + ".");
                             Log.i("AndroidTickets", "User function is : " + UserSessionInfo.USER_FUNCTION.functionName);
 
                             Intent i = null;
                             Bundle extras;
-                            switch(UserSessionInfo.USER_FUNCTION)
-                            {
+                            switch (UserSessionInfo.USER_FUNCTION) {
                                 case Admin:
                                 case Root:
                                     i = new Intent(thisContext, Dashboard.class);
                                     break;
                                 case Locataire:
                                     i = new Intent(thisContext, CreateTicketActivity.class);
-                                     extras = new Bundle();
-                                    extras.putInt("userid", (int)response);
+                                    extras = new Bundle();
+                                    extras.putInt("userid", (int) response);
                                     i.putExtras(extras);
                                     break;
                                 default:
                                     i = new Intent(thisContext, CreateTicketActivity.class);
-                                     extras = new Bundle();
-                                    extras.putInt("userid", (int)response);
+                                    extras = new Bundle();
+                                    extras.putInt("userid", (int) response);
                                     i.putExtras(extras);
                                     break;
                             }
 
                             startActivity(i);
-                        }
-                        else
-                        {
+                        } else {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -93,7 +90,7 @@ public class MainActivity extends Activity {
 //                                    TextView errorArea = (TextView)findViewById(R.id.errorMessageArea);
 //                                    errorArea.setText(R.string.errorInvalidCredentialsMessage);
                                     Toast errorPopup = new Toast(thisContext);
-                                    errorPopup.setGravity(Gravity.CENTER|Gravity.BOTTOM, 0, 0);
+                                    errorPopup.setGravity(Gravity.CENTER | Gravity.BOTTOM, 0, 0);
                                     errorPopup.makeText(thisContext, R.string.errorInvalidCredentialsMessage, Toast.LENGTH_LONG).show();
                                 }
                             });

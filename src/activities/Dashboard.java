@@ -129,6 +129,7 @@ public class Dashboard extends Activity {
 
     /**
      * Prépare l'array contenant tous les types de graphiques disponibles.
+     *
      * @return array contenant tous les types de graphiques disponibles.
      */
     private GraphType[] populateGraphicTypeArray() {
@@ -150,9 +151,9 @@ public class Dashboard extends Activity {
         fillDataSet();
         buildRenderer();
         makeConfig();
-        if(mode == DrawMode.TICKETS_FOR_CATEGORIES)
+        if (mode == DrawMode.TICKETS_FOR_CATEGORIES)
             mChartView = ChartFactory.getBarChartView(this, datasetBar, renderer, BarChart.Type.DEFAULT);
-        else if(mode == DrawMode.TICKETS_FOR_STATUS)
+        else if (mode == DrawMode.TICKETS_FOR_STATUS)
             mChartView = ChartFactory.getPieChartView(this, datasetPie, renderer);
         LinearLayout graphLayout = (LinearLayout) findViewById(R.id.graphLayout);
         graphLayout.addView(mChartView);
@@ -180,7 +181,7 @@ public class Dashboard extends Activity {
             final Langue langues = (langue.equals("en") ? Langue.EN : (langue.equals("fr") ? Langue.FR : Langue.NL));
 
             // Préparation de l'ID du bâtiment à filtrer
-            final int batimentID = ((Batiment)(buildingSpinner.getSelectedItem())).getId_batiment();
+            final int batimentID = ((Batiment) (buildingSpinner.getSelectedItem())).getId_batiment();
 
             // Fetch des datas via SOAP par un Executor
             ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -216,12 +217,11 @@ public class Dashboard extends Activity {
                     series.add(listCat.getNbTicket());
                 datasetBar.addSeries(series.toXYSeries());
             }
-            if(count == 0) {
+            if (count == 0) {
                 Log.i("AndroidTickets", "No ticket for this building.");
                 Toast.makeText(this, getString(R.string.dashboard_no_ticket), Toast.LENGTH_SHORT).show();
             }
-        }
-        else if (mode == DrawMode.TICKETS_FOR_STATUS) // Mode graphique -> nombre de tickets par statut du ticket
+        } else if (mode == DrawMode.TICKETS_FOR_STATUS) // Mode graphique -> nombre de tickets par statut du ticket
         {
             // preparation langue
             final Spinner buildingSpinner = (Spinner) findViewById(R.id.buildingFilterSpinner);
@@ -240,7 +240,7 @@ public class Dashboard extends Activity {
             executor.shutdown();
 
             try {
-                if(future.get() != null)
+                if (future.get() != null)
                     listStatus = (ArrayList<CategorieIncident>) future.get();
             } catch (InterruptedException | ExecutionException e) {
                 e.getMessage();
@@ -294,9 +294,9 @@ public class Dashboard extends Activity {
      * Construit la configuration du graphique.
      */
     private void makeConfig() {
-        if(mode == DrawMode.TICKETS_FOR_CATEGORIES)
+        if (mode == DrawMode.TICKETS_FOR_CATEGORIES)
             renderer.setChartTitle("Tickets for categories");
-        else if(mode == DrawMode.TICKETS_FOR_STATUS)
+        else if (mode == DrawMode.TICKETS_FOR_STATUS)
             renderer.setChartTitle("Tickets for status");
         renderer.setXAxisMin(-1);
         renderer.setXAxisMax(7);
